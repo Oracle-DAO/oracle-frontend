@@ -1,4 +1,4 @@
-import ORCLImg from "../assets/tokens/ORCL.svg";
+import ORCLImg from "../assets/tokens/ORCL.png";
 import sORCLImg from "../assets/tokens/sORCL.png";
 
 function toUrl(tokenPath: string): string {

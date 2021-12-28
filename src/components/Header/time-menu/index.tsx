@@ -51,13 +51,16 @@ function TimeMenu() {
     return (
         <div className="time-menu-root" onMouseEnter={e => handleClick(e)} onMouseLeave={e => handleClick(e)}>
             <div className="time-menu-btn">
-                <p>ORCL</p>
+                <p>Quick Links</p>
             </div>
 
             <Popper className="time-menu-popper" open={open} anchorEl={anchorEl} transition>
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={200}>
                         <div className="tooltip">
+                            {/*<div className="tooltip-item" onClick={addTokenToWallet("ORCL", ORCL_ADDRESS)}>*/}
+                            {/*    <p>MIM Faucet</p>*/}
+                            {/*</div>*/}
                             {isEthereumAPIAvailable && (
                                 <div className="add-tokens">
                                     <div className="divider" />

@@ -1,6 +1,6 @@
 import AvaxIcon from "../assets/tokens/AVAX.svg";
 import MimIcon from "../assets/tokens/MIM.svg";
-import ORCLIcon from "../assets/tokens/ORCL.svg";
+import ORCLIcon from "../assets/tokens/ORCL.png";
 import WavaxIcon from "../assets/tokens/WAVAX.png";
 import WethEIcon from "../assets/tokens/WETH.e.png";
 
