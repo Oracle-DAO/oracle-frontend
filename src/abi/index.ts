@@ -16,3 +16,5 @@ export { abi as StakingHelperContract } from "./StakingHelperContract.json";
 export { abi as TreasuryContract } from "./TreasuryContract.json";
 export { abi as ZapinContract } from "./ZapinContract.json";
 export { abi as TraderZapinContract } from "./TraderZapinContract.json";
+
+export { abi as FaucetContract } from "./faucet/MimFaucet.json";

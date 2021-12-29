@@ -41,11 +41,4 @@ export const wavax: IToken = {
     decimals: 18,
 };
 
-const weth: IToken = {
-    name: "WETH.e",
-    address: "0x49D5c2BdFfac6CE2BFdB6640F4F80f226bc10bAB",
-    img: WethEIcon,
-    decimals: 18,
-};
-
 export default [metis, mim, orcl];

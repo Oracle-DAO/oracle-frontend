@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { getAddresses, TOKEN_DECIMALS, DEFAULD_NETWORK } from "../../../constants";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Fade, Popper } from "@material-ui/core";
 import "./time-menu.scss";
 import { IReduxState } from "../../../store/slices/state.interface";
 import { getTokenUrl } from "../../../helpers";
+import { useWeb3Context } from "../../../hooks";
+import { changeApproval } from "../../../store/slices/stake-thunk";
+import { getTokens } from "../../../store/slices/faucet_thunk";
+import { warning } from "../../../store/slices/messages-slice";
+import { messages } from "../../../constants/messages";
 
 const addTokenToWallet = (tokenSymbol: string, tokenAddress: string) => async () => {
     const tokenImage = getTokenUrl(tokenSymbol.toLowerCase());
@@ -30,12 +35,25 @@ const addTokenToWallet = (tokenSymbol: string, tokenAddress: string) => async ()
 };
 
 function TimeMenu() {
+    const dispatch = useDispatch();
+    const { provider, address, connect, chainID, checkWrongNetwork } = useWeb3Context();
+
     const [anchorEl, setAnchorEl] = useState(null);
     const isEthereumAPIAvailable = window.ethereum;
 
     const networkID = useSelector<IReduxState, number>(state => {
         return (state.app && state.app.networkID) || DEFAULD_NETWORK;
     });
+
+    const faucet = () => async () => {
+        if (!address) {
+            dispatch(warning({ text: messages.please_connect_wallet }));
+            return;
+        }
+        if (await checkWrongNetwork()) return;
+        const token = "MIM";
+        await dispatch(getTokens({ address, token, provider, networkID: chainID }));
+    };
 
     const addresses = getAddresses(networkID);
 
@@ -58,9 +76,9 @@ function TimeMenu() {
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={200}>
                         <div className="tooltip">
-                            {/*<div className="tooltip-item" onClick={addTokenToWallet("ORCL", ORCL_ADDRESS)}>*/}
-                            {/*    <p>MIM Faucet</p>*/}
-                            {/*</div>*/}
+                            <div className="tooltip-item" onClick={faucet()}>
+                                <p>Airdrop MIM</p>
+                            </div>
                             {isEthereumAPIAvailable && (
                                 <div className="add-tokens">
                                     <div className="divider" />
