@@ -10,7 +10,7 @@ import useTokens, { IAllTokenData } from "../../../../hooks/tokens";
 import { trim } from "../../../../helpers";
 import { IAllBondData } from "../../../../hooks/bonds";
 import { mim } from "../../../../helpers/bond";
-import { mim as mimToken, wavax as wavaxToken } from "../../../../helpers/tokens";
+import { mim as mimToken } from "../../../../helpers/tokens";
 
 interface IChooseTokenProps {
     open: boolean;
