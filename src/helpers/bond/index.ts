@@ -39,21 +39,21 @@ export const mim = new StableBond({
 //     tokensInStrategy: "756916000000000000000000",
 // });
 
-// export const mimTime = new LPBond({
-//     name: "mim_time_lp",
-//     displayName: "ORCL-MIM LP",
-//     bondToken: "MIM",
-//     bondIconSvg: MimTimeIcon,
-//     bondContractABI: LpBondContract,
-//     reserveContractAbi: LpReserveContract,
-//     networkAddrs: {
-//         [Networks.STARDUST]: {
-//             bondAddress: "0xA184AE1A71EcAD20E822cB965b99c287590c4FFe",
-//             reserveAddress: "0x113f413371fc4cc4c9d6416cf1de9dfd7bf747df",
-//         },
-//     },
-//     lpUrl: "https://www.traderjoexyz.com/#/pool/0x130966628846BFd36ff31a822705796e8cb8C18D/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
-// });
+export const mimOrcl = new LPBond({
+    name: "mim_orcl_lp",
+    displayName: "ORCL-MIM LP",
+    bondToken: "MIM",
+    bondIconSvg: MimIcon,
+    bondContractABI: LpBondContract,
+    reserveContractAbi: LpReserveContract,
+    networkAddrs: {
+        [Networks.STARDUST]: {
+            bondAddress: "0xCEF466b27Ea42D5F89165fEc4C72Fb87e1Aea5e3",
+            reserveAddress: "0xf32fec2c0034feeefb7de740a8fe97f45a35454c",
+        },
+    },
+    lpUrl: "https://www.traderjoexyz.com/#/pool/0x130966628846BFd36ff31a822705796e8cb8C18D/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
+});
 
 // export const avaxTime = new CustomLPBond({
 //     name: "avax_time_lp",

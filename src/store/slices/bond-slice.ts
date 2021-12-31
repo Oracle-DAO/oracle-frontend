@@ -119,12 +119,7 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
 
     try {
         bondPrice = await bondContract.bondPriceInUSD();
-
-        // if (bond.name === avaxTime.name) {
-        //     const avaxPrice = getTokenPrice("AVAX");
-        //     bondPrice = bondPrice * avaxPrice;
-        // }
-
+        console.log(bondPrice);
         bondDiscount = (marketPrice * Math.pow(10, 18) - bondPrice) / bondPrice;
     } catch (e) {
         console.log("error getting bondPriceInUSD", e);
