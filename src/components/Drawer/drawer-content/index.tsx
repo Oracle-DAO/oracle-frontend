@@ -42,7 +42,7 @@ function NavContent() {
     return (
         <div className="dapp-sidebar">
             <div className="branding-header">
-                <Link href="https://www.oracledao.finance" target="_blank">
+                <Link href="https://testapp.oracledao.finance" target="_blank">
                     <img alt="" src={OracleDaoIcon} style={{ width: 180, height: 180 }} />
                 </Link>
 
