@@ -1,17 +1,20 @@
-import { useEffect, useState, useCallback } from "react";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useAddress, useWeb3Context } from "../hooks";
 import { calcBondDetails } from "../store/slices/bond-slice";
 import { loadAppDetails } from "../store/slices/app-slice";
-import { loadAccountDetails, calculateUserBondDetails, calculateUserTokenDetails } from "../store/slices/account-slice";
+import { calculateUserBondDetails, calculateUserHyperBondDetails, calculateUserTokenDetails, loadAccountDetails } from "../store/slices/account-slice";
 import { IReduxState } from "../store/slices/state.interface";
 import Loading from "../components/Loader";
 import useBonds from "../hooks/bonds";
 import ViewBase from "../components/ViewBase";
-import { Stake, ChooseBond, Bond, Dashboard, NotFound, Calculator } from "../views";
+import { Bond, Calculator, ChooseBond, Dashboard, HyperBond, NotFound, Stake } from "../views";
 import "./style.scss";
 import useTokens from "../hooks/tokens";
+import useHyperBonds from "../hooks/hyperbond";
+import ChooseHyperBond from "../views/ChooseHyperBond";
+import { calcHyperBondDetails } from "../store/slices/hyperbond_slice";
 
 function App() {
     const dispatch = useDispatch();
@@ -25,6 +28,7 @@ function App() {
     const isAppLoaded = useSelector<IReduxState, boolean>(state => !Boolean(state.app.marketPrice));
 
     const { bonds } = useBonds();
+    const { hyperbonds } = useHyperBonds();
     const { tokens } = useTokens();
 
     async function loadDetails(whichDetails: string) {
@@ -46,6 +50,12 @@ function App() {
             });
         }
 
+        if (whichDetails === "userHyperbonds" && address && connected) {
+            hyperbonds.map(bond => {
+                dispatch(calculateUserHyperBondDetails({ address, bond, provider, networkID: chainID }));
+            });
+        }
+
         if (whichDetails === "userTokens" && address && connected) {
             tokens.map(token => {
                 dispatch(calculateUserTokenDetails({ address, token, provider, networkID: chainID }));
@@ -58,6 +68,9 @@ function App() {
             dispatch(loadAppDetails({ networkID: chainID, provider: loadProvider }));
             bonds.map(bond => {
                 dispatch(calcBondDetails({ bond, value: null, provider: loadProvider, networkID: chainID }));
+            });
+            hyperbonds.map(bond => {
+                dispatch(calcHyperBondDetails({ bond, value: null, provider: loadProvider, networkID: chainID }));
             });
             tokens.map(token => {
                 dispatch(calculateUserTokenDetails({ address: "", token, provider, networkID: chainID }));
@@ -88,6 +101,7 @@ function App() {
             loadDetails("app");
             loadDetails("account");
             loadDetails("userBonds");
+            loadDetails("userHyperbonds");
             loadDetails("userTokens");
         }
     }, [walletChecked]);
@@ -97,6 +111,7 @@ function App() {
             loadDetails("app");
             loadDetails("account");
             loadDetails("userBonds");
+            loadDetails("userHyperbonds");
             loadDetails("userTokens");
         }
     }, [connected]);
@@ -131,6 +146,17 @@ function App() {
 
                 <Route path="/calculator">
                     <Calculator />
+                </Route>
+
+                <Route path="/hyperbond">
+                    {hyperbonds.map(bond => {
+                        return (
+                            <Route exact key={bond.name} path={`/hyperbond/${bond.name}`}>
+                                <HyperBond bond={bond} />
+                            </Route>
+                        );
+                    })}
+                    <ChooseHyperBond />
                 </Route>
 
                 <Route component={NotFound} />

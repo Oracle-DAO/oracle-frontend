@@ -4,12 +4,14 @@ import { IAppSlice } from "./app-slice";
 import { IBondSlice } from "./bond-slice";
 import { MessagesState } from "./messages-slice";
 import { IWrapSlice } from "./wrap-slice";
+import { IHyperBondSlice } from "./hyperbond_slice";
 
 export interface IReduxState {
     pendingTransactions: IPendingTxn[];
     account: IAccountSlice;
     app: IAppSlice;
     bonding: IBondSlice;
+    hyperbonding: IHyperBondSlice;
     messages: MessagesState;
     wrapping: IWrapSlice;
 }

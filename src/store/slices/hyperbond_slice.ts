@@ -1,6 +1,6 @@
 import { BigNumber, constants, ethers } from "ethers";
 import { getMarketPrice, getTokenPrice, sleep } from "../../helpers";
-import { calculateUserBondDetails, fetchAccountSuccess, getBalances } from "./account-slice";
+import { calculateUserHyperBondDetails, fetchAccountSuccess, getBalances } from "./account-slice";
 import { getAddresses } from "../../constants";
 import { clearPendingTxn, fetchPendingTxns } from "./pending-txns-slice";
 import { createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit";
@@ -22,7 +22,7 @@ interface IChangeApproval {
     address: string;
 }
 
-export const changeApproval = createAsyncThunk("bonding/changeApproval", async ({ bond, provider, networkID, address }: IChangeApproval, { dispatch }) => {
+export const changeApproval = createAsyncThunk("hyperbonding/changeApproval", async ({ bond, provider, networkID, address }: IChangeApproval, { dispatch }) => {
     if (!provider) {
         dispatch(warning({ text: messages.please_connect_wallet }));
         return;
@@ -70,14 +70,14 @@ export const changeApproval = createAsyncThunk("bonding/changeApproval", async (
     );
 });
 
-interface ICalcBondDetails {
+interface ICalcHyperBondDetails {
     bond: Bond;
     value: string | null;
     provider: StaticJsonRpcProvider | JsonRpcProvider;
     networkID: Networks;
 }
 
-export interface IBondDetails {
+export interface IHyperBondDetails {
     bond: string;
     bondDiscount: number;
     bondQuote: number;
@@ -89,7 +89,7 @@ export interface IBondDetails {
     maxBondPriceToken: number;
 }
 
-export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async ({ bond, value, provider, networkID }: ICalcBondDetails, { dispatch }) => {
+export const calcHyperBondDetails = createAsyncThunk("hyperbonding/calcBondDetails", async ({ bond, value, provider, networkID }: ICalcHyperBondDetails, { dispatch }) => {
     if (!value) {
         value = "0";
     }
@@ -106,6 +106,7 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
     const bondContract = bond.getContractForBond(networkID, provider);
     const bondCalcContract = getBondCalculator(networkID, provider);
 
+    console.log(bondContract.address);
     const terms = await bondContract.terms();
     const maxBondPrice = (await bondContract.maxPayout()) / Math.pow(10, 9);
 
@@ -133,6 +134,7 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
         const maxBondQuote = await bondContract.payoutFor(maxValuation);
         maxBondPriceToken = maxBondPrice / (maxBondQuote * Math.pow(10, -9));
     } else {
+        console.log(amountInWei, bondContract);
         bondQuote = await bondContract.payoutFor(amountInWei);
         bondQuote = bondQuote / Math.pow(10, 18);
 
@@ -189,50 +191,53 @@ interface IBondAsset {
     useAvax: boolean;
 }
 
-export const bondAsset = createAsyncThunk("bonding/hyperbondAsset", async ({ value, address, bond, networkID, provider, slippage, useAvax }: IBondAsset, { dispatch }) => {
-    const depositorAddress = address;
-    const acceptedSlippage = slippage / 100 || 0.005;
-    const valueInWei = ethers.utils.parseUnits(value, "ether");
-    const signer = provider.getSigner();
-    const bondContract = bond.getContractForBond(networkID, signer);
+export const hyperbondAsset = createAsyncThunk(
+    "hyperbonding/hyperbondAsset",
+    async ({ value, address, bond, networkID, provider, slippage, useAvax }: IBondAsset, { dispatch }) => {
+        const depositorAddress = address;
+        const acceptedSlippage = slippage / 100 || 0.005;
+        const valueInWei = ethers.utils.parseUnits(value, "ether");
+        const signer = provider.getSigner();
+        const bondContract = bond.getContractForBond(networkID, signer);
 
-    const calculatePremium = await bondContract.bondPrice();
-    const maxPremium = Math.round(calculatePremium * (1 + acceptedSlippage));
+        const calculatePremium = await bondContract.bondPrice();
+        const maxPremium = Math.round(calculatePremium * (1 + acceptedSlippage));
 
-    let bondTx;
-    try {
-        const gasPrice = await getGasPrice(provider);
+        let bondTx;
+        try {
+            const gasPrice = await getGasPrice(provider);
 
-        if (useAvax) {
-            bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, {
-                value: valueInWei,
-                gasPrice,
-            });
-        } else {
-            bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { gasPrice });
+            if (useAvax) {
+                bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, {
+                    value: valueInWei,
+                    gasPrice,
+                });
+            } else {
+                bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { gasPrice });
+            }
+            dispatch(
+                fetchPendingTxns({
+                    txnHash: bondTx.hash,
+                    text: "Bonding " + bond.displayName,
+                    type: "bond_" + bond.name,
+                }),
+            );
+            await bondTx.wait();
+            dispatch(success({ text: messages.tx_successfully_send }));
+            dispatch(info({ text: messages.your_balance_update_soon }));
+            await sleep(10);
+            await dispatch(calculateUserHyperBondDetails({ address, bond, networkID, provider }));
+            dispatch(info({ text: messages.your_balance_updated }));
+            return;
+        } catch (err: any) {
+            return metamaskErrorWrap(err, dispatch);
+        } finally {
+            if (bondTx) {
+                dispatch(clearPendingTxn(bondTx.hash));
+            }
         }
-        dispatch(
-            fetchPendingTxns({
-                txnHash: bondTx.hash,
-                text: "Bonding " + bond.displayName,
-                type: "bond_" + bond.name,
-            }),
-        );
-        await bondTx.wait();
-        dispatch(success({ text: messages.tx_successfully_send }));
-        dispatch(info({ text: messages.your_balance_update_soon }));
-        await sleep(10);
-        await dispatch(calculateUserBondDetails({ address, bond, networkID, provider }));
-        dispatch(info({ text: messages.your_balance_updated }));
-        return;
-    } catch (err: any) {
-        return metamaskErrorWrap(err, dispatch);
-    } finally {
-        if (bondTx) {
-            dispatch(clearPendingTxn(bondTx.hash));
-        }
-    }
-});
+    },
+);
 
 interface IRedeemBond {
     address: string;
@@ -242,7 +247,7 @@ interface IRedeemBond {
     autostake: boolean;
 }
 
-export const redeemBond = createAsyncThunk("bonding/redeemHyperbond", async ({ address, bond, networkID, provider, autostake }: IRedeemBond, { dispatch }) => {
+export const redeemHyperbond = createAsyncThunk("hyperbonding/redeemHyperbond", async ({ address, bond, networkID, provider, autostake }: IRedeemBond, { dispatch }) => {
     if (!provider) {
         dispatch(warning({ text: messages.please_connect_wallet }));
         return;
@@ -269,7 +274,7 @@ export const redeemBond = createAsyncThunk("bonding/redeemHyperbond", async ({ a
         await sleep(0.01);
         dispatch(info({ text: messages.your_balance_update_soon }));
         await sleep(10);
-        await dispatch(calculateUserBondDetails({ address, bond, networkID, provider }));
+        await dispatch(calculateUserHyperBondDetails({ address, bond, networkID, provider }));
         await dispatch(getBalances({ address, networkID, provider }));
         dispatch(info({ text: messages.your_balance_updated }));
         return;
@@ -282,51 +287,52 @@ export const redeemBond = createAsyncThunk("bonding/redeemHyperbond", async ({ a
     }
 });
 
-export interface IBondSlice {
+export interface IHyperBondSlice {
     loading: boolean;
 
     [key: string]: any;
 }
 
-const initialState: IBondSlice = {
+const initialState: IHyperBondSlice = {
     loading: true,
 };
 
-const setBondState = (state: IBondSlice, payload: any) => {
-    const bond = payload.bond;
-    const newState = { ...state[bond], ...payload };
-    state[bond] = newState;
+const setHyperbondState = (state: IHyperBondSlice, payload: any) => {
+    const hyperbond = payload.bond;
+    const newState = { ...state[hyperbond], ...payload };
+    state[hyperbond] = newState;
     state.loading = false;
 };
 
-const bondingSlice = createSlice({
-    name: "bonding",
+const hyperBondingSlice = createSlice({
+    name: "hyperbonding",
     initialState,
     reducers: {
-        fetchBondSuccess(state, action) {
-            state[action.payload.bond] = action.payload;
+        fetchHyperBondSuccess(state, action) {
+            console.log(state);
+            state[action.payload.hyperbond] = action.payload;
         },
     },
     extraReducers: builder => {
         builder
-            .addCase(calcBondDetails.pending, state => {
+            .addCase(calcHyperBondDetails.pending, state => {
                 state.loading = true;
             })
-            .addCase(calcBondDetails.fulfilled, (state, action) => {
-                setBondState(state, action.payload);
+            .addCase(calcHyperBondDetails.fulfilled, (state, action) => {
+                setHyperbondState(state, action.payload);
                 state.loading = false;
             })
-            .addCase(calcBondDetails.rejected, (state, { error }) => {
+            .addCase(calcHyperBondDetails.rejected, (state, { error }) => {
                 state.loading = false;
                 console.log(error);
             });
     },
 });
 
-export default bondingSlice.reducer;
+export default hyperBondingSlice.reducer;
 
-export const { fetchBondSuccess } = bondingSlice.actions;
+export const { fetchHyperBondSuccess } = hyperBondingSlice.actions;
 
-const baseInfo = (state: RootState) => state.bonding;
+const baseInfo = (state: RootState) => state.hyperbonding;
 
-export const getBondingState = createSelector(baseInfo, bonding => bonding);
+export const getHyperbondingState = createSelector(baseInfo, hyperbonding => hyperbonding);

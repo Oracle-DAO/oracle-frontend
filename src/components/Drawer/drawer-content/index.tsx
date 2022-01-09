@@ -36,6 +36,9 @@ function NavContent() {
         if (currentPath.indexOf("calculator") >= 0 && page === "calculator") {
             return true;
         }
+        if (currentPath.indexOf("hyperbond") >= 0 && page === "hyperbond") {
+            return true;
+        }
         return false;
     }, []);
 
@@ -82,6 +85,20 @@ function NavContent() {
                         <div className="dapp-menu-item">
                             <img alt="" src={StakeIcon} />
                             <p>Stake</p>
+                        </div>
+                    </Link>
+
+                    <Link
+                        component={NavLink}
+                        to="/hyperbond"
+                        isActive={(match: any, location: any) => {
+                            return checkPage(location, "hyperbond");
+                        }}
+                        className={classnames("button-dapp-menu", { active: isActive })}
+                    >
+                        <div className="dapp-menu-item">
+                            <img alt="" src={StakeIcon} />
+                            <p>HyperBonding</p>
                         </div>
                     </Link>
 

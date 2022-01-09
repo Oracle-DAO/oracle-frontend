@@ -2,6 +2,9 @@ export { abi as StableBondContract } from "./bonds/StableContract.json";
 export { abi as LpBondContract } from "./bonds/LpContract.json";
 export { abi as WavaxBondContract } from "./bonds/WavaxContract.json";
 
+export { abi as StableHyperBondContract } from "./hyperbond/StableContract.json";
+export { abi as LpHyperBondContract } from "./hyperbond/LpContract.json";
+
 export { abi as StableReserveContract } from "./reserves/StableContract.json";
 export { abi as LpReserveContract } from "./reserves/LpContract.json";
 

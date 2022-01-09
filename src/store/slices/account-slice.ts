@@ -1,13 +1,12 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { ORCLTokenContract, sORCLTokenContract, MimTokenContract, wMetisTokenContract } from "../../abi";
+import { MimTokenContract, ORCLTokenContract, sORCLTokenContract, wMetisTokenContract } from "../../abi";
 import { setAll } from "../../helpers";
 
-import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit";
 import { JsonRpcProvider, StaticJsonRpcProvider } from "@ethersproject/providers";
 import { Bond } from "../../helpers/bond/bond";
 import { Networks } from "../../constants/blockchain";
-import React from "react";
 import { RootState } from "../store";
 import { IToken } from "../../helpers/tokens";
 
@@ -184,6 +183,79 @@ export const calculateUserBondDetails = createAsyncThunk("account/calculateUserB
     };
 });
 
+interface ICalcUserHyperBondDetails {
+    address: string;
+    bond: Bond;
+    provider: StaticJsonRpcProvider | JsonRpcProvider;
+    networkID: Networks;
+}
+
+export interface IUserHyperBondDetails {
+    allowance: number;
+    balance: number;
+    avaxBalance: number;
+    interestDue: number;
+    bondMaturationBlock: number;
+    pendingPayout: number; //Payout formatted in gwei.
+}
+
+export const calculateUserHyperBondDetails = createAsyncThunk(
+    "account/calculateUserHyperbondDetails",
+    async ({ address, bond, networkID, provider }: ICalcUserHyperBondDetails) => {
+        if (!address) {
+            return new Promise<any>(resevle => {
+                resevle({
+                    bond: "",
+                    displayName: "",
+                    bondIconSvg: "",
+                    isLP: false,
+                    allowance: 0,
+                    balance: 0,
+                    interestDue: 0,
+                    bondMaturationBlock: 0,
+                    pendingPayout: "",
+                    avaxBalance: 0,
+                });
+            });
+        }
+
+        const bondContract = bond.getContractForBond(networkID, provider);
+        const reserveContract = bond.getContractForReserve(networkID, provider);
+
+        let interestDue, pendingPayout, bondMaturationBlock;
+
+        const bondDetails = await bondContract.bondInfo(address);
+        interestDue = bondDetails.payout / Math.pow(10, 9);
+        bondMaturationBlock = Number(bondDetails.vesting) + Number(bondDetails.lastTime);
+        pendingPayout = await bondContract.pendingPayoutFor(address);
+
+        let allowance,
+            balance = "0";
+
+        allowance = await reserveContract.allowance(address, bond.getAddressForBond(networkID));
+        balance = await reserveContract.balanceOf(address);
+        const balanceVal = ethers.utils.formatEther(balance);
+
+        const avaxBalance = await provider.getSigner().getBalance();
+        const avaxVal = ethers.utils.formatEther(avaxBalance);
+
+        const pendingPayoutVal = ethers.utils.formatUnits(pendingPayout, "gwei");
+
+        return {
+            bond: bond.name,
+            displayName: bond.displayName,
+            bondIconSvg: bond.bondIconSvg,
+            isLP: bond.isLP,
+            allowance: Number(allowance),
+            balance: Number(balanceVal),
+            avaxBalance: Number(avaxVal),
+            interestDue,
+            bondMaturationBlock,
+            pendingPayout: Number(pendingPayoutVal),
+        };
+    },
+);
+
 interface ICalcUserTokenDetails {
     address: string;
     token: IToken;
@@ -241,6 +313,7 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
 
 export interface IAccountSlice {
     bonds: { [key: string]: IUserBondDetails };
+    hyperbonds: { [key: string]: IUserHyperBondDetails };
     balances: {
         sORCL: string;
         ORCL: string;
@@ -260,6 +333,7 @@ export interface IAccountSlice {
 const initialState: IAccountSlice = {
     loading: true,
     bonds: {},
+    hyperbonds: {},
     balances: { sORCL: "", ORCL: "", wsORCL: "" },
     staking: { ORCL: 0, sORCL: 0 },
     wrapping: { sORCL: 0 },
@@ -308,6 +382,19 @@ const accountSlice = createSlice({
                 state.loading = false;
             })
             .addCase(calculateUserBondDetails.rejected, (state, { error }) => {
+                state.loading = false;
+                console.log(error);
+            })
+            .addCase(calculateUserHyperBondDetails.pending, (state, action) => {
+                state.loading = true;
+            })
+            .addCase(calculateUserHyperBondDetails.fulfilled, (state, action) => {
+                if (!action.payload) return;
+                const bond = action.payload.bond;
+                state.hyperbonds[bond] = action.payload;
+                state.loading = false;
+            })
+            .addCase(calculateUserHyperBondDetails.rejected, (state, { error }) => {
                 state.loading = false;
                 console.log(error);
             })
