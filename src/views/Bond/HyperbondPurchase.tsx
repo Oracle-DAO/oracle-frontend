@@ -22,8 +22,6 @@ interface IBondPurchaseProps {
 function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
     const dispatch = useDispatch();
     const { provider, address, chainID, checkWrongNetwork } = useWeb3Context();
-
-    console.log("Bond Quote", bond.bondQuote);
     const [quantity, setQuantity] = useState("");
     const [useAvax, setUseAvax] = useState(false);
 
@@ -50,7 +48,7 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
             const shouldProceed = window.confirm(messages.existing_mint);
             if (shouldProceed) {
                 const trimBalance = trim(Number(quantity), 10);
-
+                console.log("trimBalance", trimBalance);
                 await dispatch(
                     hyperbondAsset({
                         value: trimBalance,
@@ -66,6 +64,7 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
             }
         } else {
             const trimBalance = trim(Number(quantity), 10);
+            console.log("trimBalance", trimBalance);
             await dispatch(
                 //@ts-ignore
                 hyperbondAsset({

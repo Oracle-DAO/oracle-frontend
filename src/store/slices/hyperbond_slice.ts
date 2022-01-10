@@ -106,7 +106,6 @@ export const calcHyperBondDetails = createAsyncThunk("hyperbonding/calcBondDetai
     const bondContract = bond.getContractForBond(networkID, provider);
     const bondCalcContract = getBondCalculator(networkID, provider);
 
-    console.log(bondContract.address);
     const terms = await bondContract.terms();
     const maxBondPrice = (await bondContract.maxPayout()) / Math.pow(10, 9);
 
@@ -134,7 +133,6 @@ export const calcHyperBondDetails = createAsyncThunk("hyperbonding/calcBondDetai
         const maxBondQuote = await bondContract.payoutFor(maxValuation);
         maxBondPriceToken = maxBondPrice / (maxBondQuote * Math.pow(10, -9));
     } else {
-        console.log(amountInWei, bondContract);
         bondQuote = await bondContract.payoutFor(amountInWei);
         bondQuote = bondQuote / Math.pow(10, 18);
 
@@ -213,6 +211,7 @@ export const hyperbondAsset = createAsyncThunk(
                     gasPrice,
                 });
             } else {
+                console.log("value", valueInWei);
                 bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { gasPrice });
             }
             dispatch(

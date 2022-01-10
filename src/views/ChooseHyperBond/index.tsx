@@ -78,7 +78,6 @@ function ChooseHyperBond() {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {console.log(hyperbonds)}
                                         {hyperbonds.map(bond => (
                                             <BondTableData key={bond.name} bond={bond} />
                                         ))}
