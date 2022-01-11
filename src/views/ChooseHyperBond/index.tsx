@@ -69,7 +69,7 @@ function ChooseHyperBond() {
                                                 <p className="choose-bond-view-card-table-title">Price</p>
                                             </TableCell>
                                             <TableCell align="center">
-                                                <p className="choose-bond-view-card-table-title">ROI</p>
+                                                <p className="choose-bond-view-card-table-title">ROI (including rebase)</p>
                                             </TableCell>
                                             <TableCell align="right">
                                                 <p className="choose-bond-view-card-table-title">Purchased</p>

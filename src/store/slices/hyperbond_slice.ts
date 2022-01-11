@@ -14,6 +14,7 @@ import { error, info, success, warning } from "../slices/messages-slice";
 import { messages } from "../../constants/messages";
 import { getGasPrice } from "../../helpers/get-gas-price";
 import { metamaskErrorWrap } from "../../helpers/metamask-error-wrap";
+import { sORCLTokenContract, StakingContract } from "../../abi";
 
 interface IChangeApproval {
     bond: Bond;
@@ -103,6 +104,14 @@ export const calcHyperBondDetails = createAsyncThunk("hyperbonding/calcBondDetai
 
     const addresses = getAddresses(networkID);
 
+    const stakingContract = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, provider);
+    const epoch = await stakingContract.epoch();
+    const stakingReward = epoch.distribute;
+    const sOracleContract = new ethers.Contract(addresses.sORCL_ADDRESS, sORCLTokenContract, provider);
+    const circ = await sOracleContract.circulatingSupply();
+    const stakingRebase = stakingReward / circ;
+    const fiveDayRate = Math.pow(1 + stakingRebase, 5 * 3) - 1;
+
     const bondContract = bond.getContractForBond(networkID, provider);
     const bondCalcContract = getBondCalculator(networkID, provider);
 
@@ -116,7 +125,7 @@ export const calcHyperBondDetails = createAsyncThunk("hyperbonding/calcBondDetai
 
     try {
         bondPrice = await bondContract.bondPriceInUSD();
-        bondDiscount = (marketPrice * Math.pow(10, 18) - bondPrice) / bondPrice;
+        bondDiscount = (marketPrice * Math.pow(10, 18) - bondPrice) / bondPrice + Number(fiveDayRate) / 100;
     } catch (e) {
         console.log("error getting bondPriceInUSD", e);
     }
@@ -259,8 +268,8 @@ export const redeemHyperbond = createAsyncThunk("hyperbonding/redeemHyperbond", 
     try {
         const gasPrice = await getGasPrice(provider);
 
-        redeemTx = await bondContract.redeem(address, autostake === true, { gasPrice });
-        const pendingTxnType = "redeem_bond_" + bond.name + (autostake === true ? "_autostake" : "");
+        redeemTx = await bondContract.redeem(address, { gasPrice });
+        const pendingTxnType = "redeem_bond_" + bond.name;
         dispatch(
             fetchPendingTxns({
                 txnHash: redeemTx.hash,

@@ -14,7 +14,7 @@ export const mim = new StableBond({
     reserveContractAbi: StableReserveContract,
     networkAddrs: {
         [Networks.STARDUST]: {
-            bondAddress: "0xA62245F021980E9A6F28fBeB10AAe91f89F5D8Bb",
+            bondAddress: "0x62cdf6CF8450BF7a7cE497396B818b3666727D05",
             reserveAddress: "0xF9B0f27d6b3CAF7a47B7BF414cc3aD7530c87Cff",
         },
     },
