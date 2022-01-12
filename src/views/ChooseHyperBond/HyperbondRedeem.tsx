@@ -19,8 +19,6 @@ function HyperbondRedeem({ bond }: IBondRedeem) {
     const dispatch = useDispatch();
     const { provider, address, chainID, checkWrongNetwork } = useWeb3Context();
 
-    console.log(bond);
-
     const isBondLoading = useSelector<IReduxState, boolean>(state => state.hyperbonding.loading ?? true);
 
     const currentBlockTime = useSelector<IReduxState, number>(state => {

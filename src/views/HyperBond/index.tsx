@@ -3,15 +3,15 @@ import { useSelector } from "react-redux";
 import { trim } from "../../helpers";
 import { Backdrop, Box, Fade, Grid } from "@material-ui/core";
 import TabPanel from "../../components/TabPanel";
-import HyperbondPurchase from "../Bond/HyperbondPurchase";
+import HyperbondPurchase from "../ChooseHyperBond/HyperbondPurchase";
 import "./bond.scss";
 import { useWeb3Context } from "../../hooks";
 import { Skeleton } from "@material-ui/lab";
 import { IReduxState } from "../../store/slices/state.interface";
 import { IAllBondData } from "../../hooks/hyperbond";
 import classnames from "classnames";
-import HyperbondRedeem from "../Bond/HyperbondRedeem";
-import HyperbondHeader from "../Bond/HyperbondHeader";
+import HyperbondRedeem from "../ChooseHyperBond/HyperbondRedeem";
+import HyperbondHeader from "../ChooseHyperBond/HyperbondHeader";
 
 interface IBondProps {
     bond: IAllBondData;

@@ -226,7 +226,7 @@ export const calculateUserHyperBondDetails = createAsyncThunk(
 
         const bondDetails = await bondContract.bondInfo(address);
         interestDue = bondDetails.payout / Math.pow(10, 9);
-        bondMaturationBlock = Number(bondDetails.vesting) + Number(bondDetails.lastTime);
+        bondMaturationBlock = Number(bondDetails.vesting) + Number(bondDetails.lastBlockTimestamp);
         pendingPayout = await bondContract.pendingPayoutFor(address);
 
         let allowance,

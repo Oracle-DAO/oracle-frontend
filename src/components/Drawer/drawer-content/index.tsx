@@ -1,18 +1,19 @@
 import { useCallback, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Social from "./social";
+import DocsIcon from "../../../assets/icons/stake.svg";
 import StakeIcon from "../../../assets/icons/stake.svg";
+import HyperBond from "../../../assets/icons/hyperbond.png";
 import BondIcon from "../../../assets/icons/bond.svg";
 import OracleDaoIcon from "../../../assets/icons/oracle-logo.png";
 import DashboardIcon from "../../../assets/icons/dashboard.svg";
 import LaunchPad from "../../../assets/icons/launchpads.png";
-import { trim, shorten } from "../../../helpers";
+import { shorten, trim } from "../../../helpers";
 import { useAddress } from "../../../hooks";
 import useBonds from "../../../hooks/bonds";
 import { Link } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import "./drawer-content.scss";
-import DocsIcon from "../../../assets/icons/stake.svg";
 import GlobeIcon from "../../../assets/icons/wonderglobe.svg";
 import NetSwapLogo from "../../../assets/icons/netswap_logo.svg";
 import classnames from "classnames";
@@ -97,7 +98,7 @@ function NavContent() {
                         className={classnames("button-dapp-menu", { active: isActive })}
                     >
                         <div className="dapp-menu-item">
-                            <img alt="" src={StakeIcon} />
+                            <img alt="" src={HyperBond} />
                             <p>HyperBonding</p>
                         </div>
                     </Link>
