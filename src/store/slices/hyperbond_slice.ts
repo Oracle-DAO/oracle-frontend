@@ -125,7 +125,7 @@ export const calcHyperBondDetails = createAsyncThunk("hyperbonding/calcBondDetai
 
     try {
         bondPrice = await bondContract.bondPriceInUSD();
-        bondDiscount = (marketPrice * Math.pow(10, 18) - bondPrice) / bondPrice + Number(fiveDayRate) / 100;
+        bondDiscount = (marketPrice * Math.pow(10, 18) - bondPrice) / bondPrice + Number(fiveDayRate);
     } catch (e) {
         console.log("error getting bondPriceInUSD", e);
     }

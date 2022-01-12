@@ -202,8 +202,8 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
                     </div>
 
                     <div className="data-row">
-                        <p className="bond-balance-title">You Will Get</p>
-                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.bondQuote, 4)} ORCL`}</p>
+                        <p className="bond-balance-title">You Will Get (excluding rebase rewards)</p>
+                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.bondQuote, 4)} sORCL`}</p>
                     </div>
 
                     <div className={`data-row`}>
