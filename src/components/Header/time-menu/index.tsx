@@ -45,7 +45,16 @@ function TimeMenu() {
         return (state.app && state.app.networkID) || DEFAULD_NETWORK;
     });
 
-    const faucet = () => async () => {
+    const MIM_faucet = () => async () => {
+        if (!address) {
+            dispatch(warning({ text: messages.please_connect_wallet }));
+            return;
+        }
+        if (await checkWrongNetwork()) return;
+        const token = "MIM";
+        await dispatch(getTokens({ address, token, provider, networkID: chainID }));
+    };
+    const ORCL_faucet = () => async () => {
         if (!address) {
             dispatch(warning({ text: messages.please_connect_wallet }));
             return;
@@ -76,8 +85,11 @@ function TimeMenu() {
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={200}>
                         <div className="tooltip">
-                            <div className="tooltip-item" onClick={faucet()}>
+                            <div className="tooltip-item" onClick={MIM_faucet()}>
                                 <p>Airdrop MIM</p>
+                            </div>
+                            <div className="tooltip-item" onClick={ORCL_faucet()}>
+                                <p>Airdrop ORCL</p>
                             </div>
                             {isEthereumAPIAvailable && (
                                 <div className="add-tokens">

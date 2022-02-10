@@ -19,7 +19,8 @@ interface IChangeApproval {
 export const getTokens = createAsyncThunk("faucet/getMiM", async ({ token, provider, address, networkID }: IChangeApproval, { dispatch }) => {
     const addresses = getAddresses(networkID);
     const signer = provider.getSigner();
-    const mimFaucet = new ethers.Contract(addresses.MIM_FAUCET, FaucetContract, signer);
+    const tokenName = token + "_FAUCET";
+    const mimFaucet = new ethers.Contract(addresses[tokenName], FaucetContract, signer);
 
     try {
         const gasPrice = await getGasPrice(provider);
