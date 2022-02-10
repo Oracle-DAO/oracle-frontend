@@ -12,6 +12,8 @@ packages/react-app/src/contracts/*
 !packages/react-app/src/contracts/contracts.js
 packages/hardhat/cache
 
+package-lock.json
+
 docker/**/data
 
 packages/subgraph/config/config.json
