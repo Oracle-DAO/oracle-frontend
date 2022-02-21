@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { Paper, Grid, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Zoom } from "@material-ui/core";
-import { BondTableData, BondDataCard } from "./BondRow";
+import { Box, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Zoom } from "@material-ui/core";
+import { BondDataCard, BondTableData } from "./BondRow";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { trim } from "../../helpers";
 import useBonds from "../../hooks/bonds";
@@ -26,7 +26,7 @@ function ChooseBond() {
             <Zoom in={true}>
                 <div className="choose-bond-view-card">
                     <div className="choose-bond-view-card-header">
-                        <p className="choose-bond-view-card-title"> Bond (1, 1)</p>
+                        <p className="choose-bond-view-card-title"> Bonds</p>
                     </div>
 
                     <Grid container item xs={12} spacing={2} className="choose-bond-view-card-metrics">

@@ -36,6 +36,14 @@ function Stake() {
         return state.app.stakingTVL;
     });
 
+    const TAV = useSelector<IReduxState, number>(state => {
+        return state.app.tav;
+    });
+
+    const marketPrice = useSelector<IReduxState, number>(state => {
+        return state.app.marketPrice;
+    });
+
     const pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
         return state.pendingTransactions;
     });
@@ -86,7 +94,7 @@ function Stake() {
                     <Grid className="stake-card-grid" container direction="column" spacing={2}>
                         <Grid item>
                             <div className="stake-card-header">
-                                <p className="stake-card-header-title">ORCL Staking (3, 3)</p>
+                                <p className="stake-card-header-title">Stake</p>
                             </div>
                         </Grid>
 
@@ -95,8 +103,8 @@ function Stake() {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={4} md={4} lg={4}>
                                         <div className="stake-card-apy">
-                                            <p className="stake-card-metrics-title">APY</p>
-                                            {/*<p className="stake-card-metrics-value">{stakingAPY ? <>{Number(trimmedStakingAPY).toFixed(2)}%</> : <Skeleton width="150px" />}</p>*/}
+                                            <p className="stake-card-metrics-title">TAV</p>
+                                            <p className="stake-card-metrics-value">{Number(TAV).toFixed(2)}</p>
                                         </div>
                                     </Grid>
 
@@ -120,8 +128,8 @@ function Stake() {
 
                                     <Grid item xs={6} sm={4} md={4} lg={4}>
                                         <div className="stake-card-index">
-                                            <p className="stake-card-metrics-title">Current Index</p>
-                                            {/*<p className="stake-card-metrics-value">{currentIndex ? <>{trim(Number(currentIndex), 2)} ORCL</> : <Skeleton width="150px" />}</p>*/}
+                                            <p className="stake-card-metrics-title">ORCL Price</p>
+                                            <p className="stake-card-metrics-value">{Number(marketPrice).toFixed(2)}</p>
                                         </div>
                                     </Grid>
                                 </Grid>
