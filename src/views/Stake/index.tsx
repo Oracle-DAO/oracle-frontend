@@ -129,7 +129,7 @@ function Stake() {
                                     <Grid item xs={6} sm={4} md={4} lg={4}>
                                         <div className="stake-card-index">
                                             <p className="stake-card-metrics-title">ORCL Price</p>
-                                            <p className="stake-card-metrics-value">{Number(marketPrice).toFixed(2)}</p>
+                                            <p className="stake-card-metrics-value">{`$${trim(marketPrice, 2)}`}</p>
                                         </div>
                                     </Grid>
                                 </Grid>

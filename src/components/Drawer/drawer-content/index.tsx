@@ -4,10 +4,9 @@ import Social from "./social";
 import StakeIcon from "../../../assets/icons/stake.svg";
 import DocsIcon from "../../../assets/icons/stake.svg";
 import BondIcon from "../../../assets/icons/bond.svg";
-import OracleDaoIcon from "../../../assets/icons/oracle-logo.png";
+import OracleDaoIcon from "../../../assets/icons/oracle-logo.svg";
 import DashboardIcon from "../../../assets/icons/dashboard.svg";
 import LaunchPad from "../../../assets/icons/launchpads.png";
-import { shorten } from "../../../helpers";
 import { useAddress } from "../../../hooks";
 import useBonds from "../../../hooks/bonds";
 import { Link } from "@material-ui/core";
@@ -44,13 +43,13 @@ function NavContent() {
                     <img alt="" src={OracleDaoIcon} style={{ width: 180, height: 180 }} />
                 </Link>
 
-                {address && (
-                    <div className="wallet-link">
-                        <Link href={`https://stardust-explorer.metis.io/address/${address}`} target="_blank">
-                            <p>{shorten(address)}</p>
-                        </Link>
-                    </div>
-                )}
+                {/*{address && (*/}
+                {/*    <div className="wallet-link">*/}
+                {/*        <Link href={`https://stardust-explorer.metis.io/address/${address}`} target="_blank">*/}
+                {/*            <p>{shorten(address)}</p>*/}
+                {/*        </Link>*/}
+                {/*    </div>*/}
+                {/*)}*/}
             </div>
 
             <div className="dapp-menu-links">

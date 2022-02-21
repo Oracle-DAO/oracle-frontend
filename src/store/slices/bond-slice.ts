@@ -248,8 +248,8 @@ export const redeemBond = createAsyncThunk("bonding/redeemBond", async ({ addres
     try {
         const gasPrice = await getGasPrice(provider);
 
-        redeemTx = await bondContract.redeem(address, autostake === true, { gasPrice });
-        const pendingTxnType = "redeem_bond_" + bond.name + (autostake === true ? "_autostake" : "");
+        redeemTx = await bondContract.redeem(address, autostake, { gasPrice });
+        const pendingTxnType = "redeem_bond_" + bond.name + (autostake ? "_autostake" : "");
         dispatch(
             fetchPendingTxns({
                 txnHash: redeemTx.hash,

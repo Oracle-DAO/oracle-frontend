@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { trim } from "../../helpers";
-import { Grid, Backdrop, Box, Fade } from "@material-ui/core";
+import { Backdrop, Box, Fade, Grid } from "@material-ui/core";
 import TabPanel from "../../components/TabPanel";
 import BondHeader from "./BondHeader";
 import BondRedeem from "./BondRedeem";
@@ -25,6 +25,10 @@ function Bond({ bond }: IBondProps) {
     const [view, setView] = useState(0);
 
     const isBondLoading = useSelector<IReduxState, boolean>(state => state.bonding.loading ?? true);
+
+    const marketPrice = useSelector<IReduxState, number>(state => {
+        return state.app.marketPrice;
+    });
 
     const onSlippageChange = (value: any) => {
         return setSlippage(value);
@@ -51,7 +55,7 @@ function Bond({ bond }: IBondProps) {
                                 </div>
                                 <div className="bond-price-data">
                                     <p className="bond-price-data-title">ORCL Price</p>
-                                    <p className="bond-price-data-value">{isBondLoading ? <Skeleton /> : `$${trim(bond.marketPrice, 2)}`}</p>
+                                    <p className="bond-price-data-value">{isBondLoading ? <Skeleton /> : `$${trim(marketPrice, 2)}`}</p>
                                 </div>
                             </Box>
 

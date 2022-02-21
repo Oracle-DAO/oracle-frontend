@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { getAddresses, TOKEN_DECIMALS, DEFAULD_NETWORK } from "../../../constants";
+import { DEFAULD_NETWORK, getAddresses, TOKEN_DECIMALS } from "../../../constants";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Fade, Popper } from "@material-ui/core";
+import { Fade, Popper } from "@material-ui/core";
 import "./time-menu.scss";
 import { IReduxState } from "../../../store/slices/state.interface";
 import { getTokenUrl } from "../../../helpers";
 import { useWeb3Context } from "../../../hooks";
-import { changeApproval } from "../../../store/slices/stake-thunk";
 import { getTokens } from "../../../store/slices/faucet_thunk";
 import { warning } from "../../../store/slices/messages-slice";
 import { messages } from "../../../constants/messages";
@@ -76,9 +75,9 @@ function TimeMenu() {
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={200}>
                         <div className="tooltip">
-                            <div className="tooltip-item" onClick={faucet()}>
-                                <p>Airdrop MIM</p>
-                            </div>
+                            {/*<div className="tooltip-item" onClick={faucet()}>*/}
+                            {/*    <p>Airdrop MIM</p>*/}
+                            {/*</div>*/}
                             {isEthereumAPIAvailable && (
                                 <div className="add-tokens">
                                     <div className="divider" />
