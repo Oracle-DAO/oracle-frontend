@@ -2,18 +2,16 @@ import { useCallback, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Social from "./social";
 import StakeIcon from "../../../assets/icons/stake.svg";
+import DocsIcon from "../../../assets/icons/stake.svg";
 import BondIcon from "../../../assets/icons/bond.svg";
 import OracleDaoIcon from "../../../assets/icons/oracle-logo.png";
 import DashboardIcon from "../../../assets/icons/dashboard.svg";
 import LaunchPad from "../../../assets/icons/launchpads.png";
-import { trim, shorten } from "../../../helpers";
+import { shorten } from "../../../helpers";
 import { useAddress } from "../../../hooks";
 import useBonds from "../../../hooks/bonds";
 import { Link } from "@material-ui/core";
-import { Skeleton } from "@material-ui/lab";
 import "./drawer-content.scss";
-import DocsIcon from "../../../assets/icons/stake.svg";
-import GlobeIcon from "../../../assets/icons/wonderglobe.svg";
 import NetSwapLogo from "../../../assets/icons/netswap_logo.svg";
 import classnames from "classnames";
 
@@ -100,35 +98,6 @@ function NavContent() {
                         </div>
                     </Link>
 
-                    <div className="bond-discounts">
-                        <p>Bond discounts</p>
-                        {bonds.map((bond, i) => (
-                            <Link component={NavLink} to={`/mints/${bond.name}`} key={i} className={"bond"}>
-                                {!bond.bondDiscount ? (
-                                    <Skeleton variant="text" width={"150px"} />
-                                ) : (
-                                    <p>
-                                        {bond.displayName}
-                                        <span className="bond-pair-roi">{bond.bondDiscount && trim(bond.bondDiscount * 100, 2)}%</span>
-                                    </p>
-                                )}
-                            </Link>
-                        ))}
-                    </div>
-
-                    <Link
-                        component={NavLink}
-                        to="/calculator"
-                        isActive={(match: any, location: any) => {
-                            return checkPage(location, "calculator");
-                        }}
-                        className={classnames("button-dapp-menu", { active: isActive })}
-                    >
-                        <div className="dapp-menu-item">
-                            <img alt="" src={GlobeIcon} />
-                            <p>Calculator</p>
-                        </div>
-                    </Link>
                     <Link className={classnames("button-dapp-menu", { active: false })}>
                         <div className="dapp-menu-item">
                             <img alt="" src={LaunchPad} />

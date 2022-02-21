@@ -1,15 +1,15 @@
-import { useEffect, useState, useCallback } from "react";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useAddress, useWeb3Context } from "../hooks";
 import { calcBondDetails } from "../store/slices/bond-slice";
 import { loadAppDetails } from "../store/slices/app-slice";
-import { loadAccountDetails, calculateUserBondDetails, calculateUserTokenDetails } from "../store/slices/account-slice";
+import { calculateUserBondDetails, calculateUserTokenDetails, loadAccountDetails } from "../store/slices/account-slice";
 import { IReduxState } from "../store/slices/state.interface";
 import Loading from "../components/Loader";
 import useBonds from "../hooks/bonds";
 import ViewBase from "../components/ViewBase";
-import { Stake, ChooseBond, Bond, Dashboard, NotFound, Calculator } from "../views";
+import { Bond, ChooseBond, Dashboard, NotFound, Stake } from "../views";
 import "./style.scss";
 import useTokens from "../hooks/tokens";
 
@@ -127,10 +127,6 @@ function App() {
                         );
                     })}
                     <ChooseBond />
-                </Route>
-
-                <Route path="/calculator">
-                    <Calculator />
                 </Route>
 
                 <Route component={NotFound} />

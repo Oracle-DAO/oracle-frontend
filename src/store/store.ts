@@ -5,7 +5,6 @@ import bondingReducer from "./slices/bond-slice";
 import appReducer from "./slices/app-slice";
 import pendingTransactionsReducer from "./slices/pending-txns-slice";
 import messagesReducer from "./slices/messages-slice";
-import wrappingReducer from "./slices/wrap-slice";
 
 const store = configureStore({
     reducer: {
@@ -14,7 +13,6 @@ const store = configureStore({
         app: appReducer,
         pendingTransactions: pendingTransactionsReducer,
         messages: messagesReducer,
-        wrapping: wrappingReducer,
     },
     middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false }),
 });

@@ -65,7 +65,7 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "value",
+          "name": "orclMinted",
           "type": "uint256"
         }
       ],
@@ -88,26 +88,7 @@
           "type": "address"
         }
       ],
-      "name": "OwnershipPulled",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "previousOwner",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "newOwner",
-          "type": "address"
-        }
-      ],
-      "name": "OwnershipPushed",
+      "name": "OwnershipTransferred",
       "type": "event"
     },
     {
@@ -179,31 +160,6 @@
         {
           "indexed": true,
           "internalType": "address",
-          "name": "caller",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "recipient",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "RewardsMinted",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
           "name": "token",
           "type": "address"
         },
@@ -216,7 +172,7 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "value",
+          "name": "orclBurned",
           "type": "uint256"
         }
       ],
@@ -301,32 +257,13 @@
         },
         {
           "internalType": "uint256",
-          "name": "_profit",
+          "name": "_orclAmount",
           "type": "uint256"
         }
       ],
       "name": "deposit",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "send_",
-          "type": "uint256"
-        }
-      ],
+      "outputs": [],
       "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "excessReserves",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -366,8 +303,27 @@
       "type": "function"
     },
     {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "orclEqValue",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "value_",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "inputs": [],
-      "name": "manager",
+      "name": "owner",
       "outputs": [
         {
           "internalType": "address",
@@ -379,59 +335,8 @@
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_recipient",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "mintRewards",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "inputs": [],
-      "name": "pullManagement",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "newOwner_",
-          "type": "address"
-        }
-      ],
-      "name": "pushManagement",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "renounceManagement",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "_amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "repayDebtWithOHM",
+      "name": "renounceOwnership",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -471,11 +376,11 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_auditOwner",
+          "name": "_sORCL",
           "type": "address"
         }
       ],
-      "name": "setAuditOwner",
+      "name": "setStakedORCL",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -483,19 +388,32 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
-          "name": "_totalReserves",
-          "type": "uint256"
+          "internalType": "address",
+          "name": "_tavCalculator",
+          "type": "address"
         }
       ],
-      "name": "setTotalReserve",
+      "name": "setTAVCalculator",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "inputs": [],
-      "name": "totalDebt",
+      "name": "tavCalculator",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalORCLMinted",
       "outputs": [
         {
           "internalType": "uint256",
@@ -517,6 +435,19 @@
         }
       ],
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -543,9 +474,19 @@
           "internalType": "uint256",
           "name": "_amount",
           "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "isReserveToken",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "isLiquidToken",
+          "type": "bool"
         }
       ],
-      "name": "valueOf",
+      "name": "valueOfToken",
       "outputs": [
         {
           "internalType": "uint256",

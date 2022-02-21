@@ -9,7 +9,8 @@ import { IAppSlice } from "../../store/slices/app-slice";
 function Dashboard() {
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
     const app = useSelector<IReduxState, IAppSlice>(state => state.app);
-    const trimmedStakingAPY = Number(trim(app.stakingAPY * 100, 1));
+    const tav = Number(app.tav);
+    // const trimmedStakingAPY = Number(trim(app.stakingAPY * 100, 1));
     return (
         <div className="dashboard-view">
             <div className="dashboard-infos-wrap">
@@ -81,17 +82,17 @@ function Dashboard() {
 
                         <Grid item lg={6} md={6} sm={6} xs={12}>
                             <div className="dashboard-card">
-                                <p className="card-title">APY</p>
-                                <p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${Number(trimmedStakingAPY).toFixed(2)}%`}</p>
+                                <p className="card-title">TAV</p>
+                                <p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${Number(tav).toFixed(2)}`}</p>
                             </div>
                         </Grid>
 
-                        <Grid item lg={6} md={6} sm={6} xs={12}>
-                            <div className="dashboard-card">
-                                <p className="card-title">Current Index</p>
-                                <p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${trim(Number(app.currentIndex), 2)} ORCL`}</p>
-                            </div>
-                        </Grid>
+                        {/*<Grid item lg={6} md={6} sm={6} xs={12}>*/}
+                        {/*    <div className="dashboard-card">*/}
+                        {/*        <p className="card-title">Current Index</p>*/}
+                        {/*        /!*<p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${trim(Number(app.currentIndex), 2)} ORCL`}</p>*!/*/}
+                        {/*    </div>*/}
+                        {/*</Grid>*/}
 
                         <Grid item lg={6} md={6} sm={6} xs={12}>
                             <div className="dashboard-card">
@@ -111,28 +112,35 @@ function Dashboard() {
                             </div>
                         </Grid>
 
-                        <Grid item lg={6} md={6} sm={6} xs={12}>
-                            <div className="dashboard-card">
-                                <p className="card-title">Backing per $ORCL</p>
-                                <p className="card-value">
-                                    {isAppLoading ? (
-                                        <Skeleton width="250px" />
-                                    ) : (
-                                        new Intl.NumberFormat("en-US", {
-                                            style: "currency",
-                                            currency: "USD",
-                                            maximumFractionDigits: 0,
-                                            minimumFractionDigits: 0,
-                                        }).format(app.rfv)
-                                    )}
-                                </p>
-                            </div>
-                        </Grid>
+                        {/*<Grid item lg={6} md={6} sm={6} xs={12}>*/}
+                        {/*    <div className="dashboard-card">*/}
+                        {/*        <p className="card-title">Backing per $ORCL</p>*/}
+                        {/*        <p className="card-value">*/}
+                        {/*            {isAppLoading ? (*/}
+                        {/*                <Skeleton width="250px" />*/}
+                        {/*            ) : (*/}
+                        {/*                new Intl.NumberFormat("en-US", {*/}
+                        {/*                    style: "currency",*/}
+                        {/*                    currency: "USD",*/}
+                        {/*                    maximumFractionDigits: 0,*/}
+                        {/*                    minimumFractionDigits: 0,*/}
+                        {/*                }).format(app.rfv)*/}
+                        {/*            )}*/}
+                        {/*        </p>*/}
+                        {/*    </div>*/}
+                        {/*</Grid>*/}
+
+                        {/*<Grid item lg={6} md={6} sm={6} xs={12}>*/}
+                        {/*    <div className="dashboard-card">*/}
+                        {/*        <p className="card-title">Runway</p>*/}
+                        {/*        /!*<p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${trim(Number(app.runway), 1)} Days`}</p>*!/*/}
+                        {/*    </div>*/}
+                        {/*</Grid>*/}
 
                         <Grid item lg={6} md={6} sm={6} xs={12}>
                             <div className="dashboard-card">
-                                <p className="card-title">Runway</p>
-                                <p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${trim(Number(app.runway), 1)} Days`}</p>
+                                <p className="card-title"> RFV </p>
+                                <p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${trim(Number(app.rfv), 2)}`}</p>
                             </div>
                         </Grid>
                     </Grid>

@@ -1,13 +1,12 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { ORCLTokenContract, sORCLTokenContract, MimTokenContract, wMetisTokenContract } from "../../abi";
+import { MimTokenContract, ORCLTokenContract, sORCLTokenContract } from "../../abi";
 import { setAll } from "../../helpers";
 
-import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit";
 import { JsonRpcProvider, StaticJsonRpcProvider } from "@ethersproject/providers";
 import { Bond } from "../../helpers/bond/bond";
 import { Networks } from "../../constants/blockchain";
-import React from "react";
 import { RootState } from "../store";
 import { IToken } from "../../helpers/tokens";
 
@@ -21,7 +20,6 @@ interface IAccountBalances {
     balances: {
         sORCL: string;
         ORCL: string;
-        wsORCL: string;
     };
 }
 
@@ -32,14 +30,11 @@ export const getBalances = createAsyncThunk("account/getBalances", async ({ addr
     const sOracleBalance = await sOracleContract.balanceOf(address);
     const oracleContract = new ethers.Contract(addresses.ORCL_ADDRESS, ORCLTokenContract, provider);
     const orcaleBalance = await oracleContract.balanceOf(address);
-    const wsOracleContract = new ethers.Contract(addresses.wsORCL_ADDRESS, wMetisTokenContract, provider);
-    const wsOracleBalance = await wsOracleContract.balanceOf(address);
 
     return {
         balances: {
-            sORCL: ethers.utils.formatUnits(sOracleBalance, "gwei"),
-            ORCL: ethers.utils.formatUnits(orcaleBalance, "gwei"),
-            wsORCL: ethers.utils.formatUnits(wsOracleBalance),
+            sORCL: ethers.utils.formatUnits(sOracleBalance, "ether"),
+            ORCL: ethers.utils.formatUnits(orcaleBalance, "ether"),
         },
     };
 });
@@ -54,13 +49,9 @@ interface IUserAccountDetails {
     balances: {
         ORCL: string;
         sORCL: string;
-        wsORCL: string;
     };
     staking: {
         ORCL: number;
-        sORCL: number;
-    };
-    wrapping: {
         sORCL: number;
     };
 }
@@ -80,36 +71,23 @@ export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails",
     if (addresses.ORCL_ADDRESS) {
         const oracleContract = new ethers.Contract(addresses.ORCL_ADDRESS, ORCLTokenContract, provider);
         oracleBalance = await oracleContract.balanceOf(address);
-        stakeAllowance = await oracleContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
+        stakeAllowance = await oracleContract.allowance(address, addresses.STAKING_ADDRESS);
     }
 
     if (addresses.sORCL_ADDRESS) {
         const sOracleContract = new ethers.Contract(addresses.sORCL_ADDRESS, sORCLTokenContract, provider);
         sOracleBalance = await sOracleContract.balanceOf(address);
         unstakeAllowance = await sOracleContract.allowance(address, addresses.STAKING_ADDRESS);
-
-        if (addresses.wsORCL_ADDRESS) {
-            sORCLwsORCLAllowance = await sOracleContract.allowance(address, addresses.wsORCL_ADDRESS);
-        }
-    }
-
-    if (addresses.wsORCL_ADDRESS) {
-        const wsOracleContract = new ethers.Contract(addresses.wsORCL_ADDRESS, wMetisTokenContract, provider);
-        wsOracleBalance = await wsOracleContract.balanceOf(address);
     }
 
     return {
         balances: {
-            sORCL: ethers.utils.formatUnits(sOracleBalance, "gwei"),
-            ORCL: ethers.utils.formatUnits(oracleBalance, "gwei"),
-            wsORCL: ethers.utils.formatEther(wsOracleBalance),
+            sORCL: ethers.utils.formatUnits(sOracleBalance, "ether"),
+            ORCL: ethers.utils.formatUnits(oracleBalance, "ether"),
         },
         staking: {
             ORCL: Number(stakeAllowance),
             sORCL: Number(unstakeAllowance),
-        },
-        wrapping: {
-            sORCL: Number(sORCLwsORCLAllowance),
         },
     };
 });
@@ -154,7 +132,7 @@ export const calculateUserBondDetails = createAsyncThunk("account/calculateUserB
     let interestDue, pendingPayout, bondMaturationBlock;
 
     const bondDetails = await bondContract.bondInfo(address);
-    interestDue = bondDetails.payout / Math.pow(10, 9);
+    interestDue = bondDetails.payout / Math.pow(10, 18);
     bondMaturationBlock = Number(bondDetails.vesting) + Number(bondDetails.lastTime);
     pendingPayout = await bondContract.pendingPayoutFor(address);
 
@@ -168,7 +146,7 @@ export const calculateUserBondDetails = createAsyncThunk("account/calculateUserB
     const avaxBalance = await provider.getSigner().getBalance();
     const avaxVal = ethers.utils.formatEther(avaxBalance);
 
-    const pendingPayoutVal = ethers.utils.formatUnits(pendingPayout, "gwei");
+    const pendingPayoutVal = ethers.utils.formatUnits(pendingPayout, "ether");
 
     return {
         bond: bond.name,
@@ -244,14 +222,10 @@ export interface IAccountSlice {
     balances: {
         sORCL: string;
         ORCL: string;
-        wsORCL: string;
     };
     loading: boolean;
     staking: {
         ORCL: number;
-        sORCL: number;
-    };
-    wrapping: {
         sORCL: number;
     };
     tokens: { [key: string]: IUserTokenDetails };
@@ -260,9 +234,8 @@ export interface IAccountSlice {
 const initialState: IAccountSlice = {
     loading: true,
     bonds: {},
-    balances: { sORCL: "", ORCL: "", wsORCL: "" },
+    balances: { sORCL: "", ORCL: "" },
     staking: { ORCL: 0, sORCL: 0 },
-    wrapping: { sORCL: 0 },
     tokens: {},
 };
 

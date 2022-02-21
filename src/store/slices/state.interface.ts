@@ -3,7 +3,6 @@ import { IAccountSlice } from "./account-slice";
 import { IAppSlice } from "./app-slice";
 import { IBondSlice } from "./bond-slice";
 import { MessagesState } from "./messages-slice";
-import { IWrapSlice } from "./wrap-slice";
 
 export interface IReduxState {
     pendingTransactions: IPendingTxn[];
@@ -11,5 +10,4 @@ export interface IReduxState {
     app: IAppSlice;
     bonding: IBondSlice;
     messages: MessagesState;
-    wrapping: IWrapSlice;
 }

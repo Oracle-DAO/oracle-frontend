@@ -1,12 +1,12 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { StakingHelperContract, ORCLTokenContract, sORCLTokenContract, StakingContract } from "../../abi";
+import { ORCLTokenContract, sORCLTokenContract, StakingContract } from "../../abi";
 import { clearPendingTxn, fetchPendingTxns, getStakingTypeText } from "./pending-txns-slice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchAccountSuccess, getBalances } from "./account-slice";
 import { JsonRpcProvider, StaticJsonRpcProvider } from "@ethersproject/providers";
 import { Networks } from "../../constants/blockchain";
-import { warning, success, info, error } from "../../store/slices/messages-slice";
+import { info, success, warning } from "../../store/slices/messages-slice";
 import { messages } from "../../constants/messages";
 import { getGasPrice } from "../../helpers/get-gas-price";
 import { metamaskErrorWrap } from "../../helpers/metamask-error-wrap";
@@ -35,7 +35,7 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
         const gasPrice = await getGasPrice(provider);
 
         if (token === "ORCL") {
-            approveTx = await oracleContract.approve(addresses.STAKING_HELPER_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
+            approveTx = await oracleContract.approve(addresses.STAKING_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
         }
 
         if (token === "sORCL") {
@@ -58,7 +58,7 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
 
     await sleep(2);
 
-    const stakeAllowance = await oracleContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
+    const stakeAllowance = await oracleContract.allowance(address, addresses.STAKING_ADDRESS);
     const unstakeAllowance = await sOracleContract.allowance(address, addresses.STAKING_ADDRESS);
 
     return dispatch(
@@ -87,7 +87,6 @@ export const changeStake = createAsyncThunk("stake/changeStake", async ({ action
     const addresses = getAddresses(networkID);
     const signer = provider.getSigner();
     const staking = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, signer);
-    const stakingHelper = new ethers.Contract(addresses.STAKING_HELPER_ADDRESS, StakingHelperContract, signer);
 
     let stakeTx;
 
@@ -95,9 +94,9 @@ export const changeStake = createAsyncThunk("stake/changeStake", async ({ action
         const gasPrice = await getGasPrice(provider);
 
         if (action === "stake") {
-            stakeTx = await stakingHelper.stake(ethers.utils.parseUnits(value, "gwei"), address, { gasPrice });
+            stakeTx = await staking.stake(address, ethers.utils.parseUnits(value, "ether"), { gasPrice });
         } else {
-            stakeTx = await staking.unstake(ethers.utils.parseUnits(value, "gwei"), true, { gasPrice });
+            stakeTx = await staking.unstake(address, ethers.utils.parseUnits(value, "ether"), { gasPrice });
         }
         const pendingTxnType = action === "stake" ? "staking" : "unstaking";
         dispatch(fetchPendingTxns({ txnHash: stakeTx.hash, text: getStakingTypeText(action), type: pendingTxnType }));

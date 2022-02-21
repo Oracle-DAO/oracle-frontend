@@ -3,14 +3,10 @@ import "./footer.scss";
 import { Grid } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { IReduxState } from "../../../../store/slices/state.interface";
-import { trim } from "../../../../helpers";
 import { Skeleton } from "@material-ui/lab";
 
 function Footer() {
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
-    const stakingAPY = useSelector<IReduxState, number>(state => {
-        return state.app.stakingAPY;
-    });
     const treasuryBalance = useSelector<IReduxState, number>(state => {
         return state.app.treasuryBalance;
     });
@@ -18,7 +14,7 @@ function Footer() {
         return state.app.circSupply;
     });
 
-    const trimmedStakingAPY = trim(stakingAPY * 100, 1);
+    // const trimmedStakingAPY = trim(stakingAPY * 100, 1);
 
     return (
         <div className="landing-footer">
@@ -59,7 +55,7 @@ function Footer() {
                     <div className="landing-footer-item-wrap">
                         <p className="landing-footer-item-title">Current APY</p>
                         <p className="landing-footer-item-value">
-                            {stakingAPY ? <>{new Intl.NumberFormat("en-US").format(Number(trimmedStakingAPY))}%</> : <Skeleton width="150px" />}
+                            {/*{stakingAPY ? <>{new Intl.NumberFormat("en-US").format(Number(trimmedStakingAPY))}%</> : <Skeleton width="150px" />}*/}
                         </p>
                     </div>
                 </Grid>

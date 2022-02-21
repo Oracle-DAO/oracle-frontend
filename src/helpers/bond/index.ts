@@ -1,10 +1,10 @@
 import { Networks } from "../../constants/blockchain";
-import { LPBond, CustomLPBond } from "./lp-bond";
-import { StableBond, CustomBond } from "./stable-bond";
+import { LPBond } from "./lp-bond";
+import { StableBond } from "./stable-bond";
 
 import MimIcon from "../../assets/tokens/MIM.svg";
 
-import { StableBondContract, LpBondContract, StableReserveContract, LpReserveContract } from "../../abi";
+import { LpBondContract, LpReserveContract, StableBondContract, StableReserveContract } from "../../abi";
 
 export const mim = new StableBond({
     name: "mim",
@@ -15,8 +15,8 @@ export const mim = new StableBond({
     reserveContractAbi: StableReserveContract,
     networkAddrs: {
         [Networks.STARDUST]: {
-            bondAddress: "0xCEF466b27Ea42D5F89165fEc4C72Fb87e1Aea5e3",
-            reserveAddress: "0xF9B0f27d6b3CAF7a47B7BF414cc3aD7530c87Cff",
+            bondAddress: "0x246410B962dD5E7095647dC5d348cfB6068B7FE9",
+            reserveAddress: "0x9Dcd7CCB0f2074577e7dae730dFDA2CcA793cBa9",
         },
     },
     tokensInStrategy: "",
@@ -48,7 +48,7 @@ export const mimOrcl = new LPBond({
     reserveContractAbi: LpReserveContract,
     networkAddrs: {
         [Networks.STARDUST]: {
-            bondAddress: "0xCEF466b27Ea42D5F89165fEc4C72Fb87e1Aea5e3",
+            bondAddress: "0x92e707dBD0F799Feda7Af4BAe94Eb7F85aa132A0",
             reserveAddress: "0xf32fec2c0034feeefb7de740a8fe97f45a35454c",
         },
     },

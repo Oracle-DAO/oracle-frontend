@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./wrap-button.scss";
-import Wrap from "../../../components/Wrap";
 
 function WrapButton() {
     const [showWrap, setShowWrap] = useState(false);
@@ -15,10 +14,9 @@ function WrapButton() {
 
     return (
         <div>
-            <div className="wrap-button" onClick={handelOpenWrap}>
-                <p>Wrap</p>
+            <div className="wrap-button">
+                <p>Collect Rewards</p>
             </div>
-            <Wrap open={showWrap} handleClose={handelCloseWrap} />
         </div>
     );
 }

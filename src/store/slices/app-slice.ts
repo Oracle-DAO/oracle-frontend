@@ -1,10 +1,9 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { StakingContract, sORCLTokenContract, ORCLTokenContract } from "../../abi";
-import { getMarketPrice, setAll } from "../../helpers";
-import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
+import { ORCLTokenContract, sORCLTokenContract, StakingContract, TavContract } from "../../abi";
+import { getMarketPrice, getTokenPrice, setAll } from "../../helpers";
+import { createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit";
 import { JsonRpcProvider } from "@ethersproject/providers";
-import { getTokenPrice } from "../../helpers";
 import { RootState } from "../store";
 import allBonds from "../../helpers/bond";
 
@@ -25,14 +24,18 @@ export const loadAppDetails = createAsyncThunk(
         const currentBlockTime = (await provider.getBlock(currentBlock)).timestamp;
         const sOracleContract = new ethers.Contract(addresses.sORCL_ADDRESS, sORCLTokenContract, provider);
         const oracleContract = new ethers.Contract(addresses.ORCL_ADDRESS, ORCLTokenContract, provider);
+        const tavContract = new ethers.Contract(addresses.TAV_CALCULATOR_ADDRESS, TavContract, provider);
 
-        const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * mimPrice;
+        // TODO revisit
+        // const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 18)) * mimPrice;
+        const marketPrice = (await getMarketPrice(networkID, provider)) * mimPrice;
 
-        const totalSupply = (await oracleContract.totalSupply()) / Math.pow(10, 9);
-        const circSupply = (await sOracleContract.circulatingSupply()) / Math.pow(10, 9);
+        const totalSupply = (await oracleContract.totalSupply()) / Math.pow(10, 18);
+        const circSupply = (await sOracleContract.totalSupply()) / Math.pow(10, 18);
         const stakingTVL = circSupply * marketPrice;
         const marketCap = totalSupply * marketPrice;
 
+        const tav = (await tavContract.calculateTAV()) / Math.pow(10, 9);
         const tokenBalPromises = allBonds.map(bond => bond.getTreasuryBalance(networkID, provider));
         const tokenBalances = await Promise.all(tokenBalPromises);
         const treasuryBalance = tokenBalances.reduce((tokenBalance0, tokenBalance1) => tokenBalance0 + tokenBalance1, 0);
@@ -48,35 +51,19 @@ export const loadAppDetails = createAsyncThunk(
 
         const rfv = rfvTreasury / ORCLSupply;
 
-        const epoch = await stakingContract.epoch();
-        const stakingReward = epoch.distribute;
-        const circ = await sOracleContract.circulatingSupply();
-        const stakingRebase = stakingReward / circ;
-        const fiveDayRate = Math.pow(1 + stakingRebase, 5 * 3) - 1;
-        const stakingAPY = Math.pow(1 + stakingRebase, 365 * 3) - 1;
-
-        const currentIndex = await stakingContract.index();
-        const nextRebase = epoch.endTime;
-
         const treasuryRunway = rfvTreasury / circSupply;
-        const runway = Math.log(treasuryRunway) / Math.log(1 + stakingRebase) / 3;
 
         return {
-            currentIndex: Number(ethers.utils.formatUnits(currentIndex, "gwei")) / 4.5,
-            totalSupply,
-            marketCap,
-            currentBlock,
-            circSupply,
-            fiveDayRate,
-            treasuryBalance,
-            stakingAPY,
             stakingTVL,
-            stakingRebase,
             marketPrice,
+            marketCap,
+            circSupply,
+            currentBlock,
             currentBlockTime,
-            nextRebase,
+            treasuryBalance,
+            totalSupply,
             rfv,
-            runway,
+            tav,
         };
     },
 );
@@ -91,18 +78,13 @@ export interface IAppSlice {
     marketPrice: number;
     marketCap: number;
     circSupply: number;
-    currentIndex: string;
     currentBlock: number;
     currentBlockTime: number;
-    fiveDayRate: number;
     treasuryBalance: number;
-    stakingAPY: number;
-    stakingRebase: number;
     networkID: number;
-    nextRebase: number;
     totalSupply: number;
     rfv: number;
-    runway: number;
+    tav: number;
 }
 
 const appSlice = createSlice({
