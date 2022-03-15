@@ -14,9 +14,9 @@ export const mim = new StableBond({
     bondContractABI: StableBondContract,
     reserveContractAbi: StableReserveContract,
     networkAddrs: {
-        [Networks.STARDUST]: {
-            bondAddress: "0x64dF7DDC9bE60B764DC9411cb04Fe551532df855",
-            reserveAddress: "0xaBEFad0DC36dd51AD5ce4cCB24c3404b43731041",
+        [Networks.OASIS]: {
+            bondAddress: "0xBbDe072A05C0d2D7c1ae65e8e59e30319c913CFE",
+            reserveAddress: "0x4aC703D42d867BAc41d280C889FB7455Ee080702",
         },
     },
     tokensInStrategy: "",
@@ -47,7 +47,7 @@ export const mimOrcl = new LPBond({
     bondContractABI: LpBondContract,
     reserveContractAbi: LpReserveContract,
     networkAddrs: {
-        [Networks.STARDUST]: {
+        [Networks.OASIS]: {
             bondAddress: "",
             reserveAddress: "0x41B2bC5796c929f4b20AfDA94AA0771d24b68b5C",
         },

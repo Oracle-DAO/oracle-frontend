@@ -11,5 +11,5 @@ export interface BondAddresses {
 }
 
 export interface NetworkAddresses {
-    [Networks.STARDUST]: BondAddresses;
+    [Networks.OASIS]: BondAddresses;
 }

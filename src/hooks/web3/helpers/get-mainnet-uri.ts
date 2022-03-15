@@ -1,3 +1,3 @@
 export const getMainnetURI = (): string => {
-    return "https://stardust.metis.io/?owner=588";
+    return "https://testnet.emerald.oasis.dev";
 };

@@ -1,10 +1,9 @@
-import React, { useState, ReactElement, useContext, useMemo, useCallback } from "react";
+import React, { ReactElement, useCallback, useContext, useMemo, useState } from "react";
 import Web3Modal from "web3modal";
-import { StaticJsonRpcProvider, JsonRpcProvider, Web3Provider } from "@ethersproject/providers";
+import { JsonRpcProvider, StaticJsonRpcProvider, Web3Provider } from "@ethersproject/providers";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { getMainnetURI } from "./helpers";
-import { DEFAULD_NETWORK } from "../../constants";
-import { Networks } from "../../constants";
+import { DEFAULD_NETWORK, Networks } from "../../constants";
 import { messages } from "../../constants/messages";
 import { useDispatch } from "react-redux";
 import { swithNetwork } from "../../helpers/switch-network";
@@ -64,7 +63,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
                     package: WalletConnectProvider,
                     options: {
                         rpc: {
-                            [Networks.STARDUST]: getMainnetURI(),
+                            [Networks.OASIS]: getMainnetURI(),
                         },
                     },
                 },
@@ -118,7 +117,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
 
         setProviderChainID(chainId);
 
-        if (chainId === Networks.STARDUST) {
+        if (chainId === Networks.OASIS) {
             setProvider(connectedProvider);
         }
 

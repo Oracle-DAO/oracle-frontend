@@ -60,9 +60,6 @@ export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails",
     let oracleBalance = 0;
     let sOracleBalance = 0;
 
-    let wsOracleBalance = 0;
-    let sORCLwsORCLAllowance = 0;
-
     let stakeAllowance = 0;
     let unstakeAllowance = 0;
 

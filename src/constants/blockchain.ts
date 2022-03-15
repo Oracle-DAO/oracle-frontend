@@ -1,7 +1,7 @@
 export const TOKEN_DECIMALS = 9;
 
 export enum Networks {
-    STARDUST = 588,
+    OASIS = 42261,
 }
 
-export const DEFAULD_NETWORK = Networks.STARDUST;
+export const DEFAULD_NETWORK = Networks.OASIS;

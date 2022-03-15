@@ -1,9 +1,7 @@
-import { Networks } from "../constants/blockchain";
-
 const switchRequest = () => {
     return window.ethereum.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x24C" }],
+        params: [{ chainId: "0xa515" }],
     });
 };
 
@@ -12,13 +10,13 @@ const addChainRequest = () => {
         method: "wallet_addEthereumChain",
         params: [
             {
-                chainId: "0x24C",
-                chainName: "Metis Stardust Testnet",
-                rpcUrls: ["https://stardust.metis.io/?owner=588"],
-                blockExplorerUrls: ["https://stardust-explorer.metis.io/"],
+                chainId: "0xa515",
+                chainName: "Oasis Emerald Testnet",
+                rpcUrls: ["https://testnet.emerald.oasis.dev"],
+                blockExplorerUrls: ["https://testnet.explorer.emerald.oasis.dev"],
                 nativeCurrency: {
-                    name: "METIS",
-                    symbol: "METIS",
+                    name: "OASIS",
+                    symbol: "OASIS",
                     decimals: 18,
                 },
             },
