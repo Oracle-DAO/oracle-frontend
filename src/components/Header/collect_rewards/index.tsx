@@ -16,7 +16,7 @@ function CollectRewardsButton() {
         if (await checkWrongNetwork()) return;
 
         const totalRewards = getRewards({ address, provider, networkID: chainID });
-        // add check for totalReward to be 0
+        // TODO add check for totalReward to be 0
         if (totalRewards === null || totalRewards) {
             dispatch(warning({ text: messages.before_collect_rewards }));
         } else {
