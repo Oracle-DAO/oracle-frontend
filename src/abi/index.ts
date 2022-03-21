@@ -15,3 +15,5 @@ export { abi as TraderZapinContract } from "./TraderZapinContract.json";
 
 export { abi as FaucetContract } from "./faucet/MimFaucet.json";
 export { abi as TavContract } from "./TavContract.json";
+
+export { abi as RewardCalculator } from "./RewardContract.json";

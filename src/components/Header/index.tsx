@@ -6,7 +6,7 @@ import TimeMenu from "./time-menu";
 import ConnectButton from "./connect-button";
 import "./header.scss";
 import { DRAWER_WIDTH, TRANSITION_DURATION } from "../../constants/style";
-import WrapButton from "./wrap-button";
+import CollectRewardsButton from "./collect_rewards";
 
 interface IHeader {
     handleDrawerToggle: () => void;
@@ -55,7 +55,7 @@ function Header({ handleDrawerToggle, drawe }: IHeader) {
                     </div>
                     <div className="dapp-topbar-btns-wrap">
                         {!isVerySmallScreen && <TimeMenu />}
-                        {!isWrapShow && <WrapButton />}
+                        {!isWrapShow && <CollectRewardsButton />}
                         <ConnectButton />
                     </div>
                 </Toolbar>
