@@ -6,9 +6,6 @@ import "./time-menu.scss";
 import { IReduxState } from "../../../store/slices/state.interface";
 import { getTokenUrl } from "../../../helpers";
 import { useWeb3Context } from "../../../hooks";
-import { getTokens } from "../../../store/slices/faucet_thunk";
-import { warning } from "../../../store/slices/messages-slice";
-import { messages } from "../../../constants/messages";
 
 const addTokenToWallet = (tokenSymbol: string, tokenAddress: string) => async () => {
     const tokenImage = getTokenUrl(tokenSymbol.toLowerCase());
@@ -44,15 +41,15 @@ function TimeMenu() {
         return (state.app && state.app.networkID) || DEFAULD_NETWORK;
     });
 
-    const faucet = () => async () => {
-        if (!address) {
-            dispatch(warning({ text: messages.please_connect_wallet }));
-            return;
-        }
-        if (await checkWrongNetwork()) return;
-        const token = "MIM";
-        await dispatch(getTokens({ address, token, provider, networkID: chainID }));
-    };
+    // const faucet = () => async () => {
+    //     if (!address) {
+    //         dispatch(warning({ text: messages.please_connect_wallet }));
+    //         return;
+    //     }
+    //     if (await checkWrongNetwork()) return;
+    //     const token = "MIM";
+    //     await dispatch(getTokens({ address, token, provider, networkID: chainID }));
+    // };
 
     const addresses = getAddresses(networkID);
 

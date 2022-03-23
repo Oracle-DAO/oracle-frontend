@@ -83,7 +83,18 @@ function Dashboard() {
                         <Grid item lg={6} md={6} sm={6} xs={12}>
                             <div className="dashboard-card">
                                 <p className="card-title">TAV</p>
-                                <p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${Number(tav).toFixed(2)}`}</p>
+                                <p className="card-value">
+                                    {isAppLoading ? (
+                                        <Skeleton width="250px" />
+                                    ) : (
+                                        new Intl.NumberFormat("en-US", {
+                                            style: "currency",
+                                            currency: "USD",
+                                            maximumFractionDigits: 4,
+                                            minimumFractionDigits: 2,
+                                        }).format(app.tav)
+                                    )}
+                                </p>
                             </div>
                         </Grid>
 
@@ -140,7 +151,18 @@ function Dashboard() {
                         <Grid item lg={6} md={6} sm={6} xs={12}>
                             <div className="dashboard-card">
                                 <p className="card-title"> RFV </p>
-                                <p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${trim(Number(app.rfv), 2)}`}</p>
+                                <p className="card-value">
+                                    {isAppLoading ? (
+                                        <Skeleton width="250px" />
+                                    ) : (
+                                        `${new Intl.NumberFormat("en-US", {
+                                            style: "currency",
+                                            currency: "USD",
+                                            maximumFractionDigits: 2,
+                                            minimumFractionDigits: 2,
+                                        }).format(app.rfv)}`
+                                    )}
+                                </p>
                             </div>
                         </Grid>
                     </Grid>

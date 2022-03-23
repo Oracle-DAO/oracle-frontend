@@ -184,17 +184,7 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
             });
         });
     }
-    if (token.isAvax) {
-        const avaxBalance = await provider.getSigner().getBalance();
-        const avaxVal = ethers.utils.formatEther(avaxBalance);
 
-        return {
-            token: token.name,
-            tokenIcon: token.img,
-            balance: Number(avaxVal),
-            isAvax: true,
-        };
-    }
     const addresses = getAddresses(networkID);
     const tokenContract = new ethers.Contract(token.address, MimTokenContract, provider);
 
@@ -280,20 +270,20 @@ const accountSlice = createSlice({
             .addCase(calculateUserBondDetails.rejected, (state, { error }) => {
                 state.loading = false;
                 console.log(error);
-            })
-            .addCase(calculateUserTokenDetails.pending, (state, action) => {
-                state.loading = true;
-            })
-            .addCase(calculateUserTokenDetails.fulfilled, (state, action) => {
-                if (!action.payload) return;
-                const token = action.payload.token;
-                state.tokens[token] = action.payload;
-                state.loading = false;
-            })
-            .addCase(calculateUserTokenDetails.rejected, (state, { error }) => {
-                state.loading = false;
-                console.log(error);
             });
+        // .addCase(calculateUserTokenDetails.pending, (state, action) => {
+        //     state.loading = true;
+        // })
+        // .addCase(calculateUserTokenDetails.fulfilled, (state, action) => {
+        //     if (!action.payload) return;
+        //     const token = action.payload.token;
+        //     state.tokens[token] = action.payload;
+        //     state.loading = false;
+        // })
+        // .addCase(calculateUserTokenDetails.rejected, (state, { error }) => {
+        //     state.loading = false;
+        //     console.log(error);
+        // });
     },
 });
 

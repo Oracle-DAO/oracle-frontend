@@ -9,7 +9,6 @@ import { getGasPrice } from "../../helpers/get-gas-price";
 import { metamaskErrorWrap } from "../../helpers/metamask-error-wrap";
 import { sleep } from "../../helpers";
 import { clearPendingTxn, fetchPendingTxns } from "./pending-txns-slice";
-import { toNumber } from "lodash";
 
 interface IReward {
     provider: StaticJsonRpcProvider | JsonRpcProvider;
@@ -25,8 +24,7 @@ export const collectRewards = createAsyncThunk("reward/collectRewards", async ({
     let rewardTxn;
     try {
         const gasPrice = await getGasPrice(provider);
-        rewardTxn = await rewardCalculator.collectRewards(address, { gasPrice });
-
+        rewardTxn = await rewardCalculator.redeemTotalRewardsForUser(address, { gasPrice });
         dispatch(fetchPendingTxns({ txnHash: rewardTxn.hash, text: "CollectRewards", type: "getRewards" }));
         await rewardTxn.wait();
         dispatch(success({ text: messages.tx_successfully_send }));
@@ -38,11 +36,4 @@ export const collectRewards = createAsyncThunk("reward/collectRewards", async ({
         }
     }
     await sleep(2);
-});
-
-export const getRewards = createAsyncThunk("reward/getRewards", async ({ provider, address, networkID }: IReward, { dispatch }) => {
-    const addresses = getAddresses(networkID);
-    const signer = provider.getSigner();
-    const rewardCalculator = new ethers.Contract(addresses.REWARD_CALCULATOR, RewardCalculator, signer);
-    return toNumber(await rewardCalculator.getReward(address));
 });

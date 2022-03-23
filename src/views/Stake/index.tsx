@@ -112,16 +112,12 @@ function Stake() {
                                         <div className="stake-card-tvl">
                                             <p className="stake-card-metrics-title">TVL</p>
                                             <p className="stake-card-metrics-value">
-                                                {stakingTVL ? (
-                                                    new Intl.NumberFormat("en-US", {
-                                                        style: "currency",
-                                                        currency: "USD",
-                                                        maximumFractionDigits: 0,
-                                                        minimumFractionDigits: 0,
-                                                    }).format(stakingTVL)
-                                                ) : (
-                                                    <Skeleton width="150px" />
-                                                )}
+                                                {new Intl.NumberFormat("en-US", {
+                                                    style: "currency",
+                                                    currency: "USD",
+                                                    maximumFractionDigits: 0,
+                                                    minimumFractionDigits: 0,
+                                                }).format(stakingTVL)}
                                             </p>
                                         </div>
                                     </Grid>

@@ -12,6 +12,7 @@ import useBonds from "../../../hooks/bonds";
 import { Link } from "@material-ui/core";
 import "./drawer-content.scss";
 import YuzuSwapLogo from "../../../assets/icons/yuzu.0f21407f.svg";
+import ValleySwapLogo from "../../../assets/icons/logo_valley-swap.svg";
 import classnames from "classnames";
 
 function NavContent() {
@@ -122,12 +123,12 @@ function NavContent() {
                     </Link>
                 </div>
 
-                {/*<div className="dapp-menu-doc-link">*/}
-                {/*    <Link href="https://dex.valleyswap.com/#/swap" target="_blank">*/}
-                {/*        <img alt="" src={ValleySwapLogo} />*/}
-                {/*        <p>Buy On Valley Swap</p>*/}
-                {/*    </Link>*/}
-                {/*</div>*/}
+                <div className="dapp-menu-doc-link">
+                    <Link href="https://dex.valleyswap.com/#/swap" target="_blank">
+                        <img alt="" src={ValleySwapLogo} />
+                        <p>Buy On Valley Swap</p>
+                    </Link>
+                </div>
 
                 <Social />
             </div>

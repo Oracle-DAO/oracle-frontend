@@ -15,8 +15,8 @@ export const mim = new StableBond({
     reserveContractAbi: StableReserveContract,
     networkAddrs: {
         [Networks.OASIS]: {
-            bondAddress: "0xBbDe072A05C0d2D7c1ae65e8e59e30319c913CFE",
-            reserveAddress: "0x4aC703D42d867BAc41d280C889FB7455Ee080702",
+            bondAddress: "0xbB75D2F3283A473ebc9F457B3c0487078F1223e9",
+            reserveAddress: "0x4645ea401a4E500526E80361346e7a7D9e4D946e",
         },
     },
     tokensInStrategy: "",
@@ -48,8 +48,8 @@ export const mimOrcl = new LPBond({
     reserveContractAbi: LpReserveContract,
     networkAddrs: {
         [Networks.OASIS]: {
-            bondAddress: "",
-            reserveAddress: "0x41B2bC5796c929f4b20AfDA94AA0771d24b68b5C",
+            bondAddress: "0xb90D4514e2cDBd6435966676e7Eb3188Cd99099b",
+            reserveAddress: "0x4b6b46c01dC2e7C5c4f7c01adDB586f93e1aa498",
         },
     },
     lpUrl: "https://www.traderjoexyz.com/#/pool/0x130966628846BFd36ff31a822705796e8cb8C18D/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
