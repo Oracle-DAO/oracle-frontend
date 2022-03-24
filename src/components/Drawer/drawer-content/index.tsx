@@ -71,20 +71,6 @@ function NavContent() {
 
                     <Link
                         component={NavLink}
-                        to="/stake"
-                        isActive={(match: any, location: any) => {
-                            return checkPage(location, "stake");
-                        }}
-                        className={classnames("button-dapp-menu", { active: isActive })}
-                    >
-                        <div className="dapp-menu-item">
-                            <img alt="" src={StakeIcon} />
-                            <p>Stake</p>
-                        </div>
-                    </Link>
-
-                    <Link
-                        component={NavLink}
                         id="bond-nav"
                         to="/mints"
                         isActive={(match: any, location: any) => {
@@ -98,13 +84,26 @@ function NavContent() {
                         </div>
                     </Link>
 
+                    <Link
+                        component={NavLink}
+                        to="/stake"
+                        isActive={(match: any, location: any) => {
+                            return checkPage(location, "stake");
+                        }}
+                        className={classnames("button-dapp-menu", { active: isActive })}
+                    >
+                        <div className="dapp-menu-item">
+                            <img alt="" src={StakeIcon} />
+                            <p>Stake</p>
+                        </div>
+                    </Link>
+
                     <Link className={classnames("button-dapp-menu", { active: false })}>
                         <div className="dapp-menu-item">
                             <img alt="" src={LaunchPad} />
-                            <p>
-                                LaunchPads
-                                <span id="sup">Coming Soon</span>
-                            </p>
+                            <a className="launchpad-link" href="https://test.launchpad.oracledao.finance/">
+                                <p>LaunchPad</p>
+                            </a>
                         </div>
                     </Link>
                 </div>

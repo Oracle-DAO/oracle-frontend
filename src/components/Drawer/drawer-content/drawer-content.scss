@@ -3,7 +3,7 @@
   min-width: 280px;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to bottom, black , #3b2c38);
+  background: linear-gradient(to bottom, black, #3b2c38);
 
   .branding-header {
     display: flex;
@@ -15,8 +15,8 @@
 
     .wallet-link {
       margin: 10px;
-  
-      p{
+
+      p {
         font-family: Montserrat SemiBold;
         font-size: 14px;
         color: #FFFFFF;
@@ -24,7 +24,7 @@
     }
   }
 
-  .dapp-menu-links{
+  .dapp-menu-links {
     display: flex;
     align-items: center;
 
@@ -46,13 +46,21 @@
         }
       }
 
-      .button-dapp-menu{
-        .dapp-menu-item{
+      .button-dapp-menu {
+        .dapp-menu-item {
           display: flex;
           flex-direction: row;
           align-items: center;
-        
-          p{
+
+          .launchpad-link {
+            margin: 0;
+            font-weight: 600;
+            font-size: 16px;
+            color: #FFFFFF;
+            font-family: Montserrat SemiBold;
+          }
+
+          p {
             font-weight: 600;
             font-size: 16px;
             color: #FFFFFF;
@@ -62,8 +70,8 @@
       }
 
       .button-dapp-menu.active {
-        .dapp-menu-item{
-          p{
+        .dapp-menu-item {
+          p {
             text-decoration: underline;
           }
         }
@@ -72,25 +80,26 @@
       .bond-discounts {
         text-align: left;
         padding-left: 54px;
-      
-        a{
+
+        a {
           margin-left: 0;
           margin-top: 20px;
           margin-bottom: 20px;
         }
-      
-        p{
+
+        p {
           font-family: Montserrat;
           font-size: 14px;
           line-height: 17px;
           color: rgba(255, 255, 255, 0.6);
         }
-        
+
         .bond {
           display: block;
           padding: unset;
           margin-bottom: 0 0 1px 0;
           text-decoration: none !important;
+
           .bond-pair-roi {
             float: right;
             margin-left: 33px;
@@ -100,12 +109,12 @@
     }
   }
 
-  .dapp-menu-bottom-content{
+  .dapp-menu-bottom-content {
     margin-top: auto;
   }
 
-  .dapp-menu-doc-link{
-    
+  .dapp-menu-doc-link {
+
     a {
       display: flex;
       width: 100%;
@@ -120,7 +129,7 @@
         vertical-align: middle;
       }
 
-      p{
+      p {
         font-family: Montserrat SemiBold;
         font-weight: 600;
         font-size: 16px;
@@ -135,10 +144,12 @@
     flex-flow: row;
     justify-content: space-evenly;
     padding: 1.3rem;
+
     a {
       &:hover {
         transform: scale(1.1);
       }
+
       img {
         height: 20px;
         width: 20px;
@@ -147,23 +158,23 @@
   }
 }
 
-.MuiDrawer-root{
-  .MuiPaper-root{
-    
+.MuiDrawer-root {
+  .MuiPaper-root {
+
     z-index: 7;
 
     @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
       background: rgba(36, 39, 41, 0.1);
       backdrop-filter: blur(40px);
     }
-  
+
     /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
     @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
       background: #181B1C;
     }
   }
 
-  #sup{
+  #sup {
     vertical-align: super;
     font-size: x-small;
     margin-left: 5px;
