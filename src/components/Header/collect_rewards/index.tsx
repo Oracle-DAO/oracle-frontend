@@ -1,4 +1,3 @@
-import React from "react";
 import "./collect_rewards-button.scss";
 import { IPendingTxn, isPendingTxn, txnButtonText } from "../../../store/slices/pending-txns-slice";
 import { useWeb3Context } from "../../../hooks";

@@ -1,32 +1,51 @@
 .dapp-topbar {
-  width: 89%;
-  max-width: 833px;
-  align-items: center;
-  margin: auto;
+    justify-content: space-between;
+    padding: 2rem;
+    .dapp-topbar-slider-btn {
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+        border-radius: 10px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        margin-right: 16px;
+    }
 
-  .dapp-topbar-slider-btn{
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
-    border-radius: 10px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    margin-right: 16px;
-  }
+    .dapp-topbar-btns-wrap {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+    }
 
-  .dapp-topbar-btns-wrap{
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-  }
+    .wallet-address {
+        width: 281px;
+        background: #442c69;
+        border-radius: 16px;
+        padding: .8rem 1rem;
+        margin-right: 1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .red-dot {
+        content: "";
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        -moz-border-radius: 7.5px;
+        -webkit-border-radius: 7.5px;
+        border-radius: 7.5px;
+        background-color: red;
+        margin-right: 2rem;
+    }
 }
 
 @media screen and (min-width: 960px) {
-  .dapp-topbar{
-    .dapp-topbar-slider-btn{
-      display: none;
+    .dapp-topbar {
+        .dapp-topbar-slider-btn {
+            display: none;
+        }
     }
-  }
 }
