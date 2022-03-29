@@ -1,51 +1,47 @@
 .dashboard-view {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  overflow: hidden;
+    padding: 0 3rem;
 
-  width: 89%;
-  max-width: 833px;
-  margin: auto;
+    .card-wrapper {
+        display: flex;
+        flex-direction: row;
+        padding: 1rem;
+        background: rgba(247, 247, 247, 0.12);
+        backdrop-filter: blur(20px);
+        border-radius: 16px;
 
-  .dashboard-infos-wrap{
-    .dashboard-card{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
+        .card-icon {
+            background: rgba(176, 176, 176, 0.1);
+            border-radius: 14px;
+            height: 65px;
+            width: 65px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+        }
+        .dashboard-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
 
-      position: relative;
-      z-index: 2;
-      
-      @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-        background: rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(100px);
-      }
-    
-      /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
-      @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-        background: #181B1C;
-      }
+            .card-title {
+                font-family: Poppins;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 21px;
+                color: #ffffff;
+            }
 
-      border-radius: 10px;
-      padding: 13px 0;
-
-      .card-title {
-        font-family: Montserrat Medium;
-        font-weight: 500;
-        font-size: 20px;
-        color: rgba(255, 255, 255, 0.6);
-      }
-  
-      .card-value {
-        font-family: Montserrat Bold;
-        font-weight: bold;
-        font-size: 24px;
-        font-weight: bold;
-        color: #FFFFFF;
-      }
+            .card-value {
+                font-family: Poppins;
+                font-style: normal;
+                font-weight: 700;
+                font-size: 24px;
+                line-height: 36px;
+                color: #ffffff;
+            }
+        }
     }
-  }
 }

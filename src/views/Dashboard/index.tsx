@@ -1,10 +1,15 @@
 import { useSelector } from "react-redux";
 import { Grid, Zoom } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab";
+
 import { trim } from "../../helpers";
 import "./dashboard.scss";
-import { Skeleton } from "@material-ui/lab";
 import { IReduxState } from "../../store/slices/state.interface";
 import { IAppSlice } from "../../store/slices/app-slice";
+
+import { ReactComponent as WalletIcon } from "../../assets/icons/wallet-money.svg";
+import { ReactComponent as MoneyIcon } from "../../assets/icons/moneys.svg";
+import { ReactComponent as ChartIcon } from "../../assets/icons/chart-square.svg";
 
 function Dashboard() {
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
@@ -13,17 +18,21 @@ function Dashboard() {
     // const trimmedStakingAPY = Number(trim(app.stakingAPY * 100, 1));
     return (
         <div className="dashboard-view">
-            <div className="dashboard-infos-wrap">
-                <Zoom in={true}>
-                    <Grid container spacing={4}>
-                        <Grid item lg={6} md={6} sm={6} xs={12}>
+            <Zoom in={true}>
+                <Grid container spacing={4}>
+                    <Grid item lg={4} md={6} sm={6} xs={12}>
+                        <div className="card-wrapper">
+                            <div className="card-icon"><MoneyIcon /></div>
                             <div className="dashboard-card">
                                 <p className="card-title">ORCL Price</p>
                                 <p className="card-value">{isAppLoading ? <Skeleton width="100px" /> : `$${trim(app.marketPrice, 2)}`}</p>
                             </div>
-                        </Grid>
+                        </div>
+                    </Grid>
 
-                        <Grid item lg={6} md={6} sm={6} xs={12}>
+                    <Grid item lg={4} md={6} sm={6} xs={12}>
+                        <div className="card-wrapper">
+                            <div className="card-icon"><WalletIcon /></div>
                             <div className="dashboard-card">
                                 <p className="card-title">Market Cap</p>
                                 <p className="card-value">
@@ -39,9 +48,10 @@ function Dashboard() {
                                     )}
                                 </p>
                             </div>
-                        </Grid>
+                        </div>
+                    </Grid>
 
-                        {/* <Grid item lg={6} md={6} sm={6} xs={12}>
+                    {/* <Grid item lg={6} md={6} sm={6} xs={12}>
                             <div className="dashboard-card">
                                 <p className="card-title">Supply (Staked/Total)</p>
                                 <p className="card-value">
@@ -62,7 +72,9 @@ function Dashboard() {
                             </div>
                         </Grid> */}
 
-                        <Grid item lg={6} md={6} sm={6} xs={12}>
+                    <Grid item lg={4} md={6} sm={6} xs={12}>
+                        <div className="card-wrapper">
+                            <div className="card-icon"><ChartIcon /></div>
                             <div className="dashboard-card">
                                 <p className="card-title">TVL</p>
                                 <p className="card-value">
@@ -78,9 +90,12 @@ function Dashboard() {
                                     )}
                                 </p>
                             </div>
-                        </Grid>
+                        </div>
+                    </Grid>
 
-                        <Grid item lg={6} md={6} sm={6} xs={12}>
+                    <Grid item lg={4} md={6} sm={6} xs={12}>
+                        <div className="card-wrapper">
+                            <div className="card-icon"><MoneyIcon /></div>
                             <div className="dashboard-card">
                                 <p className="card-title">TAV</p>
                                 <p className="card-value">
@@ -96,16 +111,19 @@ function Dashboard() {
                                     )}
                                 </p>
                             </div>
-                        </Grid>
+                        </div>
+                    </Grid>
 
-                        {/*<Grid item lg={6} md={6} sm={6} xs={12}>*/}
-                        {/*    <div className="dashboard-card">*/}
-                        {/*        <p className="card-title">Current Index</p>*/}
-                        {/*        /!*<p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${trim(Number(app.currentIndex), 2)} ORCL`}</p>*!/*/}
-                        {/*    </div>*/}
-                        {/*</Grid>*/}
+                    {/*<Grid item lg={6} md={6} sm={6} xs={12}>*/}
+                    {/*    <div className="dashboard-card">*/}
+                    {/*        <p className="card-title">Current Index</p>*/}
+                    {/*        /!*<p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${trim(Number(app.currentIndex), 2)} ORCL`}</p>*!/*/}
+                    {/*    </div>*/}
+                    {/*</Grid>*/}
 
-                        <Grid item lg={6} md={6} sm={6} xs={12}>
+                    <Grid item lg={4} md={6} sm={6} xs={12}>
+                        <div className="card-wrapper">
+                            <div className="card-icon"><WalletIcon /></div>
                             <div className="dashboard-card">
                                 <p className="card-title">Treasury Balance</p>
                                 <p className="card-value">
@@ -121,34 +139,37 @@ function Dashboard() {
                                     )}
                                 </p>
                             </div>
-                        </Grid>
+                        </div>
+                    </Grid>
 
-                        {/*<Grid item lg={6} md={6} sm={6} xs={12}>*/}
-                        {/*    <div className="dashboard-card">*/}
-                        {/*        <p className="card-title">Backing per $ORCL</p>*/}
-                        {/*        <p className="card-value">*/}
-                        {/*            {isAppLoading ? (*/}
-                        {/*                <Skeleton width="250px" />*/}
-                        {/*            ) : (*/}
-                        {/*                new Intl.NumberFormat("en-US", {*/}
-                        {/*                    style: "currency",*/}
-                        {/*                    currency: "USD",*/}
-                        {/*                    maximumFractionDigits: 0,*/}
-                        {/*                    minimumFractionDigits: 0,*/}
-                        {/*                }).format(app.rfv)*/}
-                        {/*            )}*/}
-                        {/*        </p>*/}
-                        {/*    </div>*/}
-                        {/*</Grid>*/}
+                    {/*<Grid item lg={6} md={6} sm={6} xs={12}>*/}
+                    {/*    <div className="dashboard-card">*/}
+                    {/*        <p className="card-title">Backing per $ORCL</p>*/}
+                    {/*        <p className="card-value">*/}
+                    {/*            {isAppLoading ? (*/}
+                    {/*                <Skeleton width="250px" />*/}
+                    {/*            ) : (*/}
+                    {/*                new Intl.NumberFormat("en-US", {*/}
+                    {/*                    style: "currency",*/}
+                    {/*                    currency: "USD",*/}
+                    {/*                    maximumFractionDigits: 0,*/}
+                    {/*                    minimumFractionDigits: 0,*/}
+                    {/*                }).format(app.rfv)*/}
+                    {/*            )}*/}
+                    {/*        </p>*/}
+                    {/*    </div>*/}
+                    {/*</Grid>*/}
 
-                        {/*<Grid item lg={6} md={6} sm={6} xs={12}>*/}
-                        {/*    <div className="dashboard-card">*/}
-                        {/*        <p className="card-title">Runway</p>*/}
-                        {/*        /!*<p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${trim(Number(app.runway), 1)} Days`}</p>*!/*/}
-                        {/*    </div>*/}
-                        {/*</Grid>*/}
+                    {/*<Grid item lg={6} md={6} sm={6} xs={12}>*/}
+                    {/*    <div className="dashboard-card">*/}
+                    {/*        <p className="card-title">Runway</p>*/}
+                    {/*        /!*<p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${trim(Number(app.runway), 1)} Days`}</p>*!/*/}
+                    {/*    </div>*/}
+                    {/*</Grid>*/}
 
-                        <Grid item lg={6} md={6} sm={6} xs={12}>
+                    <Grid item lg={4} md={6} sm={6} xs={12}>
+                        <div className="card-wrapper">
+                            <div className="card-icon"><ChartIcon /></div>
                             <div className="dashboard-card">
                                 <p className="card-title"> RFV </p>
                                 <p className="card-value">
@@ -164,10 +185,10 @@ function Dashboard() {
                                     )}
                                 </p>
                             </div>
-                        </Grid>
+                        </div>
                     </Grid>
-                </Zoom>
-            </div>
+                </Grid>
+            </Zoom>
         </div>
     );
 }
