@@ -4,7 +4,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_ORCL",
+          "name": "_ORFI",
           "type": "address"
         },
         {
@@ -65,7 +65,7 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "orclMinted",
+          "name": "ORFIMinted",
           "type": "uint256"
         }
       ],
@@ -172,7 +172,7 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "orclBurned",
+          "name": "ORFIBurned",
           "type": "uint256"
         }
       ],
@@ -181,7 +181,7 @@
     },
     {
       "inputs": [],
-      "name": "ORCL",
+      "name": "ORFI",
       "outputs": [
         {
           "internalType": "address",
@@ -257,7 +257,7 @@
         },
         {
           "internalType": "uint256",
-          "name": "_orclAmount",
+          "name": "_ORFIAmount",
           "type": "uint256"
         }
       ],
@@ -310,7 +310,7 @@
           "type": "uint256"
         }
       ],
-      "name": "orclEqValue",
+      "name": "ORFIEqValue",
       "outputs": [
         {
           "internalType": "uint256",
@@ -361,7 +361,7 @@
     },
     {
       "inputs": [],
-      "name": "sORCL",
+      "name": "sORFI",
       "outputs": [
         {
           "internalType": "address",
@@ -376,11 +376,11 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_sORCL",
+          "name": "_sORFI",
           "type": "address"
         }
       ],
-      "name": "setStakedORCL",
+      "name": "setStakedORFI",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -413,7 +413,7 @@
     },
     {
       "inputs": [],
-      "name": "totalORCLMinted",
+      "name": "totalORFIMinted",
       "outputs": [
         {
           "internalType": "uint256",

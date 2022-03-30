@@ -55,13 +55,13 @@ export class LPBond extends Bond {
 
         let [reserve0, reserve1] = await token.getReserves();
         const token1: string = await token.token1();
-        const isORCL = token1.toLowerCase() === addresses.ORCL_ADDRESS.toLowerCase();
+        const isORFI = token1.toLowerCase() === addresses.ORFI_ADDRESS.toLowerCase();
 
-        return isToken ? this.toTokenDecimal(false, isORCL ? reserve0 : reserve1) : this.toTokenDecimal(true, isORCL ? reserve1 : reserve0);
+        return isToken ? this.toTokenDecimal(false, isORFI ? reserve0 : reserve1) : this.toTokenDecimal(true, isORFI ? reserve1 : reserve0);
     }
 
-    private toTokenDecimal(isORCL: boolean, reserve: number) {
-        return isORCL ? reserve / Math.pow(10, 9) : reserve / Math.pow(10, 18);
+    private toTokenDecimal(isORFI: boolean, reserve: number) {
+        return isORFI ? reserve / Math.pow(10, 9) : reserve / Math.pow(10, 18);
     }
 }
 

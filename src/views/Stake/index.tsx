@@ -21,16 +21,16 @@ function Stake() {
 
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
     const oracleBalance = useSelector<IReduxState, string>(state => {
-        return state.account.balances && state.account.balances.ORCL;
+        return state.account.balances && state.account.balances.ORFI;
     });
     const sOracleBalance = useSelector<IReduxState, string>(state => {
-        return state.account.balances && state.account.balances.sORCL;
+        return state.account.balances && state.account.balances.sORFI;
     });
     const stakeAllowance = useSelector<IReduxState, number>(state => {
-        return state.account.staking && state.account.staking.ORCL;
+        return state.account.staking && state.account.staking.ORFI;
     });
     const unstakeAllowance = useSelector<IReduxState, number>(state => {
-        return state.account.staking && state.account.staking.sORCL;
+        return state.account.staking && state.account.staking.sORFI;
     });
     const stakingTVL = useSelector<IReduxState, number>(state => {
         return state.app.stakingTVL;
@@ -74,8 +74,8 @@ function Stake() {
 
     const hasAllowance = useCallback(
         token => {
-            if (token === "ORCL") return stakeAllowance > 0;
-            if (token === "sORCL") return unstakeAllowance > 0;
+            if (token === "ORFI") return stakeAllowance > 0;
+            if (token === "sORFI") return unstakeAllowance > 0;
             return 0;
         },
         [stakeAllowance],
@@ -124,7 +124,7 @@ function Stake() {
 
                                     <Grid item xs={6} sm={4} md={4} lg={4}>
                                         <div className="stake-card-index">
-                                            <p className="stake-card-metrics-title">ORCL Price</p>
+                                            <p className="stake-card-metrics-title">ORFI Price</p>
                                             <p className="stake-card-metrics-value">{`$${trim(marketPrice, 2)}`}</p>
                                         </div>
                                     </Grid>
@@ -138,7 +138,7 @@ function Stake() {
                                     <div className="stake-card-wallet-connect-btn" onClick={connect}>
                                         <p>Connect Wallet</p>
                                     </div>
-                                    <p className="stake-card-wallet-desc-text">Connect your wallet to stake ORCL tokens!</p>
+                                    <p className="stake-card-wallet-desc-text">Connect your wallet to stake ORFI tokens!</p>
                                 </div>
                             )}
                             {address && (
@@ -172,7 +172,7 @@ function Stake() {
 
                                             {view === 0 && (
                                                 <div className="stake-card-tab-panel">
-                                                    {address && hasAllowance("ORCL") ? (
+                                                    {address && hasAllowance("ORFI") ? (
                                                         <div
                                                             className="stake-card-tab-panel-btn"
                                                             onClick={() => {
@@ -180,14 +180,14 @@ function Stake() {
                                                                 onChangeStake("stake");
                                                             }}
                                                         >
-                                                            <p>{txnButtonText(pendingTransactions, "staking", "Stake ORCL")}</p>
+                                                            <p>{txnButtonText(pendingTransactions, "staking", "Stake ORFI")}</p>
                                                         </div>
                                                     ) : (
                                                         <div
                                                             className="stake-card-tab-panel-btn"
                                                             onClick={() => {
                                                                 if (isPendingTxn(pendingTransactions, "approve_staking")) return;
-                                                                onSeekApproval("ORCL");
+                                                                onSeekApproval("ORFI");
                                                             }}
                                                         >
                                                             <p>{txnButtonText(pendingTransactions, "approve_staking", "Approve")}</p>
@@ -198,7 +198,7 @@ function Stake() {
 
                                             {view === 1 && (
                                                 <div className="stake-card-tab-panel">
-                                                    {address && hasAllowance("sORCL") ? (
+                                                    {address && hasAllowance("sORFI") ? (
                                                         <div
                                                             className="stake-card-tab-panel-btn"
                                                             onClick={() => {
@@ -206,14 +206,14 @@ function Stake() {
                                                                 onChangeStake("unstake");
                                                             }}
                                                         >
-                                                            <p>{txnButtonText(pendingTransactions, "unstaking", "Unstake ORCL")}</p>
+                                                            <p>{txnButtonText(pendingTransactions, "unstaking", "Unstake ORFI")}</p>
                                                         </div>
                                                     ) : (
                                                         <div
                                                             className="stake-card-tab-panel-btn"
                                                             onClick={() => {
                                                                 if (isPendingTxn(pendingTransactions, "approve_unstaking")) return;
-                                                                onSeekApproval("sORCL");
+                                                                onSeekApproval("sORFI");
                                                             }}
                                                         >
                                                             <p>{txnButtonText(pendingTransactions, "approve_unstaking", "Approve")}</p>
@@ -224,7 +224,7 @@ function Stake() {
                                         </div>
 
                                         <div className="stake-card-action-help-text">
-                                            {address && ((!hasAllowance("ORCL") && view === 0) || (!hasAllowance("sORCL") && view === 1)) && (
+                                            {address && ((!hasAllowance("ORFI") && view === 0) || (!hasAllowance("sORFI") && view === 1)) && (
                                                 <p>
                                                     Note: The "Approve" transaction is only needed when staking/unstaking for the first time; subsequent staking/unstaking only
                                                     requires you to perform the "Stake" or "Unstake" transaction.
@@ -236,12 +236,12 @@ function Stake() {
                                     <div className="stake-user-data">
                                         <div className="data-row">
                                             <p className="data-row-name">Your Balance</p>
-                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trim(Number(oracleBalance), 4)} ORCL</>}</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trim(Number(oracleBalance), 4)} ORFI</>}</p>
                                         </div>
 
                                         <div className="data-row">
                                             <p className="data-row-name">Your Staked Balance</p>
-                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trimmedsOracleBalance} sORCL</>}</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trimmedsOracleBalance} sORFI</>}</p>
                                         </div>
                                     </div>
                                 </div>

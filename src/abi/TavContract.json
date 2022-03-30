@@ -4,7 +4,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_orcl",
+          "name": "_ORFI",
           "type": "address"
         },
         {
@@ -18,10 +18,10 @@
     },
     {
       "inputs": [],
-      "name": "ORCL",
+      "name": "ORFI",
       "outputs": [
         {
-          "internalType": "contract IORCL",
+          "internalType": "contract IORFI",
           "name": "",
           "type": "address"
         }

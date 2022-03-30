@@ -22,26 +22,9 @@ export const mim = new StableBond({
     tokensInStrategy: "",
 });
 
-// TODO change this
-// export const wMetis = new CustomBond({
-//     name: "wMMetis",
-//     displayName: "wMetis",
-//     bondToken: "wMETIS",
-//     bondIconSvg: AvaxIcon,
-//     bondContractABI: WavaxBondContract,
-//     reserveContractAbi: StableReserveContract,
-//     networkAddrs: {
-//         [Networks.STARDUST]: {
-//             bondAddress: "0xE02B1AA2c4BE73093BE79d763fdFFC0E3cf67318",
-//             reserveAddress: "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7",
-//         },
-//     },
-//     tokensInStrategy: "756916000000000000000000",
-// });
-
-export const mimOrcl = new LPBond({
-    name: "mim_orcl_lp",
-    displayName: "ORCL-MIM LP",
+export const mimORFI = new LPBond({
+    name: "mim_ORFI_lp",
+    displayName: "ORFI-MIM LP",
     bondToken: "MIM",
     bondIconSvg: MimIcon,
     bondContractABI: LpBondContract,
@@ -57,7 +40,7 @@ export const mimOrcl = new LPBond({
 
 // export const avaxTime = new CustomLPBond({
 //     name: "avax_time_lp",
-//     displayName: "ORCL-AVAX LP",
+//     displayName: "ORFI-AVAX LP",
 //     bondToken: "AVAX",
 //     bondIconSvg: AvaxTimeIcon,
 //     bondContractABI: LpBondContract,

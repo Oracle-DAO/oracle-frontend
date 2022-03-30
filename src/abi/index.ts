@@ -3,8 +3,8 @@ export { abi as LpBondContract } from "./bonds/LpContract.json";
 export { abi as StableReserveContract } from "./reserves/StableContract.json";
 export { abi as LpReserveContract } from "./reserves/LpContract.json";
 
-export { abi as sORCLTokenContract } from "./tokens/sORCLContract.json";
-export { abi as ORCLTokenContract } from "./tokens/ORCLContract..json";
+export { abi as sORFITokenContract } from "./tokens/sORFIContract.json";
+export { abi as ORFITokenContract } from "./tokens/ORFIContract..json";
 export { abi as MimTokenContract } from "./tokens/MimContract.json";
 
 export { abi as BondingCalcContract } from "./BondingCalcContract.json";
