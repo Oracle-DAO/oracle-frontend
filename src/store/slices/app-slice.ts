@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { ORCLTokenContract, sORCLTokenContract, StakingContract, TavContract } from "../../abi";
+import { ORFITokenContract, sORFITokenContract, StakingContract, TavContract } from "../../abi";
 import { getMarketPrice, getTokenPrice, setAll } from "../../helpers";
 import { createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit";
 import { JsonRpcProvider } from "@ethersproject/providers";
@@ -22,8 +22,8 @@ export const loadAppDetails = createAsyncThunk(
         const stakingContract = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, provider);
         const currentBlock = await provider.getBlockNumber();
         const currentBlockTime = (await provider.getBlock(currentBlock)).timestamp;
-        const sOracleContract = new ethers.Contract(addresses.sORCL_ADDRESS, sORCLTokenContract, provider);
-        const oracleContract = new ethers.Contract(addresses.ORCL_ADDRESS, ORCLTokenContract, provider);
+        const sOracleContract = new ethers.Contract(addresses.sORFI_ADDRESS, sORFITokenContract, provider);
+        const oracleContract = new ethers.Contract(addresses.ORFI_ADDRESS, ORFITokenContract, provider);
         const tavContract = new ethers.Contract(addresses.TAV_CALCULATOR_ADDRESS, TavContract, provider);
 
         // TODO revisit
@@ -44,12 +44,12 @@ export const loadAppDetails = createAsyncThunk(
         const tokenAmounts = await Promise.all(tokenAmountsPromises);
         const rfvTreasury = tokenAmounts.reduce((tokenAmount0, tokenAmount1) => tokenAmount0 + tokenAmount1, 0);
 
-        const ORCLBondsAmountsPromises = allBonds.map(bond => bond.getoracleAmount(networkID, provider));
-        const ORCLBondsAmounts = await Promise.all(ORCLBondsAmountsPromises);
-        const oracleAmount = ORCLBondsAmounts.reduce((oracleAmount0, oracleAmount1) => oracleAmount0 + oracleAmount1, 0);
-        const ORCLSupply = totalSupply - oracleAmount;
+        const ORFIBondsAmountsPromises = allBonds.map(bond => bond.getoracleAmount(networkID, provider));
+        const ORFIBondsAmounts = await Promise.all(ORFIBondsAmountsPromises);
+        const oracleAmount = ORFIBondsAmounts.reduce((oracleAmount0, oracleAmount1) => oracleAmount0 + oracleAmount1, 0);
+        const ORFISupply = totalSupply - oracleAmount;
 
-        const rfv = rfvTreasury / ORCLSupply;
+        const rfv = rfvTreasury / ORFISupply;
 
         const treasuryRunway = rfvTreasury / circSupply;
 

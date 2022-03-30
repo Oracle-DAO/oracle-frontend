@@ -60,7 +60,7 @@ function ChooseBond() {
                                     <ChartIcon />
                                 </div>
                                 <div className="card">
-                                    <p className="card-title">ORCL Price</p>
+                                    <p className="card-title">ORFI Price</p>
                                     <p className="card-value">{isAppLoading ? <Skeleton width="100px" /> : trim(marketPrice, 2)}</p>
                                 </div>
                             </div>

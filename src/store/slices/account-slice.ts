@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { MimTokenContract, ORCLTokenContract, sORCLTokenContract } from "../../abi";
+import { MimTokenContract, ORFITokenContract, sORFITokenContract } from "../../abi";
 import { setAll } from "../../helpers";
 
 import { createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit";
@@ -18,23 +18,23 @@ interface IGetBalances {
 
 interface IAccountBalances {
     balances: {
-        sORCL: string;
-        ORCL: string;
+        sORFI: string;
+        ORFI: string;
     };
 }
 
 export const getBalances = createAsyncThunk("account/getBalances", async ({ address, networkID, provider }: IGetBalances): Promise<IAccountBalances> => {
     const addresses = getAddresses(networkID);
 
-    const sOracleContract = new ethers.Contract(addresses.sORCL_ADDRESS, sORCLTokenContract, provider);
+    const sOracleContract = new ethers.Contract(addresses.sORFI_ADDRESS, sORFITokenContract, provider);
     const sOracleBalance = await sOracleContract.balanceOf(address);
-    const oracleContract = new ethers.Contract(addresses.ORCL_ADDRESS, ORCLTokenContract, provider);
+    const oracleContract = new ethers.Contract(addresses.ORFI_ADDRESS, ORFITokenContract, provider);
     const orcaleBalance = await oracleContract.balanceOf(address);
 
     return {
         balances: {
-            sORCL: ethers.utils.formatUnits(sOracleBalance, "ether"),
-            ORCL: ethers.utils.formatUnits(orcaleBalance, "ether"),
+            sORFI: ethers.utils.formatUnits(sOracleBalance, "ether"),
+            ORFI: ethers.utils.formatUnits(orcaleBalance, "ether"),
         },
     };
 });
@@ -47,12 +47,12 @@ interface ILoadAccountDetails {
 
 interface IUserAccountDetails {
     balances: {
-        ORCL: string;
-        sORCL: string;
+        ORFI: string;
+        sORFI: string;
     };
     staking: {
-        ORCL: number;
-        sORCL: number;
+        ORFI: number;
+        sORFI: number;
     };
 }
 
@@ -65,26 +65,26 @@ export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails",
 
     const addresses = getAddresses(networkID);
 
-    if (addresses.ORCL_ADDRESS) {
-        const oracleContract = new ethers.Contract(addresses.ORCL_ADDRESS, ORCLTokenContract, provider);
+    if (addresses.ORFI_ADDRESS) {
+        const oracleContract = new ethers.Contract(addresses.ORFI_ADDRESS, ORFITokenContract, provider);
         oracleBalance = await oracleContract.balanceOf(address);
         stakeAllowance = await oracleContract.allowance(address, addresses.STAKING_ADDRESS);
     }
 
-    if (addresses.sORCL_ADDRESS) {
-        const sOracleContract = new ethers.Contract(addresses.sORCL_ADDRESS, sORCLTokenContract, provider);
+    if (addresses.sORFI_ADDRESS) {
+        const sOracleContract = new ethers.Contract(addresses.sORFI_ADDRESS, sORFITokenContract, provider);
         sOracleBalance = await sOracleContract.balanceOf(address);
         unstakeAllowance = await sOracleContract.allowance(address, addresses.STAKING_ADDRESS);
     }
 
     return {
         balances: {
-            sORCL: ethers.utils.formatUnits(sOracleBalance, "ether"),
-            ORCL: ethers.utils.formatUnits(oracleBalance, "ether"),
+            sORFI: ethers.utils.formatUnits(sOracleBalance, "ether"),
+            ORFI: ethers.utils.formatUnits(oracleBalance, "ether"),
         },
         staking: {
-            ORCL: Number(stakeAllowance),
-            sORCL: Number(unstakeAllowance),
+            ORFI: Number(stakeAllowance),
+            sORFI: Number(unstakeAllowance),
         },
     };
 });
@@ -207,13 +207,13 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
 export interface IAccountSlice {
     bonds: { [key: string]: IUserBondDetails };
     balances: {
-        sORCL: string;
-        ORCL: string;
+        sORFI: string;
+        ORFI: string;
     };
     loading: boolean;
     staking: {
-        ORCL: number;
-        sORCL: number;
+        ORFI: number;
+        sORFI: number;
     };
     tokens: { [key: string]: IUserTokenDetails };
 }
@@ -221,8 +221,8 @@ export interface IAccountSlice {
 const initialState: IAccountSlice = {
     loading: true,
     bonds: {},
-    balances: { sORCL: "", ORCL: "" },
-    staking: { ORCL: 0, sORCL: 0 },
+    balances: { sORFI: "", ORFI: "" },
+    staking: { ORFI: 0, sORFI: 0 },
     tokens: {},
 };
 

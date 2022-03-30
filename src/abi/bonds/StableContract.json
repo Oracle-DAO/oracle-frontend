@@ -4,7 +4,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_ORCL",
+          "name": "_ORFI",
           "type": "address"
         },
         {
@@ -331,7 +331,7 @@
     },
     {
       "inputs": [],
-      "name": "ORCL",
+      "name": "ORFI",
       "outputs": [
         {
           "internalType": "contract IERC20",

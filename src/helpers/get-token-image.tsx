@@ -1,5 +1,5 @@
-import ORCLImg from "../assets/tokens/ORCL.png";
-import sORCLImg from "../assets/tokens/sORCL.png";
+import ORFIImg from "../assets/tokens/ORFI.png";
+import sORFIImg from "../assets/tokens/sORFI.png";
 
 function toUrl(tokenPath: string): string {
     const host = window.location.origin;
@@ -7,12 +7,12 @@ function toUrl(tokenPath: string): string {
 }
 
 export function getTokenUrl(name: string) {
-    if (name === "orcl") {
-        return toUrl(ORCLImg);
+    if (name === "ORFI") {
+        return toUrl(ORFIImg);
     }
 
-    if (name === "sorcl") {
-        return toUrl(sORCLImg);
+    if (name === "sORFI") {
+        return toUrl(sORFIImg);
     }
 
     throw Error(`Token url doesn't support: ${name}`);

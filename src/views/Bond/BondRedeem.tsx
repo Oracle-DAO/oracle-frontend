@@ -1,8 +1,8 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Box, Slide } from "@material-ui/core";
 import { IBondDetails, redeemBond } from "../../store/slices/bond-slice";
 import { useWeb3Context } from "../../hooks";
-import { trim, prettifySeconds, prettyVestingPeriod } from "../../helpers";
+import { prettifySeconds, prettyVestingPeriod, trim } from "../../helpers";
 import { IPendingTxn, isPendingTxn, txnButtonText } from "../../store/slices/pending-txns-slice";
 import { Skeleton } from "@material-ui/lab";
 import { IReduxState } from "../../store/slices/state.interface";
@@ -50,7 +50,7 @@ function BondRedeem({ bond }: IBondRedeem) {
 
     const vestingTime = () => {
         if (!bondDetails) {
-            return "";
+            return "0";
         }
         return prettyVestingPeriod(currentBlockTime, bondDetails.bondMaturationBlock);
     };
@@ -86,11 +86,11 @@ function BondRedeem({ bond }: IBondRedeem) {
                 <Box className="bond-data">
                     <div className="data-row">
                         <p className="bond-balance-title">Pending Rewards</p>
-                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.interestDue, 4)} ORCL`}</p>
+                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.interestDue, 4)} ORFI`}</p>
                     </div>
                     <div className="data-row">
                         <p className="bond-balance-title">Claimable Rewards</p>
-                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.pendingPayout, 4)} ORCL`}</p>
+                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.pendingPayout, 4)} ORFI`}</p>
                     </div>
                     <div className="data-row">
                         <p className="bond-balance-title">Time until fully vested</p>

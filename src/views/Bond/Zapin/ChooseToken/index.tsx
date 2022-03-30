@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ReactComponent as XIcon } from "../../../../assets/icons/x.svg";
-import { Box, Modal, Paper, SvgIcon, IconButton, OutlinedInput, InputAdornment } from "@material-ui/core";
+import { Box, IconButton, InputAdornment, Modal, OutlinedInput, Paper, SvgIcon } from "@material-ui/core";
 import "./choose-token.scss";
 
 import IconsSearch from "../../../../assets/icons/akar-icons_search.svg";
@@ -42,10 +42,6 @@ function ChooseToken({ open, handleClose, handleSelect, bond }: IChooseTokenProp
         if (bond.name === mim.name) {
             lpFilter = mimToken.address !== address;
         }
-
-        // if (bond.name === wMetis.name) {
-        //     lpFilter = isAvax ? false : wavaxToken.address !== address;
-        // }
 
         return nameTest && addressTest && lpFilter;
     });
