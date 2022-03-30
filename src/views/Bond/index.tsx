@@ -13,6 +13,8 @@ import { IReduxState } from "../../store/slices/state.interface";
 import { IAllBondData } from "../../hooks/bonds";
 import classnames from "classnames";
 
+import { ReactComponent as MoneyIcon } from "../../assets/icons/moneys.svg";
+
 interface IBondProps {
     bond: IAllBondData;
 }
@@ -47,15 +49,23 @@ function Bond({ bond }: IBondProps) {
                             <BondHeader bond={bond} slippage={slippage} onSlippageChange={onSlippageChange} />
                             {/* @ts-ignore */}
                             <Box direction="row" className="bond-price-data-row">
-                                <div className="bond-price-data">
-                                    <p className="bond-price-data-title">Bond Price</p>
-                                    <p className="bond-price-data-value">
-                                        {isBondLoading ? <Skeleton /> : bond.isLP || bond.name === "wavax" ? `$${trim(bond.bondPrice, 2)}` : `${trim(bond.bondPrice, 2)} MIM`}
-                                    </p>
+                                <div className="card-wrapper">
+                                    <div className="card-icon"><MoneyIcon /></div>
+                                    <div className="card">
+                                        <p className="card-title">Bond Price</p>
+                                        <p className="card-value">
+                                            {isBondLoading ? <Skeleton /> : bond.isLP || bond.name === "wavax" ? `$${trim(bond.bondPrice, 2)}` : `${trim(bond.bondPrice, 2)} MIM`}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="bond-price-data">
-                                    <p className="bond-price-data-title">ORCL Price</p>
-                                    <p className="bond-price-data-value">{isBondLoading ? <Skeleton /> : `$${trim(marketPrice, 2)}`}</p>
+                                <div className="card-wrapper">
+                                    <div className="card-icon"><MoneyIcon /></div>
+                                    <div className="card">
+                                        <p className="card-title">ORCL Price</p>
+                                        <p className="card-value">
+                                            {isBondLoading ? <Skeleton /> : `$${trim(marketPrice, 2)}`}
+                                        </p>
+                                    </div>
                                 </div>
                             </Box>
 
