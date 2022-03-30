@@ -1,12 +1,16 @@
 import { useSelector } from "react-redux";
-import { Box, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Zoom } from "@material-ui/core";
-import { BondDataCard, BondTableData } from "./BondRow";
+import { Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Zoom } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { Skeleton } from "@material-ui/lab";
+
 import { trim } from "../../helpers";
 import useBonds from "../../hooks/bonds";
+import { BondDataCard, BondTableData } from "./BondRow";
 import "./choosebond.scss";
-import { Skeleton } from "@material-ui/lab";
 import { IReduxState } from "../../store/slices/state.interface";
+
+import { ReactComponent as MoneyIcon } from "../../assets/icons/moneys.svg";
+import { ReactComponent as ChartIcon } from "../../assets/icons/chart-square.svg";
 
 function ChooseBond() {
     const { bonds } = useBonds();
@@ -24,41 +28,47 @@ function ChooseBond() {
     return (
         <div className="choose-bond-view">
             <Zoom in={true}>
-                <div className="choose-bond-view-card">
-                    <div className="choose-bond-view-card-header">
-                        <p className="choose-bond-view-card-title"> Bonds</p>
-                    </div>
-
-                    <Grid container item xs={12} spacing={2} className="choose-bond-view-card-metrics">
-                        <Grid item xs={12} sm={6}>
-                            <Box textAlign="center">
-                                <p className="choose-bond-view-card-metrics-title">Treasury Balance</p>
-                                <p className="choose-bond-view-card-metrics-value">
-                                    {isAppLoading ? (
-                                        <Skeleton width="180px" />
-                                    ) : (
-                                        new Intl.NumberFormat("en-US", {
-                                            style: "currency",
-                                            currency: "USD",
-                                            maximumFractionDigits: 0,
-                                            minimumFractionDigits: 0,
-                                        }).format(treasuryBalance)
-                                    )}
-                                </p>
-                            </Box>
+                <div className="bonds-wrapper">
+                    <p className="section-title">Bonds</p>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6} md={6} lg={6}>
+                            <div className="card-wrapper">
+                                <div className="card-icon">
+                                    <MoneyIcon />
+                                </div>
+                                <div className="card">
+                                    <p className="card-title">Treasury Balance</p>
+                                    <p className="card-value">
+                                        {isAppLoading ? (
+                                            <Skeleton width="180px" />
+                                        ) : (
+                                            new Intl.NumberFormat("en-US", {
+                                                style: "currency",
+                                                currency: "USD",
+                                                maximumFractionDigits: 0,
+                                                minimumFractionDigits: 0,
+                                            }).format(treasuryBalance)
+                                        )}
+                                    </p>
+                                </div>
+                            </div>
                         </Grid>
 
-                        <Grid item xs={12} sm={6}>
-                            <Box textAlign="center">
-                                <p className="choose-bond-view-card-metrics-title">ORCL Price</p>
-                                <p className="choose-bond-view-card-metrics-value">{isAppLoading ? <Skeleton width="100px" /> : trim(marketPrice, 2)}</p>
-                            </Box>
+                        <Grid item xs={12} sm={6} md={6} lg={6}>
+                            <div className="card-wrapper">
+                                <div className="card-icon">
+                                    <ChartIcon />
+                                </div>
+                                <div className="card">
+                                    <p className="card-title">ORCL Price</p>
+                                    <p className="card-value">{isAppLoading ? <Skeleton width="100px" /> : trim(marketPrice, 2)}</p>
+                                </div>
+                            </div>
                         </Grid>
                     </Grid>
-
                     {!isSmallScreen && (
                         <Grid container item>
-                            <TableContainer className="choose-bond-view-card-table">
+                            <TableContainer>
                                 <Table>
                                     <TableHead>
                                         <TableRow>

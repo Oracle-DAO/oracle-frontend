@@ -7,6 +7,7 @@ import ConnectButton from "./connect-button";
 import "./header.scss";
 import { DRAWER_WIDTH, TRANSITION_DURATION } from "../../constants/style";
 import CollectRewardsButton from "./collect_rewards";
+import { useWeb3Context } from "../../hooks";
 
 interface IHeader {
     handleDrawerToggle: () => void;
@@ -17,10 +18,7 @@ const useStyles = makeStyles(theme => ({
     appBar: {
         [theme.breakpoints.up("sm")]: {
             width: "100%",
-            padding: "20px 0 30px 0",
         },
-        justifyContent: "flex-end",
-        alignItems: "flex-end",
         background: "transparent",
         backdropFilter: "none",
         zIndex: 10,
@@ -44,7 +42,9 @@ const useStyles = makeStyles(theme => ({
 function Header({ handleDrawerToggle, drawe }: IHeader) {
     const classes = useStyles();
     const isVerySmallScreen = useMediaQuery("(max-width: 400px)");
+    const isSmallScreen = useMediaQuery("(max-width: 800px)");
     const isWrapShow = useMediaQuery("(max-width: 480px)");
+    const { connected, address } = useWeb3Context();
 
     return (
         <div className={`${classes.topBar} ${!drawe && classes.topBarShift}`}>
@@ -54,6 +54,12 @@ function Header({ handleDrawerToggle, drawe }: IHeader) {
                         <img src={MenuIcon} alt="" />
                     </div>
                     <div className="dapp-topbar-btns-wrap">
+                        {connected && !isSmallScreen && (
+                            <>
+                                <p className="wallet-address">{address}</p>
+                                <p className="red-dot"></p>
+                            </>
+                        )}
                         {!isVerySmallScreen && <TimeMenu />}
                         {!isWrapShow && <CollectRewardsButton />}
                         <ConnectButton />

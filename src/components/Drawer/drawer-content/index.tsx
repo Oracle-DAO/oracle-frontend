@@ -1,18 +1,19 @@
 import { useCallback, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Social from "./social";
-import StakeIcon from "../../../assets/icons/stake.svg";
-import DocsIcon from "../../../assets/icons/stake.svg";
-import BondIcon from "../../../assets/icons/bond.svg";
+
 import OracleDaoIcon from "../../../assets/icons/oracle-logo.svg";
-import DashboardIcon from "../../../assets/icons/dashboard.svg";
-import LaunchPad from "../../../assets/icons/launchpads.png";
+
+import { ReactComponent as DashboardIcon } from "../../../assets/icons/dashboard-icon.svg";
+import { ReactComponent as StakeIcon } from "../../../assets/icons/stake-icon.svg";
+import { ReactComponent as BondIcon } from "../../../assets/icons/bond-icon.svg";
+import { ReactComponent as LaunchPad } from "../../../assets/icons/launchpad-icon.svg";
+import { ReactComponent as DocsIcon } from "../../../assets/icons/setting-sm.svg";
+
 import { useAddress } from "../../../hooks";
 import useBonds from "../../../hooks/bonds";
 import { Link } from "@material-ui/core";
 import "./drawer-content.scss";
-import YuzuSwapLogo from "../../../assets/icons/yuzu.0f21407f.svg";
-import ValleySwapLogo from "../../../assets/icons/logo_valley-swap.svg";
 import classnames from "classnames";
 
 function NavContent() {
@@ -41,7 +42,7 @@ function NavContent() {
         <div className="dapp-sidebar">
             <div className="branding-header">
                 <Link href="https://testapp.oracledao.finance" target="_blank">
-                    <img alt="" src={OracleDaoIcon} style={{ width: 180, height: 180 }} />
+                    <img alt="" src={OracleDaoIcon} style={{ width: 150 }} />
                 </Link>
 
                 {/*{address && (*/}
@@ -54,83 +55,64 @@ function NavContent() {
             </div>
 
             <div className="dapp-menu-links">
-                <div className="dapp-nav">
-                    <Link
-                        component={NavLink}
-                        to="/dashboard"
-                        isActive={(match: any, location: any) => {
-                            return checkPage(location, "dashboard");
-                        }}
-                        className={classnames("button-dapp-menu", { active: isActive })}
-                    >
-                        <div className="dapp-menu-item">
-                            <img alt="" src={DashboardIcon} />
-                            <p>Dashboard</p>
-                        </div>
-                    </Link>
+                <Link
+                    component={NavLink}
+                    to="/dashboard"
+                    isActive={(match: any, location: any) => {
+                        return checkPage(location, "dashboard");
+                    }}
+                    className={classnames("button-dapp-menu", { active: isActive })}
+                >
+                    <DashboardIcon />
+                    <p>Dashboard</p>
+                </Link>
 
-                    <Link
-                        component={NavLink}
-                        id="bond-nav"
-                        to="/mints"
-                        isActive={(match: any, location: any) => {
-                            return checkPage(location, "mints");
-                        }}
-                        className={classnames("button-dapp-menu", { active: isActive })}
-                    >
-                        <div className="dapp-menu-item">
-                            <img alt="" src={BondIcon} />
-                            <p>Bond</p>
-                        </div>
-                    </Link>
+                <Link
+                    component={NavLink}
+                    to="/stake"
+                    isActive={(match: any, location: any) => {
+                        return checkPage(location, "stake");
+                    }}
+                    className={classnames("button-dapp-menu", { active: isActive })}
+                >
+                    <StakeIcon />
+                    <p>Stake</p>
+                </Link>
 
-                    <Link
-                        component={NavLink}
-                        to="/stake"
-                        isActive={(match: any, location: any) => {
-                            return checkPage(location, "stake");
-                        }}
-                        className={classnames("button-dapp-menu", { active: isActive })}
-                    >
-                        <div className="dapp-menu-item">
-                            <img alt="" src={StakeIcon} />
-                            <p>Stake</p>
-                        </div>
-                    </Link>
+                <Link
+                    component={NavLink}
+                    id="bond-nav"
+                    to="/mints"
+                    isActive={(match: any, location: any) => {
+                        return checkPage(location, "mints");
+                    }}
+                    className={classnames("button-dapp-menu", { active: isActive })}
+                >
+                    <BondIcon />
+                    <p>Bond</p>
+                </Link>
 
-                    <Link className={classnames("button-dapp-menu", { active: false })}>
-                        <div className="dapp-menu-item">
-                            <img alt="" src={LaunchPad} />
-                            <a className="launchpad-link" href="https://test.launchpad.oracledao.finance/">
-                                <p>LaunchPad</p>
-                            </a>
-                        </div>
-                    </Link>
-                </div>
+                <a href="https://test.launchpad.oracledao.finance/" target="_blank" className="button-dapp-menu">
+                    <LaunchPad />
+                    <p>LaunchPad</p>
+                </a>
             </div>
             <div className="dapp-menu-bottom-content">
-                <div className="dapp-menu-doc-link">
-                    <Link href="https://docs.oracledao.finance/" target="_blank">
-                        <img alt="" src={DocsIcon} />
-                        <p>Docs</p>
-                    </Link>
-                </div>
-                <div className="dapp-menu-doc-link">
-                    <Link href="https://app.yuzu-swap.com/#/swap" target="_blank">
-                        <img alt="" src={YuzuSwapLogo} />
-                        <p>Buy On Yuzu Swap</p>
-                    </Link>
-                </div>
+                <Link href="https://docs.oracledao.finance/" target="_blank">
+                    <DocsIcon />
+                    <p>Docs</p>
+                </Link>
+                <Link href="https://app.yuzu-swap.com/#/swap" target="_blank">
+                    <DocsIcon />
+                    <p>Buy On Yuzu Swap</p>
+                </Link>
 
-                <div className="dapp-menu-doc-link">
-                    <Link href="https://dex.valleyswap.com/#/swap" target="_blank">
-                        <img alt="" src={ValleySwapLogo} />
-                        <p>Buy On Valley Swap</p>
-                    </Link>
-                </div>
-
-                <Social />
+                <Link href="https://dex.valleyswap.com/#/swap" target="_blank">
+                    <DocsIcon />
+                    <p>Buy On Valley Swap</p>
+                </Link>
             </div>
+            <Social />
         </div>
     );
 }

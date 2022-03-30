@@ -189,7 +189,7 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
                 <Box className="bond-data">
                     <div className="data-row">
                         <p className="bond-balance-title">Your Balance</p>
-                        <p className="bond-balance-title">
+                        <p className="price-data bond-balance-title">
                             {isBondLoading ? (
                                 <Skeleton width="100px" />
                             ) : (
@@ -212,17 +212,17 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
 
                     <div className="data-row">
                         <p className="bond-balance-title">ROI</p>
-                        <p className="bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.bondDiscount * 100, 2)}%`}</p>
+                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.bondDiscount * 100, 2)}%`}</p>
                     </div>
 
                     <div className="data-row">
                         <p className="bond-balance-title">Vesting Term</p>
-                        <p className="bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : vestingPeriod()}</p>
+                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : vestingPeriod()}</p>
                     </div>
 
                     <div className="data-row">
                         <p className="bond-balance-title">Minimum purchase</p>
-                        <p className="bond-balance-title">0.01 ORCL</p>
+                        <p className="price-data bond-balance-title">0.01 ORCL</p>
                     </div>
                 </Box>
             </Slide>

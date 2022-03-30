@@ -1,16 +1,21 @@
 import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, InputAdornment, OutlinedInput, Zoom } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab";
+import classnames from "classnames";
+
 import { trim } from "../../helpers";
 import { changeApproval, changeStake } from "../../store/slices/stake-thunk";
 import "./stake.scss";
 import { useWeb3Context } from "../../hooks";
 import { IPendingTxn, isPendingTxn, txnButtonText } from "../../store/slices/pending-txns-slice";
-import { Skeleton } from "@material-ui/lab";
 import { IReduxState } from "../../store/slices/state.interface";
 import { messages } from "../../constants/messages";
-import classnames from "classnames";
 import { warning } from "../../store/slices/messages-slice";
+
+import { ReactComponent as WalletIcon } from "../../assets/icons/wallet-money.svg";
+import { ReactComponent as MoneyIcon } from "../../assets/icons/moneys.svg";
+import { ReactComponent as ChartIcon } from "../../assets/icons/chart-square.svg";
 
 function Stake() {
     const dispatch = useDispatch();
@@ -90,165 +95,164 @@ function Stake() {
     return (
         <div className="stake-view">
             <Zoom in={true}>
-                <div className="stake-card">
-                    <Grid className="stake-card-grid" container direction="column" spacing={2}>
-                        <Grid item>
-                            <div className="stake-card-header">
-                                <p className="stake-card-header-title">Stake</p>
-                            </div>
-                        </Grid>
-
-                        <Grid item>
-                            <div className="stake-card-metrics">
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12} sm={4} md={4} lg={4}>
-                                        <div className="stake-card-apy">
-                                            <p className="stake-card-metrics-title">TAV</p>
-                                            <p className="stake-card-metrics-value">{Number(TAV).toFixed(2)}</p>
-                                        </div>
-                                    </Grid>
-
-                                    <Grid item xs={6} sm={4} md={4} lg={4}>
-                                        <div className="stake-card-tvl">
-                                            <p className="stake-card-metrics-title">TVL</p>
-                                            <p className="stake-card-metrics-value">
-                                                {new Intl.NumberFormat("en-US", {
-                                                    style: "currency",
-                                                    currency: "USD",
-                                                    maximumFractionDigits: 0,
-                                                    minimumFractionDigits: 0,
-                                                }).format(stakingTVL)}
-                                            </p>
-                                        </div>
-                                    </Grid>
-
-                                    <Grid item xs={6} sm={4} md={4} lg={4}>
-                                        <div className="stake-card-index">
-                                            <p className="stake-card-metrics-title">ORCL Price</p>
-                                            <p className="stake-card-metrics-value">{`$${trim(marketPrice, 2)}`}</p>
-                                        </div>
-                                    </Grid>
-                                </Grid>
-                            </div>
-                        </Grid>
-
-                        <div className="stake-card-area">
-                            {!address && (
-                                <div className="stake-card-wallet-notification">
-                                    <div className="stake-card-wallet-connect-btn" onClick={connect}>
-                                        <p>Connect Wallet</p>
+                <>
+                    <div className="stake-wrapper">
+                        <p className="section-title">Stake</p>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={4} md={4} lg={4}>
+                                <div className="card-wrapper">
+                                    <div className="card-icon">
+                                        <MoneyIcon />
                                     </div>
-                                    <p className="stake-card-wallet-desc-text">Connect your wallet to stake ORCL tokens!</p>
-                                </div>
-                            )}
-                            {address && (
-                                <div>
-                                    <div className="stake-card-action-area">
-                                        <div className="stake-card-action-stage-btns-wrap">
-                                            <div onClick={changeView(0)} className={classnames("stake-card-action-stage-btn", { active: !view })}>
-                                                <p>Stake</p>
-                                            </div>
-                                            <div onClick={changeView(1)} className={classnames("stake-card-action-stage-btn", { active: view })}>
-                                                <p>Unstake</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="stake-card-action-row">
-                                            <OutlinedInput
-                                                type="number"
-                                                placeholder="Amount"
-                                                className="stake-card-action-input"
-                                                value={quantity}
-                                                onChange={e => setQuantity(e.target.value)}
-                                                labelWidth={0}
-                                                endAdornment={
-                                                    <InputAdornment position="end">
-                                                        <div onClick={setMax} className="stake-card-action-input-btn">
-                                                            <p>Max</p>
-                                                        </div>
-                                                    </InputAdornment>
-                                                }
-                                            />
-
-                                            {view === 0 && (
-                                                <div className="stake-card-tab-panel">
-                                                    {address && hasAllowance("ORCL") ? (
-                                                        <div
-                                                            className="stake-card-tab-panel-btn"
-                                                            onClick={() => {
-                                                                if (isPendingTxn(pendingTransactions, "staking")) return;
-                                                                onChangeStake("stake");
-                                                            }}
-                                                        >
-                                                            <p>{txnButtonText(pendingTransactions, "staking", "Stake ORCL")}</p>
-                                                        </div>
-                                                    ) : (
-                                                        <div
-                                                            className="stake-card-tab-panel-btn"
-                                                            onClick={() => {
-                                                                if (isPendingTxn(pendingTransactions, "approve_staking")) return;
-                                                                onSeekApproval("ORCL");
-                                                            }}
-                                                        >
-                                                            <p>{txnButtonText(pendingTransactions, "approve_staking", "Approve")}</p>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            )}
-
-                                            {view === 1 && (
-                                                <div className="stake-card-tab-panel">
-                                                    {address && hasAllowance("sORCL") ? (
-                                                        <div
-                                                            className="stake-card-tab-panel-btn"
-                                                            onClick={() => {
-                                                                if (isPendingTxn(pendingTransactions, "unstaking")) return;
-                                                                onChangeStake("unstake");
-                                                            }}
-                                                        >
-                                                            <p>{txnButtonText(pendingTransactions, "unstaking", "Unstake ORCL")}</p>
-                                                        </div>
-                                                    ) : (
-                                                        <div
-                                                            className="stake-card-tab-panel-btn"
-                                                            onClick={() => {
-                                                                if (isPendingTxn(pendingTransactions, "approve_unstaking")) return;
-                                                                onSeekApproval("sORCL");
-                                                            }}
-                                                        >
-                                                            <p>{txnButtonText(pendingTransactions, "approve_unstaking", "Approve")}</p>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            )}
-                                        </div>
-
-                                        <div className="stake-card-action-help-text">
-                                            {address && ((!hasAllowance("ORCL") && view === 0) || (!hasAllowance("sORCL") && view === 1)) && (
-                                                <p>
-                                                    Note: The "Approve" transaction is only needed when staking/unstaking for the first time; subsequent staking/unstaking only
-                                                    requires you to perform the "Stake" or "Unstake" transaction.
-                                                </p>
-                                            )}
-                                        </div>
-                                    </div>
-
-                                    <div className="stake-user-data">
-                                        <div className="data-row">
-                                            <p className="data-row-name">Your Balance</p>
-                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trim(Number(oracleBalance), 4)} ORCL</>}</p>
-                                        </div>
-
-                                        <div className="data-row">
-                                            <p className="data-row-name">Your Staked Balance</p>
-                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trimmedsOracleBalance} sORCL</>}</p>
-                                        </div>
+                                    <div className="card">
+                                        <p className="card-title">TAV</p>
+                                        <p className="card-value">{Number(TAV).toFixed(2)}</p>
                                     </div>
                                 </div>
-                            )}
+                            </Grid>
+
+                            <Grid item xs={12} sm={4} md={4} lg={4}>
+                                <div className="card-wrapper">
+                                    <div className="card-icon">
+                                        <WalletIcon />
+                                    </div>
+                                    <div className="card">
+                                        <p className="card-title">TVL</p>
+                                        <p className="card-value">
+                                            {new Intl.NumberFormat("en-US", {
+                                                style: "currency",
+                                                currency: "USD",
+                                                maximumFractionDigits: 0,
+                                                minimumFractionDigits: 0,
+                                            }).format(stakingTVL)}
+                                        </p>
+                                    </div>
+                                </div>
+                            </Grid>
+
+                            <Grid item xs={12} sm={4} md={4} lg={4}>
+                                <div className="card-wrapper">
+                                    <div className="card-icon">
+                                        <ChartIcon />
+                                    </div>
+                                    <div className="card">
+                                        <p className="card-title">ORCL Price</p>
+                                        <p className="card-value">{`$${trim(marketPrice, 2)}`}</p>
+                                    </div>
+                                </div>
+                            </Grid>
+                        </Grid>
+                    </div>
+                    {!address && (
+                        <div className="connect-wallet-wrapper">
+                            <span onClick={connect}>Connect Wallet</span>
+                            <p>Connect your wallet to stake ORCL tokens!</p>
                         </div>
-                    </Grid>
-                </div>
+                    )}
+                    {address && (
+                        <div className="staking-details-wrapper">
+                            <div className="stake-card-action-area">
+                                <div className="stake-card-action-stage-btns-wrap">
+                                    <div onClick={changeView(0)} className={classnames("stake-card-action-stage-btn", { active: !view })}>
+                                        <p>Stake</p>
+                                    </div>
+                                    <div onClick={changeView(1)} className={classnames("stake-card-action-stage-btn", { active: view })}>
+                                        <p>Unstake</p>
+                                    </div>
+                                </div>
+
+                                <div className="stake-card-action-row">
+                                    <OutlinedInput
+                                        type="number"
+                                        placeholder="Amount"
+                                        className="stake-card-action-input"
+                                        value={quantity}
+                                        onChange={e => setQuantity(e.target.value)}
+                                        labelWidth={0}
+                                        endAdornment={
+                                            <InputAdornment position="end">
+                                                <p onClick={setMax} className="stake-card-action-input-btn">
+                                                    Max
+                                                </p>
+                                            </InputAdornment>
+                                        }
+                                    />
+
+                                    {view === 0 && (
+                                        <>
+                                            {address && hasAllowance("ORCL") ? (
+                                                <div
+                                                    className="stake-card-tab-panel-btn"
+                                                    onClick={() => {
+                                                        if (isPendingTxn(pendingTransactions, "staking")) return;
+                                                        onChangeStake("stake");
+                                                    }}
+                                                >
+                                                    <p>{txnButtonText(pendingTransactions, "staking", "Stake ORCL")}</p>
+                                                </div>
+                                            ) : (
+                                                <div
+                                                    className="stake-card-tab-panel-btn"
+                                                    onClick={() => {
+                                                        if (isPendingTxn(pendingTransactions, "approve_staking")) return;
+                                                        onSeekApproval("ORCL");
+                                                    }}
+                                                >
+                                                    <p>{txnButtonText(pendingTransactions, "approve_staking", "Approve")}</p>
+                                                </div>
+                                            )}
+                                        </>
+                                    )}
+
+                                    {view === 1 && (
+                                        <>
+                                            {address && hasAllowance("sORCL") ? (
+                                                <div
+                                                    className="stake-card-tab-panel-btn"
+                                                    onClick={() => {
+                                                        if (isPendingTxn(pendingTransactions, "unstaking")) return;
+                                                        onChangeStake("unstake");
+                                                    }}
+                                                >
+                                                    <p>{txnButtonText(pendingTransactions, "unstaking", "Unstake ORCL")}</p>
+                                                </div>
+                                            ) : (
+                                                <div
+                                                    className="stake-card-tab-panel-btn"
+                                                    onClick={() => {
+                                                        if (isPendingTxn(pendingTransactions, "approve_unstaking")) return;
+                                                        onSeekApproval("sORCL");
+                                                    }}
+                                                >
+                                                    <p>{txnButtonText(pendingTransactions, "approve_unstaking", "Approve")}</p>
+                                                </div>
+                                            )}
+                                        </>
+                                    )}
+                                </div>
+
+                                {address && ((!hasAllowance("ORCL") && view === 0) || (!hasAllowance("sORCL") && view === 1)) && (
+                                    <p className="stake-card-action-help-text">
+                                        Note: The "Approve" transaction is only needed when staking/unstaking for the first time; subsequent staking/unstaking only requires you to
+                                        perform the "Stake" or "Unstake" transaction.
+                                    </p>
+                                )}
+                            </div>
+
+                            <div className="stake-user-data">
+                                <div className="data-row">
+                                    <p className="data-row-name">Your Balance</p>
+                                    <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trim(Number(oracleBalance), 4)} ORCL</>}</p>
+                                </div>
+
+                                <div className="data-row">
+                                    <p className="data-row-name">Your Staked Balance</p>
+                                    <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trimmedsOracleBalance} sORCL</>}</p>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </>
             </Zoom>
         </div>
     );
