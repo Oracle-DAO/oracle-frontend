@@ -7,7 +7,7 @@ import ConnectButton from "./connect-button";
 import "./header.scss";
 import { DRAWER_WIDTH, TRANSITION_DURATION } from "../../constants/style";
 import CollectRewardsButton from "./collect_rewards";
-import { useWeb3Context } from '../../hooks';
+import { useWeb3Context } from "../../hooks";
 
 interface IHeader {
     handleDrawerToggle: () => void;
@@ -54,10 +54,12 @@ function Header({ handleDrawerToggle, drawe }: IHeader) {
                         <img src={MenuIcon} alt="" />
                     </div>
                     <div className="dapp-topbar-btns-wrap">
-                        {connected && !isSmallScreen && <>
-                            <p className="wallet-address">{address}</p>
-                            <p className="red-dot"></p>
-                        </>}
+                        {connected && !isSmallScreen && (
+                            <>
+                                <p className="wallet-address">{address}</p>
+                                <p className="red-dot"></p>
+                            </>
+                        )}
                         {!isVerySmallScreen && <TimeMenu />}
                         {!isWrapShow && <CollectRewardsButton />}
                         <ConnectButton />

@@ -22,7 +22,9 @@ function Dashboard() {
                 <Grid container spacing={4}>
                     <Grid item lg={4} md={6} sm={6} xs={12}>
                         <div className="card-wrapper">
-                            <div className="card-icon"><MoneyIcon /></div>
+                            <div className="card-icon">
+                                <MoneyIcon />
+                            </div>
                             <div className="dashboard-card">
                                 <p className="card-title">ORCL Price</p>
                                 <p className="card-value">{isAppLoading ? <Skeleton width="100px" /> : `$${trim(app.marketPrice, 2)}`}</p>
@@ -32,7 +34,9 @@ function Dashboard() {
 
                     <Grid item lg={4} md={6} sm={6} xs={12}>
                         <div className="card-wrapper">
-                            <div className="card-icon"><WalletIcon /></div>
+                            <div className="card-icon">
+                                <WalletIcon />
+                            </div>
                             <div className="dashboard-card">
                                 <p className="card-title">Market Cap</p>
                                 <p className="card-value">
@@ -74,7 +78,9 @@ function Dashboard() {
 
                     <Grid item lg={4} md={6} sm={6} xs={12}>
                         <div className="card-wrapper">
-                            <div className="card-icon"><ChartIcon /></div>
+                            <div className="card-icon">
+                                <ChartIcon />
+                            </div>
                             <div className="dashboard-card">
                                 <p className="card-title">TVL</p>
                                 <p className="card-value">
@@ -95,7 +101,9 @@ function Dashboard() {
 
                     <Grid item lg={4} md={6} sm={6} xs={12}>
                         <div className="card-wrapper">
-                            <div className="card-icon"><MoneyIcon /></div>
+                            <div className="card-icon">
+                                <MoneyIcon />
+                            </div>
                             <div className="dashboard-card">
                                 <p className="card-title">TAV</p>
                                 <p className="card-value">
@@ -123,7 +131,9 @@ function Dashboard() {
 
                     <Grid item lg={4} md={6} sm={6} xs={12}>
                         <div className="card-wrapper">
-                            <div className="card-icon"><WalletIcon /></div>
+                            <div className="card-icon">
+                                <WalletIcon />
+                            </div>
                             <div className="dashboard-card">
                                 <p className="card-title">Treasury Balance</p>
                                 <p className="card-value">
@@ -169,7 +179,9 @@ function Dashboard() {
 
                     <Grid item lg={4} md={6} sm={6} xs={12}>
                         <div className="card-wrapper">
-                            <div className="card-icon"><ChartIcon /></div>
+                            <div className="card-icon">
+                                <ChartIcon />
+                            </div>
                             <div className="dashboard-card">
                                 <p className="card-title"> RFV </p>
                                 <p className="card-value">

@@ -2,8 +2,6 @@ import { useCallback, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Social from "./social";
 
-
-
 import OracleDaoIcon from "../../../assets/icons/oracle-logo.svg";
 
 import { ReactComponent as DashboardIcon } from "../../../assets/icons/dashboard-icon.svg";
