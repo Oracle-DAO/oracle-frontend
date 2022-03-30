@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { DEFAULD_NETWORK, getAddresses, TOKEN_DECIMALS } from "../../../constants";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Fade, Popper } from "@material-ui/core";
 import "./time-menu.scss";
 import { IReduxState } from "../../../store/slices/state.interface";
 import { getTokenUrl } from "../../../helpers";
-import { useWeb3Context } from "../../../hooks";
 
 const addTokenToWallet = (tokenSymbol: string, tokenAddress: string) => async () => {
     const tokenImage = getTokenUrl(tokenSymbol.toLowerCase());
@@ -31,9 +30,6 @@ const addTokenToWallet = (tokenSymbol: string, tokenAddress: string) => async ()
 };
 
 function TimeMenu() {
-    const dispatch = useDispatch();
-    const { provider, address, connect, chainID, checkWrongNetwork } = useWeb3Context();
-
     const [anchorEl, setAnchorEl] = useState(null);
     const isEthereumAPIAvailable = window.ethereum;
 
