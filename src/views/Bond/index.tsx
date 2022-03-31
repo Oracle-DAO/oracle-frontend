@@ -50,7 +50,9 @@ function Bond({ bond }: IBondProps) {
                             {/* @ts-ignore */}
                             <Box direction="row" className="bond-price-data-row">
                                 <div className="card-wrapper">
-                                    <div className="card-icon"><MoneyIcon /></div>
+                                    <div className="card-icon">
+                                        <MoneyIcon />
+                                    </div>
                                     <div className="card">
                                         <p className="card-title">Bond Price</p>
                                         <p className="card-value">
@@ -59,12 +61,12 @@ function Bond({ bond }: IBondProps) {
                                     </div>
                                 </div>
                                 <div className="card-wrapper">
-                                    <div className="card-icon"><MoneyIcon /></div>
+                                    <div className="card-icon">
+                                        <MoneyIcon />
+                                    </div>
                                     <div className="card">
                                         <p className="card-title">ORCL Price</p>
-                                        <p className="card-value">
-                                            {isBondLoading ? <Skeleton /> : `$${trim(marketPrice, 2)}`}
-                                        </p>
+                                        <p className="card-value">{isBondLoading ? <Skeleton /> : `$${trim(marketPrice, 2)}`}</p>
                                     </div>
                                 </div>
                             </Box>

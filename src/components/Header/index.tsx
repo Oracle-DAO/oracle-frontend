@@ -8,7 +8,7 @@ import ConnectButton from "./connect-button";
 import "./header.scss";
 import { DRAWER_WIDTH, TRANSITION_DURATION } from "../../constants/style";
 import CollectRewardsButton from "./collect_rewards";
-import { useWeb3Context } from '../../hooks';
+import { useWeb3Context } from "../../hooks";
 
 interface IHeader {
     handleDrawerToggle: () => void;

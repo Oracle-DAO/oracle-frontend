@@ -101,7 +101,9 @@ function Stake() {
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={4} md={4} lg={4}>
                                 <div className="card-wrapper">
-                                    <div className="card-icon"><MoneyIcon /></div>
+                                    <div className="card-icon">
+                                        <MoneyIcon />
+                                    </div>
                                     <div className="card">
                                         <p className="card-title">TAV</p>
                                         <p className="card-value">{Number(TAV).toFixed(2)}</p>
@@ -111,7 +113,9 @@ function Stake() {
 
                             <Grid item xs={12} sm={4} md={4} lg={4}>
                                 <div className="card-wrapper">
-                                    <div className="card-icon"><WalletIcon /></div>
+                                    <div className="card-icon">
+                                        <WalletIcon />
+                                    </div>
                                     <div className="card">
                                         <p className="card-title">TVL</p>
                                         <p className="card-value">
@@ -128,7 +132,9 @@ function Stake() {
 
                             <Grid item xs={12} sm={4} md={4} lg={4}>
                                 <div className="card-wrapper">
-                                    <div className="card-icon"><ChartIcon /></div>
+                                    <div className="card-icon">
+                                        <ChartIcon />
+                                    </div>
                                     <div className="card">
                                         <p className="card-title">ORCL Price</p>
                                         <p className="card-value">{`$${trim(marketPrice, 2)}`}</p>
@@ -137,14 +143,12 @@ function Stake() {
                             </Grid>
                         </Grid>
                     </div>
-                    {!address &&
+                    {!address && (
                         <div className="connect-wallet-wrapper">
-                            <span onClick={connect}>
-                                Connect Wallet
-                            </span>
+                            <span onClick={connect}>Connect Wallet</span>
                             <p>Connect your wallet to stake ORCL tokens!</p>
                         </div>
-                    }
+                    )}
                     {address && (
                         <div className="staking-details-wrapper">
                             <div className="stake-card-action-area">
@@ -229,8 +233,8 @@ function Stake() {
 
                                 {address && ((!hasAllowance("ORCL") && view === 0) || (!hasAllowance("sORCL") && view === 1)) && (
                                     <p className="stake-card-action-help-text">
-                                        Note: The "Approve" transaction is only needed when staking/unstaking for the first time; subsequent staking/unstaking only
-                                        requires you to perform the "Stake" or "Unstake" transaction.
+                                        Note: The "Approve" transaction is only needed when staking/unstaking for the first time; subsequent staking/unstaking only requires you to
+                                        perform the "Stake" or "Unstake" transaction.
                                     </p>
                                 )}
                             </div>

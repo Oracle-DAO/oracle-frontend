@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Box, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Zoom } from "@material-ui/core";
+import { Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Zoom } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { Skeleton } from "@material-ui/lab";
 
@@ -33,7 +33,9 @@ function ChooseBond() {
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6} md={6} lg={6}>
                             <div className="card-wrapper">
-                                <div className="card-icon"><MoneyIcon /></div>
+                                <div className="card-icon">
+                                    <MoneyIcon />
+                                </div>
                                 <div className="card">
                                     <p className="card-title">Treasury Balance</p>
                                     <p className="card-value">
@@ -54,7 +56,9 @@ function ChooseBond() {
 
                         <Grid item xs={12} sm={6} md={6} lg={6}>
                             <div className="card-wrapper">
-                                <div className="card-icon"><ChartIcon /></div>
+                                <div className="card-icon">
+                                    <ChartIcon />
+                                </div>
                                 <div className="card">
                                     <p className="card-title">ORCL Price</p>
                                     <p className="card-value">{isAppLoading ? <Skeleton width="100px" /> : trim(marketPrice, 2)}</p>
