@@ -49,8 +49,8 @@ function TimeMenu() {
 
     const addresses = getAddresses(networkID);
 
-    const sORCL_ADDRESS = addresses.sORCL_ADDRESS;
-    const ORCL_ADDRESS = addresses.ORCL_ADDRESS;
+    const sORFI_ADDRESS = addresses.sORFI_ADDRESS;
+    const ORFI_ADDRESS = addresses.ORFI_ADDRESS;
 
     const handleClick = (event: any) => {
         setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -76,11 +76,11 @@ function TimeMenu() {
                                     <div className="divider" />
                                     <p className="add-tokens-title">ADD TOKEN TO WALLET</p>
                                     <div className="divider" />
-                                    <div className="tooltip-item" onClick={addTokenToWallet("ORCL", ORCL_ADDRESS)}>
-                                        <p>ORCL</p>
+                                    <div className="tooltip-item" onClick={addTokenToWallet("ORFI", ORFI_ADDRESS)}>
+                                        <p>ORFI</p>
                                     </div>
-                                    <div className="tooltip-item" onClick={addTokenToWallet("sORCL", sORCL_ADDRESS)}>
-                                        <p>sORCL</p>
+                                    <div className="tooltip-item" onClick={addTokenToWallet("sORFI", sORFI_ADDRESS)}>
+                                        <p>sORFI</p>
                                     </div>
                                 </div>
                             )}

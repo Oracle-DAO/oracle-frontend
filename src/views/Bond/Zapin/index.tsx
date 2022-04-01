@@ -1,21 +1,20 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ReactComponent as XIcon } from "../../../assets/icons/x.svg";
-import { Box, Modal, Paper, SvgIcon, IconButton, OutlinedInput, InputAdornment } from "@material-ui/core";
+import { Box, IconButton, InputAdornment, Modal, OutlinedInput, Paper, SvgIcon } from "@material-ui/core";
 import "./zapin.scss";
 import ArrowUpImg from "../../../assets/icons/arrow-down.svg";
 import { Skeleton } from "@material-ui/lab";
 import ChooseToken from "./ChooseToken";
 import { IAllBondData } from "../../../hooks/bonds";
 import useTokens, { IAllTokenData } from "../../../hooks/tokens";
-import { metis, mim } from "../../../helpers/tokens";
-import { shorten, trim } from "../../../helpers";
+import { metis } from "../../../helpers/tokens";
+import { trim } from "../../../helpers";
 import BondLogo from "../../../components/BondLogo";
 import { useDispatch, useSelector } from "react-redux";
 import { IReduxState } from "../../../store/slices/state.interface";
-import { changeApproval, calcZapinDetails, ITokenZapinResponse, zapinMint } from "../../../store/slices/zapin-thunk";
+import { calcZapinDetails, changeApproval, ITokenZapinResponse, zapinMint } from "../../../store/slices/zapin-thunk";
 import { IPendingTxn, isPendingTxn, txnButtonText } from "../../../store/slices/pending-txns-slice";
 import { useWeb3Context } from "../../../hooks";
-// import { wMetis } from "../../../helpers/bond";
 import AdvancedSettings from "../AdvancedSettings";
 import { ReactComponent as SettingsIcon } from "../../../assets/icons/settings.svg";
 import { warning } from "../../../store/slices/messages-slice";
@@ -41,17 +40,18 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
 
     let defaultToken = tokens.find(token => token.name === metis.name);
 
-    // if (bond.name === wMetis.name) {
-    //     defaultToken = tokens.find(token => token.name === mim.name);
-    // }
-
     const [quantity, setQuantity] = useState<string>("");
     //@ts-ignore
     const [token, setToken] = useState<IAllTokenData>(defaultToken);
     const [chooseTokenOpen, setChooseTokenOpen] = useState(false);
     const [settingsOpen, setSettingsOpen] = useState(false);
     const [slippage, setSlippage] = useState(2);
-    const [swapInfo, setSwapInfo] = useState<ITokenZapinResponse>({ swapData: "", swapTarget: "", amount: "", value: "0" });
+    const [swapInfo, setSwapInfo] = useState<ITokenZapinResponse>({
+        swapData: "",
+        swapTarget: "",
+        amount: "",
+        value: "0",
+    });
     const [priceToken, setPriceToken] = useState<number>(0);
 
     const [loading, setLoading] = useState(false);
@@ -113,7 +113,15 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
             setSwapInfo({ swapData: "", swapTarget: "", amount: "", value: "0" });
             setLoading(true);
             timeount = setTimeout(async () => {
-                const info = await calcZapinDetails({ token, provider, networkID: chainID, bond, value: quantity, slippage, dispatch });
+                const info = await calcZapinDetails({
+                    token,
+                    provider,
+                    networkID: chainID,
+                    bond,
+                    value: quantity,
+                    slippage,
+                    dispatch,
+                });
                 if (info.amount) {
                     const amount = utils.formatEther(info.amount);
                     dispatch(calcBondDetails({ bond, value: amount, provider, networkID: chainID }));
@@ -133,7 +141,15 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
 
     useEffect(() => {
         setTimeout(async () => {
-            const { amount } = await calcZapinDetails({ token, provider, networkID: chainID, bond, value: "1", slippage, dispatch });
+            const { amount } = await calcZapinDetails({
+                token,
+                provider,
+                networkID: chainID,
+                bond,
+                value: "1",
+                slippage,
+                dispatch,
+            });
             if (amount) {
                 const amountValue = utils.formatEther(amount);
                 setPriceToken(Number(amountValue));
@@ -270,11 +286,11 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
                             </div>
                             <div className="data-row">
                                 <p className="data-row-name">Approximately you will get</p>
-                                <p className="data-row-value">{isLoading ? <Skeleton width="100px" /> : `~ ${trim(bond.bondQuote, 4)} ORCL`}</p>
+                                <p className="data-row-value">{isLoading ? <Skeleton width="100px" /> : `~ ${trim(bond.bondQuote, 4)} ORFI`}</p>
                             </div>
                             <div className="data-row">
                                 <p className="data-row-name">Max You Can Buy</p>
-                                <p className="data-row-value">{isLoading ? <Skeleton width="100px" /> : `${trim(bond.maxBondPrice, 4)} ORCL`}</p>
+                                <p className="data-row-value">{isLoading ? <Skeleton width="100px" /> : `${trim(bond.maxBondPrice, 4)} ORFI`}</p>
                             </div>
                             <div className="data-row">
                                 <p className="data-row-name">ROI</p>
@@ -282,7 +298,7 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
                             </div>
                             <div className="data-row">
                                 <p className="data-row-name">Minimum purchase</p>
-                                <p className="data-row-value">0.01 ORCL</p>
+                                <p className="data-row-value">0.01 ORFI</p>
                             </div>
                         </div>
                     </div>

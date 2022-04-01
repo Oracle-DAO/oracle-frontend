@@ -9,7 +9,7 @@
         },
         {
           "internalType": "address",
-          "name": "stakedOrclAddress_",
+          "name": "stakedORFIAddress_",
           "type": "address"
         }
       ],
@@ -72,7 +72,7 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "totalStakedOrcl",
+          "name": "totalStakedORFI",
           "type": "uint256"
         },
         {
@@ -152,7 +152,7 @@
       "outputs": [
         {
           "internalType": "uint256",
-          "name": "stakedOrclAmount",
+          "name": "stakedORFIAmount",
           "type": "uint256"
         },
         {
@@ -383,7 +383,7 @@
     },
     {
       "inputs": [],
-      "name": "stakedOrclAddress",
+      "name": "stakedORFIAddress",
       "outputs": [
         {
           "internalType": "address",

@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { ORCLTokenContract, sORCLTokenContract, StakingContract } from "../../abi";
+import { ORFITokenContract, sORFITokenContract, StakingContract } from "../../abi";
 import { clearPendingTxn, fetchPendingTxns, getStakingTypeText } from "./pending-txns-slice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchAccountSuccess, getBalances } from "./account-slice";
@@ -27,23 +27,23 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
     const addresses = getAddresses(networkID);
 
     const signer = provider.getSigner();
-    const oracleContract = new ethers.Contract(addresses.ORCL_ADDRESS, ORCLTokenContract, signer);
-    const sOracleContract = new ethers.Contract(addresses.sORCL_ADDRESS, sORCLTokenContract, signer);
+    const oracleContract = new ethers.Contract(addresses.ORFI_ADDRESS, ORFITokenContract, signer);
+    const sOracleContract = new ethers.Contract(addresses.sORFI_ADDRESS, sORFITokenContract, signer);
 
     let approveTx;
     try {
         const gasPrice = await getGasPrice(provider);
 
-        if (token === "ORCL") {
+        if (token === "ORFI") {
             approveTx = await oracleContract.approve(addresses.STAKING_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
         }
 
-        if (token === "sORCL") {
+        if (token === "sORFI") {
             approveTx = await sOracleContract.approve(addresses.STAKING_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
         }
 
-        const text = "Approve " + (token === "ORCL" ? "Staking" : "Unstaking");
-        const pendingTxnType = token === "ORCL" ? "approve_staking" : "approve_unstaking";
+        const text = "Approve " + (token === "ORFI" ? "Staking" : "Unstaking");
+        const pendingTxnType = token === "ORFI" ? "approve_staking" : "approve_unstaking";
 
         dispatch(fetchPendingTxns({ txnHash: approveTx.hash, text, type: pendingTxnType }));
         await approveTx.wait();
@@ -64,8 +64,8 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
     return dispatch(
         fetchAccountSuccess({
             staking: {
-                ORCLStake: Number(stakeAllowance),
-                sORCLUnstake: Number(unstakeAllowance),
+                ORFIStake: Number(stakeAllowance),
+                sORFIUnstake: Number(unstakeAllowance),
             },
         }),
     );

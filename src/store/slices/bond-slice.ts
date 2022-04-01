@@ -8,7 +8,6 @@ import { JsonRpcProvider, StaticJsonRpcProvider } from "@ethersproject/providers
 import { Bond } from "../../helpers/bond/bond";
 import { Networks } from "../../constants/blockchain";
 import { RootState } from "../store";
-// import { wMetis } from "../../helpers/bond";
 import { error, info, success, warning } from "../slices/messages-slice";
 import { messages } from "../../constants/messages";
 import { getGasPrice } from "../../helpers/get-gas-price";
@@ -161,10 +160,6 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
             purchased = BigNumber.from(purchased).add(BigNumber.from(bond.tokensInStrategy)).toString();
         }
         purchased = purchased / Math.pow(10, 18);
-        // if (bond.name === wMetis.name) {
-        //     const avaxPrice = getTokenPrice("METIS");
-        //     purchased = purchased * avaxPrice;
-        // }
     }
 
     return {

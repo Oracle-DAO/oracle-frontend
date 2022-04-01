@@ -4,12 +4,12 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_orcl",
+          "name": "_ORFI",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "_sorcl",
+          "name": "_sORFI",
           "type": "address"
         }
       ],
@@ -50,7 +50,7 @@
     },
     {
       "inputs": [],
-      "name": "ORCL",
+      "name": "ORFI",
       "outputs": [
         {
           "internalType": "contract IERC20",
@@ -82,7 +82,7 @@
     },
     {
       "inputs": [],
-      "name": "contractORCLBalance",
+      "name": "contractORFIBalance",
       "outputs": [
         {
           "internalType": "uint256",
@@ -128,7 +128,7 @@
     },
     {
       "inputs": [],
-      "name": "sORCL",
+      "name": "sORFI",
       "outputs": [
         {
           "internalType": "contract IERC20",

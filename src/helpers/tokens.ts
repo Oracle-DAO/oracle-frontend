@@ -1,6 +1,6 @@
 import AvaxIcon from "../assets/tokens/AVAX.svg";
 import MimIcon from "../assets/tokens/MIM.svg";
-import ORCLIcon from "../assets/tokens/ORCL.png";
+import ORFIIcon from "../assets/tokens/ORFI.png";
 import WavaxIcon from "../assets/tokens/WAVAX.png";
 import WethEIcon from "../assets/tokens/WETH.e.png";
 
@@ -27,10 +27,10 @@ export const mim: IToken = {
     decimals: 18,
 };
 
-export const orcl: IToken = {
-    name: "ORCL",
+export const ORFI: IToken = {
+    name: "ORFI",
     address: "0x5947d62B59e3269D664EB08831d73541B1cdDe4C",
-    img: ORCLIcon,
+    img: ORFIIcon,
     decimals: 9,
 };
 
@@ -41,4 +41,4 @@ export const wavax: IToken = {
     decimals: 18,
 };
 
-export default [metis, mim, orcl];
+export default [metis, mim, ORFI];
