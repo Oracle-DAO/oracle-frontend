@@ -7,7 +7,7 @@ export const messages = {
         "You have an existing bond. Bonding will reset your vesting period and forfeit any pending claimable rewards. We recommend claiming rewards first or using a fresh wallet. Do you still wish to proceed?",
     before_stake: "Before staking, enter a value.",
     before_unstake: "Before un staking, enter a value.",
-    before_collect_rewards: "No rewards for you currently, please reedem at cycle end",
+    before_collect_rewards: "No rewards currently, please reedem at cycle end",
     tx_successfully_send: "Your transaction was successfully sent",
     successfully_rebased: "Rebase completed",
     your_balance_updated: "Your balance was successfully updated",

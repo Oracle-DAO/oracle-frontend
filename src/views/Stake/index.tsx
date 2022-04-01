@@ -106,7 +106,14 @@ function Stake() {
                                     </div>
                                     <div className="card">
                                         <p className="card-title">TAV</p>
-                                        <p className="card-value">{Number(TAV).toFixed(2)}</p>
+                                        <p className="card-value">
+                                            {new Intl.NumberFormat("en-US", {
+                                                style: "currency",
+                                                currency: "USD",
+                                                maximumFractionDigits: 2,
+                                                minimumFractionDigits: 2,
+                                            }).format(TAV)}
+                                        </p>
                                     </div>
                                 </div>
                             </Grid>
@@ -137,7 +144,14 @@ function Stake() {
                                     </div>
                                     <div className="card">
                                         <p className="card-title">ORFI Price</p>
-                                        <p className="card-value">{`$${trim(marketPrice, 2)}`}</p>
+                                        <p className="card-value">
+                                            {new Intl.NumberFormat("en-US", {
+                                                style: "currency",
+                                                currency: "USD",
+                                                maximumFractionDigits: 2,
+                                                minimumFractionDigits: 2,
+                                            }).format(marketPrice)}
+                                        </p>
                                     </div>
                                 </div>
                             </Grid>

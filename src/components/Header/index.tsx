@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { AppBar, Toolbar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -45,6 +46,21 @@ function Header({ handleDrawerToggle, drawe }: IHeader) {
     const isSmallScreen = useMediaQuery("(max-width: 800px)");
     const isWrapShow = useMediaQuery("(max-width: 480px)");
     const { connected, address } = useWeb3Context();
+    const [trimmedAddress, setTrimmedAddress] = useState("");
+
+    const smartTrim = function (str: string, maxLength: number) {
+        if (!str) return str;
+        if (maxLength < 1) return str;
+        if (str.length <= maxLength) return str;
+        if (maxLength == 1) return str.substring(0, 1) + "...";
+        return str.substring(0, 8) + "............" + str.substring(str.length - 8);
+    };
+
+    useEffect(() => {
+        if (connected && address) {
+            setTrimmedAddress(smartTrim(address, 26));
+        }
+    }, [connected, address]);
 
     return (
         <div className={`${classes.topBar} ${!drawe && classes.topBarShift}`}>
@@ -56,8 +72,10 @@ function Header({ handleDrawerToggle, drawe }: IHeader) {
                     <div className="dapp-topbar-btns-wrap">
                         {connected && !isSmallScreen && (
                             <>
-                                <p className="wallet-address">{address}</p>
-                                <p className="red-dot"></p>
+                                <p className="wallet-address" title={address}>
+                                    {trimmedAddress}
+                                </p>
+                                {/* <p className="red-dot"></p> */}
                             </>
                         )}
                         {!isVerySmallScreen && <TimeMenu />}

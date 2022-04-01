@@ -2,8 +2,6 @@ import { useSelector } from "react-redux";
 import { Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Zoom } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { Skeleton } from "@material-ui/lab";
-
-import { trim } from "../../helpers";
 import useBonds from "../../hooks/bonds";
 import { BondDataCard, BondTableData } from "./BondRow";
 import "./choosebond.scss";
@@ -61,7 +59,18 @@ function ChooseBond() {
                                 </div>
                                 <div className="card">
                                     <p className="card-title">ORFI Price</p>
-                                    <p className="card-value">{isAppLoading ? <Skeleton width="100px" /> : trim(marketPrice, 2)}</p>
+                                    <p className="card-value">
+                                        {isAppLoading ? (
+                                            <Skeleton width="100px" />
+                                        ) : (
+                                            new Intl.NumberFormat("en-US", {
+                                                style: "currency",
+                                                currency: "USD",
+                                                maximumFractionDigits: 2,
+                                                minimumFractionDigits: 2,
+                                            }).format(marketPrice)
+                                        )}
+                                    </p>
                                 </div>
                             </div>
                         </Grid>
