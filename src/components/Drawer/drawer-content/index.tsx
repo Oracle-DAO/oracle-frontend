@@ -9,7 +9,9 @@ import { ReactComponent as Docs } from "../../../assets/icons/stake.svg";
 import { ReactComponent as StakeIcon } from "../../../assets/icons/stake-icon.svg";
 import { ReactComponent as BondIcon } from "../../../assets/icons/bond-icon.svg";
 import { ReactComponent as LaunchPad } from "../../../assets/icons/launchpad-icon.svg";
-import { ReactComponent as DocsIcon } from "../../../assets/icons/setting-sm.svg";
+
+import { ReactComponent as ValleySwapLogo } from "../../../assets/icons/logo_valley-swap.svg";
+import { ReactComponent as YuzuSwapLogo } from "../../../assets/icons/yuzu.0f21407f.svg";
 
 import { useAddress } from "../../../hooks";
 import useBonds from "../../../hooks/bonds";
@@ -103,14 +105,15 @@ function NavContent() {
                     <Docs />
                     <p>Docs</p>
                 </Link>
-                <Link href="https://app.yuzu-swap.com/#/swap" target="_blank">
-                    <DocsIcon />
-                    <p>Buy On Yuzu Swap</p>
-                </Link>
 
                 <Link href="https://dex.valleyswap.com/#/swap" target="_blank">
-                    <DocsIcon />
+                    <ValleySwapLogo />
                     <p>Buy On Valley Swap</p>
+                </Link>
+
+                <Link href="https://app.yuzu-swap.com/#/swap" target="_blank">
+                    <YuzuSwapLogo />
+                    <p>Buy On Yuzu Swap</p>
                 </Link>
             </div>
             <Social />
