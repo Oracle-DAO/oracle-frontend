@@ -7,11 +7,11 @@ function toUrl(tokenPath: string): string {
 }
 
 export function getTokenUrl(name: string) {
-    if (name === "ORFI") {
+    if (name === "orfi") {
         return toUrl(ORFIImg);
     }
 
-    if (name === "sORFI") {
+    if (name === "sorfi") {
         return toUrl(sORFIImg);
     }
 

@@ -1,4 +1,4 @@
-export const TOKEN_DECIMALS = 9;
+export const TOKEN_DECIMALS = 18;
 
 export enum Networks {
     OASIS = 42261,
