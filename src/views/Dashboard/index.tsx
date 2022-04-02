@@ -14,8 +14,6 @@ import { ReactComponent as ChartIcon } from "../../assets/icons/chart-square.svg
 function Dashboard() {
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
     const app = useSelector<IReduxState, IAppSlice>(state => state.app);
-    const tav = Number(app.tav);
-    // const trimmedStakingAPY = Number(trim(app.stakingAPY * 100, 1));
     return (
         <div className="dashboard-view">
             <Zoom in={true}>
