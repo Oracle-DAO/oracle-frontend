@@ -202,7 +202,7 @@ function Stake() {
                                                         onChangeStake("stake");
                                                     }}
                                                 >
-                                                    <p>{txnButtonText(pendingTransactions, "staking", "Stake ORCL")}</p>
+                                                    <p>{txnButtonText(pendingTransactions, "staking", "Stake ORFI")}</p>
                                                 </div>
                                             ) : (
                                                 <div
@@ -228,7 +228,7 @@ function Stake() {
                                                         onChangeStake("unstake");
                                                     }}
                                                 >
-                                                    <p>{txnButtonText(pendingTransactions, "unstaking", "Unstake ORCL")}</p>
+                                                    <p>{txnButtonText(pendingTransactions, "unstaking", "Unstake ORFI")}</p>
                                                 </div>
                                             ) : (
                                                 <div
@@ -245,7 +245,7 @@ function Stake() {
                                     )}
                                 </div>
 
-                                {address && ((!hasAllowance("ORFI") && view === 0) || (!hasAllowance("sORCL") && view === 1)) && (
+                                {address && ((!hasAllowance("ORFI") && view === 0) || (!hasAllowance("sORFI") && view === 1)) && (
                                     <p className="stake-card-action-help-text">
                                         Note: The "Approve" transaction is only needed when staking/unstaking for the first time; subsequent staking/unstaking only requires you to
                                         perform the "Stake" or "Unstake" transaction.
@@ -256,12 +256,12 @@ function Stake() {
                             <div className="stake-user-data">
                                 <div className="data-row">
                                     <p className="data-row-name">Your Balance</p>
-                                    <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trim(Number(oracleBalance), 4)} ORCL</>}</p>
+                                    <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trim(Number(oracleBalance), 4)} ORFI</>}</p>
                                 </div>
 
                                 <div className="data-row">
                                     <p className="data-row-name">Your Staked Balance</p>
-                                    <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trimmedsOracleBalance} sORCL</>}</p>
+                                    <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trimmedsOracleBalance} sORFI</>}</p>
                                 </div>
                             </div>
                         </div>

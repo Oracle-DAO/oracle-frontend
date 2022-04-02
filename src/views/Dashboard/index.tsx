@@ -122,13 +122,6 @@ function Dashboard() {
                         </div>
                     </Grid>
 
-                    {/*<Grid item lg={6} md={6} sm={6} xs={12}>*/}
-                    {/*    <div className="dashboard-card">*/}
-                    {/*        <p className="card-title">Current Index</p>*/}
-                    {/*        /!*<p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${trim(Number(app.currentIndex), 2)} ORCL`}</p>*!/*/}
-                    {/*    </div>*/}
-                    {/*</Grid>*/}
-
                     <Grid item lg={4} md={6} sm={6} xs={12}>
                         <div className="card-wrapper">
                             <div className="card-icon">
@@ -151,31 +144,6 @@ function Dashboard() {
                             </div>
                         </div>
                     </Grid>
-
-                    {/*<Grid item lg={6} md={6} sm={6} xs={12}>*/}
-                    {/*    <div className="dashboard-card">*/}
-                    {/*        <p className="card-title">Backing per $ORCL</p>*/}
-                    {/*        <p className="card-value">*/}
-                    {/*            {isAppLoading ? (*/}
-                    {/*                <Skeleton width="250px" />*/}
-                    {/*            ) : (*/}
-                    {/*                new Intl.NumberFormat("en-US", {*/}
-                    {/*                    style: "currency",*/}
-                    {/*                    currency: "USD",*/}
-                    {/*                    maximumFractionDigits: 0,*/}
-                    {/*                    minimumFractionDigits: 0,*/}
-                    {/*                }).format(app.rfv)*/}
-                    {/*            )}*/}
-                    {/*        </p>*/}
-                    {/*    </div>*/}
-                    {/*</Grid>*/}
-
-                    {/*<Grid item lg={6} md={6} sm={6} xs={12}>*/}
-                    {/*    <div className="dashboard-card">*/}
-                    {/*        <p className="card-title">Runway</p>*/}
-                    {/*        /!*<p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${trim(Number(app.runway), 1)} Days`}</p>*!/*/}
-                    {/*    </div>*/}
-                    {/*</Grid>*/}
 
                     <Grid item lg={4} md={6} sm={6} xs={12}>
                         <div className="card-wrapper">
