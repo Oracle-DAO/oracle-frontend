@@ -60,7 +60,7 @@ export function BondDataCard({ bond }: IBondProps) {
                     </p>
                 </div>
                 <Link component={NavLink} to={`/mints/${bond.name}`}>
-                    <div className="bond-table-btn">
+                    <div className="bond-table-btn mt-3">
                         <p>Bond {bond.displayName}</p>
                     </div>
                 </Link>
@@ -74,47 +74,52 @@ export function BondTableData({ bond }: IBondProps) {
 
     return (
         <TableRow>
-            <TableCell align="left">
-                <BondLogo bond={bond} />
-                <div className="bond-name">
-                    <p className="bond-name-title">{bond.displayName}</p>
+            <TableCell padding="none">
+                <div className="bond-table-td first">
+                    <BondLogo bond={bond} />
+                    <p className="ms-3">{bond.displayName}</p>
                     {bond.isLP && (
                         <Link color="primary" href={bond.lpUrl} target="_blank">
-                            <p className="bond-name-title">View Contract</p>
+                            <p>View Contract</p>
                         </Link>
                     )}
                 </div>
             </TableCell>
-            <TableCell align="center">
-                <p className="bond-name-title">
-                    <>
-                        <span className="currency-icon">{priceUnits(bond)}</span> {isBondLoading ? <Skeleton width="50px" /> : trim(bond.bondPrice, 2)}
-                    </>
-                </p>
+            <TableCell padding="none">
+                <div className="bond-table-td">
+                    <span>{priceUnits(bond)}</span>
+                    <p className="ms-3">{isBondLoading ? <Skeleton width="50px" /> : trim(bond.bondPrice, 2)}</p>
+                </div>
             </TableCell>
-            <TableCell align="right">
-                <p className="bond-name-title">{isBondLoading ? <Skeleton width="50px" /> : `${trim(bond.bondDiscount * 100, 2)}%`}</p>
+            <TableCell padding="none">
+                <div className="bond-table-td">
+                    <p>{isBondLoading ? <Skeleton width="50px" /> : `${trim(bond.bondDiscount * 100, 2)}%`}</p>
+                </div>
             </TableCell>
-            <TableCell align="right">
-                <p className="bond-name-title">
-                    {isBondLoading ? (
-                        <Skeleton width="50px" />
-                    ) : (
-                        new Intl.NumberFormat("en-US", {
-                            style: "currency",
-                            currency: "USD",
-                            maximumFractionDigits: 0,
-                            minimumFractionDigits: 0,
-                        }).format(bond.purchased)
-                    )}
-                </p>
+            <TableCell padding="none">
+                <div className="bond-table-td">
+                    <p>
+                        {isBondLoading ? (
+                            <Skeleton width="50px" />
+                        ) : (
+                            new Intl.NumberFormat("en-US", {
+                                style: "currency",
+                                currency: "USD",
+                                maximumFractionDigits: 0,
+                                minimumFractionDigits: 0,
+                            }).format(bond.purchased)
+                        )}
+                    </p>
+                </div>
             </TableCell>
-            <TableCell>
-                <Link component={NavLink} to={`/mints/${bond.name}`}>
-                    <div className="bond-table-btn">
-                        <p>Bond</p>
-                    </div>
-                </Link>
+            <TableCell padding="none" align="right">
+                <div className="bond-table-td last">
+                    <Link component={NavLink} to={`/mints/${bond.name}`}>
+                        <div className="bond-table-btn">
+                            <p>Bond</p>
+                        </div>
+                    </Link>
+                </div>
             </TableCell>
         </TableRow>
     );

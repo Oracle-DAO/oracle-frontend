@@ -66,7 +66,11 @@
         font-weight: 400;
         font-size: 14px;
         line-height: 21px;
+        justify-content: flex-start !important;
         color: #ffffff;
+        &.first {
+            margin-left: 80px !important;
+        }
     }
 
     .choose-bond-view-card {
@@ -170,23 +174,62 @@
         color: #ffffff;
     }
 
-    .bond-table-btn {
-        background: rgba(255, 255, 255, 0.2);
-        border: 1px solid #767676;
-        border-radius: 10px;
-        padding: 6px 35.5px;
-        text-align: center;
+    .bond-table-td {
+        padding: 1rem;
+        background: rgba(28, 28, 28, 0.31);
+        border-top: 1px solid #6016FC;
+        border-bottom: 1px solid #6016FC;
+        box-sizing: border-box;
+        height: 65px;
+        align-items: center;
+        display: flex;
+        margin-bottom: 1rem;
+        &.first {
+            border-left: 1px solid #6016FC;
+            border-top-left-radius: 16px;
+            border-bottom-left-radius: 16px;
+        }
+        &.last {
+            border-right: 1px solid #6016FC;
+            border-top-right-radius: 16px;
+            padding: 0 1rem;
+            border-bottom-right-radius: 16px;
+            justify-content: flex-end;
+        }
+        p {
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 19px;
+            line-height: 28px;
+            color: #FFFFFF;
+        }
+        span {
+            display: flex;
+        }
+        .ms-3 {
+            margin-left: 1rem !important;
+        }
+    }
 
-        &:hover {
-            border: 1px solid rgba(255, 255, 255, 0.6);
+    .bond-table-btn {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid #6016FC;
+        box-sizing: border-box;
+        border-radius: 16px;
+        padding: 0.5rem 1rem;
+        &.mt-3 {
+            margin-top: 1rem;
         }
 
         p {
-            font-family: Montserrat Semibold;
+            font-family: Poppins;
             font-style: normal;
             font-weight: 600;
-            font-size: 16px;
-            color: #ffffff;
+            font-size: 13px;
+            line-height: 20px;
+            text-align: center;
+            color: #FFFFFF;
         }
     }
 

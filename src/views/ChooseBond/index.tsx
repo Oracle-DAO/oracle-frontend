@@ -81,19 +81,19 @@ function ChooseBond() {
                                 <Table>
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell align="center">
-                                                <p className="choose-bond-view-card-table-title">Bond</p>
+                                            <TableCell>
+                                                <p className="choose-bond-view-card-table-title first">Bond</p>
                                             </TableCell>
-                                            <TableCell align="center">
+                                            <TableCell>
                                                 <p className="choose-bond-view-card-table-title">Price</p>
                                             </TableCell>
-                                            <TableCell align="center">
+                                            <TableCell>
                                                 <p className="choose-bond-view-card-table-title">ROI</p>
                                             </TableCell>
-                                            <TableCell align="right">
+                                            <TableCell>
                                                 <p className="choose-bond-view-card-table-title">Purchased</p>
                                             </TableCell>
-                                            <TableCell align="right"></TableCell>
+                                            <TableCell width={'100px'}></TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -112,7 +112,7 @@ function ChooseBond() {
                 <div className="choose-bond-view-card-container">
                     <Grid container item spacing={2}>
                         {bonds.map(bond => (
-                            <Grid item xs={12} key={bond.name}>
+                            <Grid item xs={12} md={12} key={bond.name}>
                                 <BondDataCard key={bond.name} bond={bond} />
                             </Grid>
                         ))}
