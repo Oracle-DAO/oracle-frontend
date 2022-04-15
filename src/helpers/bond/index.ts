@@ -15,8 +15,8 @@ export const mim = new StableBond({
     reserveContractAbi: StableReserveContract,
     networkAddrs: {
         [Networks.OASIS]: {
-            bondAddress: "0x4Ec75edfa7FEFFCd704E626Db2CF8b1A109bEC0F",
-            reserveAddress: "0x44A0E5AA53920F96524ee86b406d5532f28275Ae",
+            bondAddress: "0xf203b559c1C18F49d041D25bf448C68aFA021ca3",
+            reserveAddress: "0xe3d9f491D84Fb39D0ACA6dB49ed02758Ed40AEcF",
         },
     },
     tokensInStrategy: "",
