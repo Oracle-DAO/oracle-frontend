@@ -188,10 +188,7 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
     const addresses = getAddresses(networkID);
     const tokenContract = new ethers.Contract(token.address, MimTokenContract, provider);
 
-    let allowance,
-        balance = "0";
-
-    allowance = await tokenContract.allowance(address, addresses.ZAPIN_ADDRESS);
+    let balance = "0";
     balance = await tokenContract.balanceOf(address);
 
     const balanceVal = Number(balance) / Math.pow(10, token.decimals);
@@ -199,7 +196,6 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
         token: token.name,
         address: token.address,
         img: token.img,
-        allowance: Number(allowance),
         balance: Number(balanceVal),
     };
 });

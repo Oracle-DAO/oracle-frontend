@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { DEFAULD_NETWORK, getAddresses, TOKEN_DECIMALS } from "../../../constants";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Fade, Popper } from "@material-ui/core";
 import "./time-menu.scss";
 import { IReduxState } from "../../../store/slices/state.interface";
 import { getTokenUrl } from "../../../helpers";
+import { warning } from "../../../store/slices/messages-slice";
+import { messages } from "../../../constants/messages";
+import { useWeb3Context } from "../../../hooks";
+import { getMIMTokens, getORFITokens } from "../../../store/slices/faucet_thunk";
 
 const addTokenToWallet = (tokenSymbol: string, tokenAddress: string) => async () => {
     const tokenImage = getTokenUrl(tokenSymbol.toLowerCase());
@@ -30,6 +34,9 @@ const addTokenToWallet = (tokenSymbol: string, tokenAddress: string) => async ()
 };
 
 function TimeMenu() {
+    const dispatch = useDispatch();
+    const { address, provider, chainID, checkWrongNetwork } = useWeb3Context();
+
     const [anchorEl, setAnchorEl] = useState(null);
     const isEthereumAPIAvailable = window.ethereum;
 
@@ -37,15 +44,25 @@ function TimeMenu() {
         return (state.app && state.app.networkID) || DEFAULD_NETWORK;
     });
 
-    // const faucet = () => async () => {
-    //     if (!address) {
-    //         dispatch(warning({ text: messages.please_connect_wallet }));
-    //         return;
-    //     }
-    //     if (await checkWrongNetwork()) return;
-    //     const token = "MIM";
-    //     await dispatch(getTokens({ address, token, provider, networkID: chainID }));
-    // };
+    const mimFaucet = () => async () => {
+        if (!address) {
+            dispatch(warning({ text: messages.please_connect_wallet }));
+            return;
+        }
+        if (await checkWrongNetwork()) return;
+        const token = "MIM";
+        await dispatch(getMIMTokens({ address, provider, networkID: chainID }));
+    };
+
+    const orfiFaucet = () => async () => {
+        if (!address) {
+            dispatch(warning({ text: messages.please_connect_wallet }));
+            return;
+        }
+        if (await checkWrongNetwork()) return;
+        const token = "ORFI";
+        await dispatch(getORFITokens({ address, provider, networkID: chainID }));
+    };
 
     const addresses = getAddresses(networkID);
 
@@ -81,6 +98,13 @@ function TimeMenu() {
                                     </div>
                                     <div className="tooltip-item" onClick={addTokenToWallet("sORFI", sORFI_ADDRESS)}>
                                         <p>sORFI</p>
+                                    </div>
+                                    <div className="divider" />
+                                    <div className="tooltip-item" onClick={mimFaucet()}>
+                                        <p>Airdrop MIM</p>
+                                    </div>
+                                    <div className="tooltip-item" onClick={orfiFaucet()}>
+                                        <p>Airdrop ORFI</p>
                                     </div>
                                 </div>
                             )}
