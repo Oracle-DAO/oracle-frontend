@@ -16,23 +16,23 @@ import useTokens from "../hooks/tokens";
 
 
 const Dashboard = loadable(() => import("../views/Dashboard/index"), {
-    fallback: <Loading />
+    fallback: <Loading theme="light" />
 });
 
 const Bond = loadable(() => import("../views/Bond/index"), {
-    fallback: <Loading />
+    fallback: <Loading theme="light" />
 });
 
 const ChooseBond = loadable(() => import("../views/ChooseBond/index"), {
-    fallback: <Loading />
+    fallback: <Loading theme="light" />
 });
 
 const NotFound = loadable(() => import("../views/404/index"), {
-    fallback: <Loading />
+    fallback: <Loading theme="light" />
 });
 
 const Stake = loadable(() => import("../views/Stake/index"), {
-    fallback: <Loading />
+    fallback: <Loading theme="light" />
 });
 
 function App() {
