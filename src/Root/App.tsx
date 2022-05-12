@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import loadable from "@loadable/component";
+
 import { useAddress, useWeb3Context } from "../hooks";
 import { calcBondDetails } from "../store/slices/bond-slice";
 import { loadAppDetails } from "../store/slices/app-slice";
@@ -9,9 +11,29 @@ import { IReduxState } from "../store/slices/state.interface";
 import Loading from "../components/Loader";
 import useBonds from "../hooks/bonds";
 import ViewBase from "../components/ViewBase";
-import { Bond, ChooseBond, Dashboard, NotFound, Stake } from "../views";
 import "./style.scss";
 import useTokens from "../hooks/tokens";
+
+
+const Dashboard = loadable(() => import("../views/Dashboard/index"), {
+    fallback: <Loading />
+});
+
+const Bond = loadable(() => import("../views/Bond/index"), {
+    fallback: <Loading />
+});
+
+const ChooseBond = loadable(() => import("../views/ChooseBond/index"), {
+    fallback: <Loading />
+});
+
+const NotFound = loadable(() => import("../views/404/index"), {
+    fallback: <Loading />
+});
+
+const Stake = loadable(() => import("../views/Stake/index"), {
+    fallback: <Loading />
+});
 
 function App() {
     const dispatch = useDispatch();
@@ -21,7 +43,6 @@ function App() {
 
     const [walletChecked, setWalletChecked] = useState(false);
 
-    const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
     const isAppLoaded = useSelector<IReduxState, boolean>(state => !Boolean(state.app.marketPrice));
 
     const { bonds } = useBonds();
@@ -100,8 +121,6 @@ function App() {
             loadDetails("userTokens");
         }
     }, [connected]);
-
-    if (isAppLoading) return <Loading />;
 
     return (
         <ViewBase>
