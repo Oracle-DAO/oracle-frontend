@@ -14,25 +14,24 @@ import ViewBase from "../components/ViewBase";
 import "./style.scss";
 import useTokens from "../hooks/tokens";
 
-
 const Dashboard = loadable(() => import("../views/Dashboard/index"), {
-    fallback: <Loading />
+    fallback: <Loading />,
 });
 
 const Bond = loadable(() => import("../views/Bond/index"), {
-    fallback: <Loading />
+    fallback: <Loading />,
 });
 
 const ChooseBond = loadable(() => import("../views/ChooseBond/index"), {
-    fallback: <Loading />
+    fallback: <Loading />,
 });
 
 const NotFound = loadable(() => import("../views/404/index"), {
-    fallback: <Loading />
+    fallback: <Loading />,
 });
 
 const Stake = loadable(() => import("../views/Stake/index"), {
-    fallback: <Loading />
+    fallback: <Loading />,
 });
 
 function App() {
