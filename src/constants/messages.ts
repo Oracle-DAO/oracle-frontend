@@ -8,6 +8,7 @@ export const messages = {
     before_stake: "Before staking, enter a value.",
     before_unstake: "Before un staking, enter a value.",
     before_collect_rewards: "No rewards currently, please reedem at cycle end",
+    before_redeem_norfi: "No nORFI for redemption",
     tx_successfully_send: "Your transaction was successfully sent",
     successfully_rebased: "Rebase completed",
     your_balance_updated: "Your balance was successfully updated",
