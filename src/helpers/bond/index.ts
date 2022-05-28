@@ -14,7 +14,7 @@ export const mim = new StableBond({
     bondContractABI: StableBondContract,
     reserveContractAbi: StableReserveContract,
     networkAddrs: {
-        [Networks.OASIS]: {
+        [Networks.POLYGON]: {
             bondAddress: "0xf203b559c1C18F49d041D25bf448C68aFA021ca3",
             reserveAddress: "0xe3d9f491D84Fb39D0ACA6dB49ed02758Ed40AEcF",
         },
@@ -30,7 +30,7 @@ export const mimORFI = new LPBond({
     bondContractABI: LpBondContract,
     reserveContractAbi: LpReserveContract,
     networkAddrs: {
-        [Networks.OASIS]: {
+        [Networks.POLYGON]: {
             bondAddress: "0xb90D4514e2cDBd6435966676e7Eb3188Cd99099b",
             reserveAddress: "0x4b6b46c01dC2e7C5c4f7c01adDB586f93e1aa498",
         },

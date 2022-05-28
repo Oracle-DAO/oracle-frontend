@@ -1,6 +1,6 @@
 import { Networks } from "./blockchain";
 
-const OASIS = {
+const POLYGON = {
     DAO_ADDRESS: "0x25Ba98A0Acfa19160E52aa123b7C612A1fc5db90",
     sORFI_ADDRESS: "0xe2256E6db537fa3622628724b02ff4191089eEaB",
     ORFI_ADDRESS: "0x7E76335aCe23bBA458e15f05CA6fdC68dcFc4D12",
@@ -16,8 +16,8 @@ const OASIS = {
 };
 
 export const getAddresses = (networkID: number) => {
-    if (networkID === Networks.OASIS) {
-        return OASIS;
+    if (networkID === Networks.POLYGON) {
+        return POLYGON;
     }
 
     throw Error("Network don't support");

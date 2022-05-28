@@ -1,7 +1,9 @@
+import { getMainnetURI } from "../hooks/web3/helpers";
+
 const switchRequest = () => {
     return window.ethereum.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0xa515" }],
+        params: [{ chainId: "0x89" }],
     });
 };
 
@@ -10,13 +12,13 @@ const addChainRequest = () => {
         method: "wallet_addEthereumChain",
         params: [
             {
-                chainId: "0xa515",
-                chainName: "Oasis Emerald Testnet",
-                rpcUrls: ["https://testnet.emerald.oasis.dev"],
-                blockExplorerUrls: ["https://testnet.explorer.emerald.oasis.dev"],
+                chainId: "0x89",
+                chainName: "Polygon Mainnet",
+                rpcUrls: [getMainnetURI()],
+                blockExplorerUrls: ["https://www.polygonscan.com/"],
                 nativeCurrency: {
-                    name: "OASIS",
-                    symbol: "OASIS",
+                    name: "MATIC",
+                    symbol: "MATIC",
                     decimals: 18,
                 },
             },
