@@ -16,6 +16,7 @@ import { warning } from "../../store/slices/messages-slice";
 import { ReactComponent as WalletIcon } from "../../assets/icons/wallet-money.svg";
 import { ReactComponent as MoneyIcon } from "../../assets/icons/moneys.svg";
 import { ReactComponent as ChartIcon } from "../../assets/icons/chart-square.svg";
+import { IAppSlice } from "src/store/slices/app-slice";
 
 function Stake() {
     const dispatch = useDispatch();
@@ -25,6 +26,8 @@ function Stake() {
     const [quantity, setQuantity] = useState<string>("");
 
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
+    const app = useSelector<IReduxState, IAppSlice>(state => state.app);
+
     const oracleBalance = useSelector<IReduxState, string>(state => {
         return state.account.balances && state.account.balances.ORFI;
     });
@@ -36,17 +39,6 @@ function Stake() {
     });
     const unstakeAllowance = useSelector<IReduxState, number>(state => {
         return state.account.staking && state.account.staking.sORFI;
-    });
-    const stakingTVL = useSelector<IReduxState, number>(state => {
-        return state.app.stakingTVL;
-    });
-
-    const TAV = useSelector<IReduxState, number>(state => {
-        return state.app.tav;
-    });
-
-    const marketPrice = useSelector<IReduxState, number>(state => {
-        return state.app.marketPrice;
     });
 
     const pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
@@ -107,12 +99,16 @@ function Stake() {
                                     <div className="card">
                                         <p className="card-title">TAV</p>
                                         <p className="card-value">
-                                            {new Intl.NumberFormat("en-US", {
-                                                style: "currency",
-                                                currency: "USD",
-                                                maximumFractionDigits: 2,
-                                                minimumFractionDigits: 2,
-                                            }).format(TAV)}
+                                            {isAppLoading ? <Skeleton width="150px" /> :
+                                                (
+                                                    new Intl.NumberFormat("en-US", {
+                                                        style: "currency",
+                                                        currency: "USD",
+                                                        maximumFractionDigits: 2,
+                                                        minimumFractionDigits: 2,
+                                                    }).format(app.tav)
+                                                )
+                                            }
                                         </p>
                                     </div>
                                 </div>
@@ -126,12 +122,16 @@ function Stake() {
                                     <div className="card">
                                         <p className="card-title">TVL</p>
                                         <p className="card-value">
-                                            {new Intl.NumberFormat("en-US", {
-                                                style: "currency",
-                                                currency: "USD",
-                                                maximumFractionDigits: 0,
-                                                minimumFractionDigits: 0,
-                                            }).format(stakingTVL)}
+                                            {isAppLoading ? <Skeleton width="150px" /> :
+                                                (
+                                                    new Intl.NumberFormat("en-US", {
+                                                        style: "currency",
+                                                        currency: "USD",
+                                                        maximumFractionDigits: 0,
+                                                        minimumFractionDigits: 0,
+                                                    }).format(app.stakingTVL)
+                                                )
+                                            }
                                         </p>
                                     </div>
                                 </div>
@@ -145,12 +145,14 @@ function Stake() {
                                     <div className="card">
                                         <p className="card-title">ORFI Price</p>
                                         <p className="card-value">
-                                            {new Intl.NumberFormat("en-US", {
-                                                style: "currency",
-                                                currency: "USD",
-                                                maximumFractionDigits: 2,
-                                                minimumFractionDigits: 2,
-                                            }).format(marketPrice)}
+                                            {isAppLoading ? <Skeleton width="150px" /> :
+                                                (new Intl.NumberFormat("en-US", {
+                                                    style: "currency",
+                                                    currency: "USD",
+                                                    maximumFractionDigits: 2,
+                                                    minimumFractionDigits: 2,
+                                                }).format(app.marketPrice))
+                                            }
                                         </p>
                                     </div>
                                 </div>

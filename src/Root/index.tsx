@@ -5,10 +5,6 @@ import { loadTokenPrices } from "../helpers";
 import Loading from "../components/Loader";
 
 function Root() {
-    const isApp = (): boolean => {
-        return true; //window.location.host.includes("app");
-    };
-
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -17,13 +13,11 @@ function Root() {
 
     if (loading) return <Loading />;
 
-    const app = () => (
+    return (
         <HashRouter>
             <App />
         </HashRouter>
     );
-
-    return app();
 }
 
 export default Root;
