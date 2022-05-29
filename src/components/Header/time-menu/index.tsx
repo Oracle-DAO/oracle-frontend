@@ -8,7 +8,7 @@ import { getTokenUrl } from "../../../helpers";
 import { warning } from "../../../store/slices/messages-slice";
 import { messages } from "../../../constants/messages";
 import { useWeb3Context } from "../../../hooks";
-import { getMIMTokens, getORFITokens } from "../../../store/slices/faucet_thunk";
+import { getORFITokens, getUSDTTokens } from "../../../store/slices/faucet_thunk";
 
 const addTokenToWallet = (tokenSymbol: string, tokenAddress: string) => async () => {
     const tokenImage = getTokenUrl(tokenSymbol.toLowerCase());
@@ -44,14 +44,13 @@ function TimeMenu() {
         return (state.app && state.app.networkID) || DEFAULD_NETWORK;
     });
 
-    const mimFaucet = () => async () => {
+    const usdtFaucet = () => async () => {
         if (!address) {
             dispatch(warning({ text: messages.please_connect_wallet }));
             return;
         }
         if (await checkWrongNetwork()) return;
-        const token = "MIM";
-        await dispatch(getMIMTokens({ address, provider, networkID: chainID }));
+        await dispatch(getUSDTTokens({ address, provider, networkID: chainID }));
     };
 
     const orfiFaucet = () => async () => {
@@ -100,8 +99,8 @@ function TimeMenu() {
                                         <p>sORFI</p>
                                     </div>
                                     <div className="divider" />
-                                    <div className="tooltip-item" onClick={mimFaucet()}>
-                                        <p>Airdrop MIM</p>
+                                    <div className="tooltip-item" onClick={usdtFaucet()}>
+                                        <p>Airdrop USDT</p>
                                     </div>
                                     <div className="tooltip-item" onClick={orfiFaucet()}>
                                         <p>Airdrop ORFI</p>

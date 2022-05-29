@@ -1,5 +1,5 @@
-import MimIcon from "../assets/tokens/MIM.svg";
 import ORFIIcon from "../assets/tokens/ORFI.png";
+import USDTIcon from "../assets/tokens/USDT.svg";
 
 export interface IToken {
     name: string;
@@ -9,11 +9,12 @@ export interface IToken {
     decimals: number;
 }
 
-export const mim: IToken = {
-    name: "MIM",
+export const usdt: IToken = {
+    name: "USDT",
+    // TODO update here
     address: "0xe3d9f491D84Fb39D0ACA6dB49ed02758Ed40AEcF",
-    img: MimIcon,
-    decimals: 18,
+    img: USDTIcon,
+    decimals: 6,
 };
 
 export const ORFI: IToken = {
@@ -23,4 +24,4 @@ export const ORFI: IToken = {
     decimals: 18,
 };
 
-export default [mim, ORFI];
+export default [usdt, ORFI];

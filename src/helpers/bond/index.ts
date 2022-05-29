@@ -2,19 +2,20 @@ import { Networks } from "../../constants/blockchain";
 import { LPBond } from "./lp-bond";
 import { StableBond } from "./stable-bond";
 
-import MimIcon from "../../assets/tokens/MIM.svg";
+import USDTIcon from "../../assets/tokens/USDT.svg";
 
 import { LpBondContract, LpReserveContract, StableBondContract, StableReserveContract } from "../../abi";
 
-export const mim = new StableBond({
-    name: "mim",
-    displayName: "MIM",
-    bondToken: "MIM",
-    bondIconSvg: MimIcon,
+export const usdt = new StableBond({
+    name: "usdt",
+    displayName: "USDT",
+    bondToken: "USDT",
+    bondIconSvg: USDTIcon,
     bondContractABI: StableBondContract,
     reserveContractAbi: StableReserveContract,
     networkAddrs: {
         [Networks.POLYGON]: {
+            // TODO change
             bondAddress: "0xf203b559c1C18F49d041D25bf448C68aFA021ca3",
             reserveAddress: "0xe3d9f491D84Fb39D0ACA6dB49ed02758Ed40AEcF",
         },
@@ -22,11 +23,11 @@ export const mim = new StableBond({
     tokensInStrategy: "",
 });
 
-export const mimORFI = new LPBond({
-    name: "mim_ORFI_lp",
-    displayName: "ORFI-MIM LP",
-    bondToken: "MIM",
-    bondIconSvg: MimIcon,
+export const usdtORFI = new LPBond({
+    name: "usdt_ORFI_lp",
+    displayName: "ORFI-USDT LP",
+    bondToken: "USDT",
+    bondIconSvg: USDTIcon,
     bondContractABI: LpBondContract,
     reserveContractAbi: LpReserveContract,
     networkAddrs: {
@@ -54,4 +55,4 @@ export const mimORFI = new LPBond({
 //     lpUrl: "https://www.traderjoexyz.com/#/pool/AVAX/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
 // });
 
-export default [mim];
+export default [usdt];

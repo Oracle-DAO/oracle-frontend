@@ -16,7 +16,7 @@ export const loadAppDetails = createAsyncThunk(
     "app/loadAppDetails",
     //@ts-ignore
     async ({ networkID, provider }: ILoadAppDetails) => {
-        const mimPrice = getTokenPrice("MIM");
+        const usdtPrice = getTokenPrice("USDT");
         const addresses = getAddresses(networkID);
 
         const stakingContract = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, provider);
@@ -27,8 +27,8 @@ export const loadAppDetails = createAsyncThunk(
         const tavContract = new ethers.Contract(addresses.TAV_CALCULATOR_ADDRESS, TavContract, provider);
 
         // TODO revisit
-        // const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 18)) * mimPrice;
-        const marketPrice = (await getMarketPrice(networkID, provider)) * mimPrice;
+        // const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 18)) * usdtPrice;
+        const marketPrice = (await getMarketPrice(networkID, provider)) * usdtPrice;
 
         const totalSupply = (await oracleContract.totalSupply()) / Math.pow(10, 18);
         const circSupply = (await sOracleContract.totalSupply()) / Math.pow(10, 18);

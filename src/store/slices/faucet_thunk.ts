@@ -15,14 +15,14 @@ interface IChangeApproval {
     networkID: Networks;
 }
 
-export const getMIMTokens = createAsyncThunk("faucet/getMiM", async ({ provider, address, networkID }: IChangeApproval, { dispatch }) => {
+export const getUSDTTokens = createAsyncThunk("faucet/getUSDT", async ({ provider, address, networkID }: IChangeApproval, { dispatch }) => {
     const addresses = getAddresses(networkID);
     const signer = provider.getSigner();
-    const mimFaucet = new ethers.Contract(addresses.MIM_FAUCET, FaucetContract, signer);
+    const usdtFaucet = new ethers.Contract(addresses.USDT_FAUCET, FaucetContract, signer);
 
     try {
         const gasPrice = await getGasPrice(provider);
-        let approveTx = await mimFaucet.faucet(address, { gasPrice });
+        let approveTx = await usdtFaucet.faucet(address, { gasPrice });
         await approveTx.wait();
         dispatch(success({ text: messages.tx_successfully_send }));
     } catch (err: any) {
@@ -31,14 +31,14 @@ export const getMIMTokens = createAsyncThunk("faucet/getMiM", async ({ provider,
     await sleep(2);
 });
 
-export const getORFITokens = createAsyncThunk("faucet/getMiM", async ({ provider, address, networkID }: IChangeApproval, { dispatch }) => {
+export const getORFITokens = createAsyncThunk("faucet/getORFI", async ({ provider, address, networkID }: IChangeApproval, { dispatch }) => {
     const addresses = getAddresses(networkID);
     const signer = provider.getSigner();
-    const mimFaucet = new ethers.Contract(addresses.ORFI_FAUCET, FaucetContract, signer);
+    const orfiFaucet = new ethers.Contract(addresses.ORFI_FAUCET, FaucetContract, signer);
 
     try {
         const gasPrice = await getGasPrice(provider);
-        let approveTx = await mimFaucet.faucet(address, { gasPrice });
+        let approveTx = await orfiFaucet.faucet(address, { gasPrice });
         await approveTx.wait();
         dispatch(success({ text: messages.tx_successfully_send }));
     } catch (err: any) {

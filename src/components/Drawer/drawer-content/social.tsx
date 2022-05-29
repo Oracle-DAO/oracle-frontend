@@ -1,14 +1,14 @@
 import { Link, SvgIcon } from "@material-ui/core";
-import { ReactComponent as GitHub } from "../../../assets/icons/github.svg";
 import { ReactComponent as Twitter } from "../../../assets/icons/twitter.svg";
 import { ReactComponent as Telegram } from "../../../assets/icons/telegram.svg";
 import { ReactComponent as Medium } from "../../../assets/icons/medium.svg";
+import { ReactComponent as Discord } from "../../../assets/icons/discord.svg";
 
 export default function Social() {
     return (
         <div className="social-row">
-            <Link href="https://github.com/Oracle-DAO" target="_blank">
-                <SvgIcon color="primary" component={GitHub} />
+            <Link href="https://discord.gg/oraclefinance" target="_blank">
+                <SvgIcon color="primary" component={Discord} />
             </Link>
 
             <Link href="https://twitter.com/Oracle_Finance" target="_blank">

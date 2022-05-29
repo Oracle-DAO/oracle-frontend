@@ -20,7 +20,12 @@ interface IChangeApproval {
     address: string;
 }
 
-export const changeApproval = createAsyncThunk("bonding/changeApproval", async ({ bond, provider, networkID, address }: IChangeApproval, { dispatch }) => {
+export const changeApproval = createAsyncThunk("bonding/changeApproval", async ({
+                                                                                    bond,
+                                                                                    provider,
+                                                                                    networkID,
+                                                                                    address,
+                                                                                }: IChangeApproval, { dispatch }) => {
     if (!provider) {
         dispatch(warning({ text: messages.please_connect_wallet }));
         return;
@@ -87,7 +92,12 @@ export interface IBondDetails {
     maxBondPriceToken: number;
 }
 
-export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async ({ bond, value, provider, networkID }: ICalcBondDetails, { dispatch }) => {
+export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async ({
+                                                                                      bond,
+                                                                                      value,
+                                                                                      provider,
+                                                                                      networkID,
+                                                                                  }: ICalcBondDetails, { dispatch }) => {
     if (!value) {
         value = "0";
     }
@@ -108,8 +118,8 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
 
     let marketPrice = await getMarketPrice(networkID, provider);
 
-    const mimPrice = getTokenPrice("MIM");
-    marketPrice = (marketPrice / Math.pow(10, 18)) * mimPrice;
+    const usdtPrice = getTokenPrice("USDT");
+    marketPrice = (marketPrice / Math.pow(10, 18)) * usdtPrice;
 
     try {
         // TODO re-evaluate entire logic
@@ -185,7 +195,15 @@ interface IBondAsset {
     useAvax: boolean;
 }
 
-export const bondAsset = createAsyncThunk("bonding/bondAsset", async ({ value, address, bond, networkID, provider, slippage, useAvax }: IBondAsset, { dispatch }) => {
+export const bondAsset = createAsyncThunk("bonding/bondAsset", async ({
+                                                                          value,
+                                                                          address,
+                                                                          bond,
+                                                                          networkID,
+                                                                          provider,
+                                                                          slippage,
+                                                                          useAvax,
+                                                                      }: IBondAsset, { dispatch }) => {
     const depositorAddress = address;
     const acceptedSlippage = slippage / 100 || 0.005;
     const valueInWei = ethers.utils.parseUnits(value, "ether");
@@ -230,7 +248,13 @@ interface IRedeemBond {
     autostake: boolean;
 }
 
-export const redeemBond = createAsyncThunk("bonding/redeemBond", async ({ address, bond, networkID, provider, autostake }: IRedeemBond, { dispatch }) => {
+export const redeemBond = createAsyncThunk("bonding/redeemBond", async ({
+                                                                            address,
+                                                                            bond,
+                                                                            networkID,
+                                                                            provider,
+                                                                            autostake,
+                                                                        }: IRedeemBond, { dispatch }) => {
     if (!provider) {
         dispatch(warning({ text: messages.please_connect_wallet }));
         return;
