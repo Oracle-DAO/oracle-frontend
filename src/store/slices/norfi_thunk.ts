@@ -20,13 +20,12 @@ interface IReward {
 export const redeemNORFI = createAsyncThunk("norfi/redeemNorfi", async ({ provider, amount, address, networkID }: IReward, { dispatch }) => {
     const addresses = getAddresses(networkID);
     const signer = provider.getSigner();
-    const redeemNORFI = new ethers.Contract(addresses.NORFI, NORFI, signer);
+    const nORFI = new ethers.Contract(addresses.NORFI, NORFI, signer);
 
     let redeem;
     try {
         const gasPrice = await getGasPrice(provider);
-        const amountInWei = ethers.utils.parseEther(amount);
-        redeem = await redeemNORFI.redeemORFI(amountInWei, { gasPrice });
+        redeem = await nORFI.redeemORFI(amount, { gasPrice });
         dispatch(fetchPendingTxns({ txnHash: redeem.hash, text: "Redeem NORFI", type: "redeemNORFI" }));
         await redeem.wait();
         dispatch(success({ text: messages.tx_successfully_send }));

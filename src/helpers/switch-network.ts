@@ -3,7 +3,7 @@ import { getMainnetURI } from "../hooks/web3/helpers";
 const switchRequest = () => {
     return window.ethereum.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x24C" }],
+        params: [{ chainId: "0x89" }],
     });
 };
 
@@ -12,13 +12,13 @@ const addChainRequest = () => {
         method: "wallet_addEthereumChain",
         params: [
             {
-                chainId: "0x24C",
-                chainName: "Metis Stardust",
+                chainId: "0x89",
+                chainName: "Polygon Mainnet",
                 rpcUrls: [getMainnetURI()],
-                blockExplorerUrls: ["https://stardust-explorer.metis.io/"],
+                blockExplorerUrls: ["https://www.polygonscan.com/"],
                 nativeCurrency: {
-                    name: "METIS",
-                    symbol: "METIS",
+                    name: "MATIC",
+                    symbol: "MATIC",
                     decimals: 18,
                 },
             },

@@ -20,6 +20,7 @@ function RedeemNorfiButton() {
         const nORFI = new ethers.Contract(addresses.NORFI, NORFI, provider);
 
         nORFI.balanceOf(address).then((data: string) => {
+            console.log(data);
             if (data === null || parseFloat(data) === 0) {
                 dispatch(warning({ text: messages.before_redeem_norfi }));
             } else {

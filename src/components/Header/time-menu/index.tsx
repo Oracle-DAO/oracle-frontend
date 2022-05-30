@@ -5,10 +5,7 @@ import { Fade, Popper } from "@material-ui/core";
 import "./time-menu.scss";
 import { IReduxState } from "../../../store/slices/state.interface";
 import { getTokenUrl } from "../../../helpers";
-import { warning } from "../../../store/slices/messages-slice";
-import { messages } from "../../../constants/messages";
 import { useWeb3Context } from "../../../hooks";
-import { getORFITokens, getUSDTTokens } from "../../../store/slices/faucet_thunk";
 
 const addTokenToWallet = (tokenSymbol: string, tokenAddress: string) => async () => {
     const tokenImage = getTokenUrl(tokenSymbol.toLowerCase());
@@ -44,25 +41,6 @@ function TimeMenu() {
         return (state.app && state.app.networkID) || DEFAULD_NETWORK;
     });
 
-    const usdtFaucet = () => async () => {
-        if (!address) {
-            dispatch(warning({ text: messages.please_connect_wallet }));
-            return;
-        }
-        if (await checkWrongNetwork()) return;
-        await dispatch(getUSDTTokens({ address, provider, networkID: chainID }));
-    };
-
-    const orfiFaucet = () => async () => {
-        if (!address) {
-            dispatch(warning({ text: messages.please_connect_wallet }));
-            return;
-        }
-        if (await checkWrongNetwork()) return;
-        const token = "ORFI";
-        await dispatch(getORFITokens({ address, provider, networkID: chainID }));
-    };
-
     const addresses = getAddresses(networkID);
 
     const sORFI_ADDRESS = addresses.sORFI_ADDRESS;
@@ -84,9 +62,7 @@ function TimeMenu() {
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={200}>
                         <div className="tooltip">
-                            {/*<div className="tooltip-item" onClick={faucet()}>*/}
-                            {/*    <p>Airdrop MIM</p>*/}
-                            {/*</div>*/}
+
                             {isEthereumAPIAvailable && (
                                 <div className="add-tokens">
                                     <div className="divider" />
@@ -99,12 +75,6 @@ function TimeMenu() {
                                         <p>sORFI</p>
                                     </div>
                                     <div className="divider" />
-                                    <div className="tooltip-item" onClick={usdtFaucet()}>
-                                        <p>Airdrop USDT</p>
-                                    </div>
-                                    <div className="tooltip-item" onClick={orfiFaucet()}>
-                                        <p>Airdrop ORFI</p>
-                                    </div>
                                 </div>
                             )}
                         </div>
