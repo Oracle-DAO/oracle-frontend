@@ -51,8 +51,6 @@ export const loadAppDetails = createAsyncThunk(
 
         const rfv = rfvTreasury / ORFISupply;
 
-        const treasuryRunway = rfvTreasury / circSupply;
-
         return {
             stakingTVL,
             marketPrice,

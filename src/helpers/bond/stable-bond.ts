@@ -1,10 +1,9 @@
-import { ContractInterface } from "ethers";
+import { BigNumber, ContractInterface } from "ethers";
 import { Bond, BondOpts } from "./bond";
 import { BondType } from "./constants";
 import { Networks } from "../../constants/blockchain";
 import { StaticJsonRpcProvider } from "@ethersproject/providers";
 import { getAddresses } from "../../constants/addresses";
-import { BigNumber } from "ethers";
 
 export interface StableBondOpts extends BondOpts {
     readonly reserveContractAbi: ContractInterface;
@@ -33,7 +32,7 @@ export class StableBond extends Bond {
         if (this.tokensInStrategy) {
             tokenAmount = BigNumber.from(tokenAmount).add(BigNumber.from(this.tokensInStrategy)).toString();
         }
-        return tokenAmount / Math.pow(10, 18);
+        return tokenAmount / Math.pow(10, 6);
     }
 
     public async getTokenAmount(networkID: Networks, provider: StaticJsonRpcProvider) {

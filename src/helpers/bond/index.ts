@@ -16,8 +16,8 @@ export const usdt = new StableBond({
     networkAddrs: {
         [Networks.POLYGON]: {
             // TODO change
-            bondAddress: "0xf203b559c1C18F49d041D25bf448C68aFA021ca3",
-            reserveAddress: "0xe3d9f491D84Fb39D0ACA6dB49ed02758Ed40AEcF",
+            bondAddress: "0x2B8AD6Fd2AB5B20370b2835F6BB382258A44A961",
+            reserveAddress: "0x09DC92B84BC354AAcc23fC5498Ba9ca17E495a8F",
         },
     },
     tokensInStrategy: "",
@@ -32,8 +32,8 @@ export const usdtORFI = new LPBond({
     reserveContractAbi: LpReserveContract,
     networkAddrs: {
         [Networks.POLYGON]: {
-            bondAddress: "0xb90D4514e2cDBd6435966676e7Eb3188Cd99099b",
-            reserveAddress: "0x4b6b46c01dC2e7C5c4f7c01adDB586f93e1aa498",
+            bondAddress: "0xe73B287BC12f94863cD09b19884892F66C81FA82",
+            reserveAddress: "0xE97df29FdA38A57747b17747Be2b93418605f9F6",
         },
     },
     lpUrl: "https://www.traderjoexyz.com/#/pool/0x130966628846BFd36ff31a822705796e8cb8C18D/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",

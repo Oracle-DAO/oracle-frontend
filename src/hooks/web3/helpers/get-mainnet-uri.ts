@@ -1,3 +1,3 @@
 export const getMainnetURI = (): string => {
-    return "https://polygon-mainnet.g.alchemy.com/v2/-uRy8IMZxGnHG4EeeXSfBxzdjFxac4j4";
+    return "https://stardust.metis.io/?owner=588v";
 };

@@ -91,6 +91,32 @@
       "inputs": [
         {
           "internalType": "address",
+          "name": "lpAddress",
+          "type": "address"
+        }
+      ],
+      "name": "addLpContractAddress",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_add",
+          "type": "address"
+        }
+      ],
+      "name": "addTaxExempt",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
           "name": "owner",
           "type": "address"
         },
@@ -155,19 +181,27 @@
       "type": "function"
     },
     {
-      "inputs": [
+      "inputs": [],
+      "name": "baseSellTax",
+      "outputs": [
         {
-          "internalType": "address",
-          "name": "account_",
-          "type": "address"
-        },
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
         {
           "internalType": "uint256",
           "name": "amount_",
           "type": "uint256"
         }
       ],
-      "name": "burnFrom",
+      "name": "burn",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -207,6 +241,25 @@
         }
       ],
       "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "getCurrentSellTax",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -253,6 +306,19 @@
     },
     {
       "inputs": [],
+      "name": "multiplier",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
       "name": "name",
       "outputs": [
         {
@@ -278,8 +344,47 @@
       "type": "function"
     },
     {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_add",
+          "type": "address"
+        }
+      ],
+      "name": "removeTaxExempt",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "inputs": [],
       "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_baseSellTax",
+          "type": "uint256"
+        }
+      ],
+      "name": "setBaseSellTax",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_multiplier",
+          "type": "uint256"
+        }
+      ],
+      "name": "setMultiplier",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

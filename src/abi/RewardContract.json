@@ -9,7 +9,7 @@
         },
         {
           "internalType": "address",
-          "name": "stakedORFIAddress_",
+          "name": "stakedOrfiAddress_",
           "type": "address"
         }
       ],
@@ -72,7 +72,7 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "totalStakedORFI",
+          "name": "totalStakedOrfi",
           "type": "uint256"
         },
         {
@@ -141,6 +141,25 @@
           "internalType": "address",
           "name": "",
           "type": "address"
+        }
+      ],
+      "name": "_userActivityMapping",
+      "outputs": [
+        {
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
         },
         {
           "internalType": "uint8",
@@ -152,7 +171,7 @@
       "outputs": [
         {
           "internalType": "uint256",
-          "name": "stakedORFIAmount",
+          "name": "stakedOrfiAmount",
           "type": "uint256"
         },
         {
@@ -256,6 +275,49 @@
         {
           "internalType": "uint256",
           "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint8",
+          "name": "rewardCycle",
+          "type": "uint8"
+        }
+      ],
+      "name": "getTotalStakedOrfiForACycle",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount_",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account_",
+          "type": "address"
+        },
+        {
+          "internalType": "uint8",
+          "name": "rewardCycle",
+          "type": "uint8"
+        }
+      ],
+      "name": "getTotalStakedOrfiOfUserForACycle",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount_",
           "type": "uint256"
         }
       ],
@@ -383,7 +445,7 @@
     },
     {
       "inputs": [],
-      "name": "stakedORFIAddress",
+      "name": "stakedOrfiAddress",
       "outputs": [
         {
           "internalType": "address",

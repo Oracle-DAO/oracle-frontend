@@ -4,7 +4,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_ORFI",
+          "name": "_orfi",
           "type": "address"
         },
         {
@@ -17,6 +17,19 @@
       "type": "constructor"
     },
     {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "assetManagerAddress",
+          "type": "address"
+        }
+      ],
+      "name": "AssetManagerAdded",
+      "type": "event"
+    },
+    {
       "inputs": [],
       "name": "ORFI",
       "outputs": [
@@ -27,6 +40,32 @@
         }
       ],
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "_owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "assetManager_",
+          "type": "address"
+        }
+      ],
+      "name": "addAssetManager",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {

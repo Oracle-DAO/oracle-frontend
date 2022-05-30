@@ -1,4 +1,4 @@
-import "./collect_rewards-button.scss";
+import "./redeem_norfi.scss";
 import { IPendingTxn, isPendingTxn, txnButtonText } from "../../../store/slices/pending-txns-slice";
 import { useWeb3Context } from "../../../hooks";
 import { useDispatch, useSelector } from "react-redux";
