@@ -12,14 +12,14 @@ export interface IToken {
 export const usdt: IToken = {
     name: "USDT",
     // TODO update here
-    address: "0xc737B9014ba9656120aA02C3c4DAC25BcCAc055F",
+    address: "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
     img: USDTIcon,
     decimals: 6,
 };
 
 export const ORFI: IToken = {
     name: "ORFI",
-    address: "0xF65d85a91B3576E637B7B52908dA6A5267287129",
+    address: "0x333C0D279c6251a1A86c168b9B3ffDcf9B3AB68a",
     img: ORFIIcon,
     decimals: 18,
 };

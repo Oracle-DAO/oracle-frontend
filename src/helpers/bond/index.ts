@@ -16,8 +16,8 @@ export const usdt = new StableBond({
     networkAddrs: {
         [Networks.POLYGON]: {
             // TODO change
-            bondAddress: "0xf3e0531Fe4dBb0381f85dE8991bE3F1Ea140b247",
-            reserveAddress: "0xc737B9014ba9656120aA02C3c4DAC25BcCAc055F",
+            bondAddress: "0xb74C6537d732B268944F3a43583da24986918434",
+            reserveAddress: "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
         },
     },
     tokensInStrategy: "",
