@@ -133,18 +133,7 @@ function Stake() {
                                     </div>
                                     <div className="card">
                                         <p className="card-title">TVL</p>
-                                        <p className="card-value">
-                                            {isAppLoading ? (
-                                                <Skeleton width="150px" />
-                                            ) : (
-                                                new Intl.NumberFormat("en-US", {
-                                                    style: "currency",
-                                                    currency: "USD",
-                                                    maximumFractionDigits: 2,
-                                                    minimumFractionDigits: 2,
-                                                }).format(app.stakingTVL)
-                                            )}
-                                        </p>
+                                        <p className="card-value">{isAppLoading ? <Skeleton width="150px" /> : `${trim(app.stakingTVL, 3)}`}</p>
                                     </div>
                                 </div>
                             </Grid>
