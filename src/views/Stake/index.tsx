@@ -120,16 +120,7 @@ function Stake() {
                                     <div className="card">
                                         <p className="card-title">TAV</p>
                                         <p className="card-value">
-                                            {isAppLoading ? (
-                                                <Skeleton width="150px" />
-                                            ) : (
-                                                new Intl.NumberFormat("en-US", {
-                                                    style: "currency",
-                                                    currency: "USD",
-                                                    maximumFractionDigits: 2,
-                                                    minimumFractionDigits: 2,
-                                                }).format(app.tav)
-                                            )}
+                                            <p className="card-value">{isAppLoading ? <Skeleton width="150px" /> : `$${trim(app.tav, 3)}`}</p>
                                         </p>
                                     </div>
                                 </div>
@@ -165,18 +156,7 @@ function Stake() {
                                     </div>
                                     <div className="card">
                                         <p className="card-title">ORFI Price</p>
-                                        <p className="card-value">
-                                            {isAppLoading ? (
-                                                <Skeleton width="150px" />
-                                            ) : (
-                                                new Intl.NumberFormat("en-US", {
-                                                    style: "currency",
-                                                    currency: "USD",
-                                                    maximumFractionDigits: 2,
-                                                    minimumFractionDigits: 2,
-                                                }).format(app.marketPrice)
-                                            )}
-                                        </p>
+                                        <p className="card-value">{isAppLoading ? <Skeleton width="150px" /> : `$${trim(app.marketPrice, 3)}`}</p>
                                     </div>
                                 </div>
                             </Grid>

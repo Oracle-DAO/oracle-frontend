@@ -63,7 +63,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
                     package: WalletConnectProvider,
                     options: {
                         rpc: {
-                            [Networks.POLYGON]: getMainnetURI(),
+                            [Networks.OASIS]: getMainnetURI(),
                         },
                     },
                 },
@@ -117,7 +117,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
 
         setProviderChainID(chainId);
 
-        if (chainId === Networks.POLYGON) {
+        if (chainId === Networks.OASIS) {
             setProvider(connectedProvider);
         }
 

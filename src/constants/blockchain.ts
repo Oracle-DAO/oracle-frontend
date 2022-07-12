@@ -1,7 +1,7 @@
 export const TOKEN_DECIMALS = 18;
 
 export enum Networks {
-    POLYGON = 137,
+    OASIS = 42262,
 }
 
-export const DEFAULD_NETWORK = Networks.POLYGON;
+export const DEFAULD_NETWORK = Networks.OASIS;

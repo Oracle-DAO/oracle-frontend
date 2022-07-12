@@ -9,6 +9,7 @@ import { IReduxState } from "../../store/slices/state.interface";
 
 import { ReactComponent as MoneyIcon } from "../../assets/icons/moneys.svg";
 import { ReactComponent as ChartIcon } from "../../assets/icons/chart-square.svg";
+import { trim } from "../../helpers";
 
 function ChooseBond() {
     const { bonds } = useBonds();
@@ -60,16 +61,7 @@ function ChooseBond() {
                                 <div className="card">
                                     <p className="card-title">ORFI Price</p>
                                     <p className="card-value">
-                                        {isAppLoading ? (
-                                            <Skeleton width="100px" />
-                                        ) : (
-                                            new Intl.NumberFormat("en-US", {
-                                                style: "currency",
-                                                currency: "USD",
-                                                maximumFractionDigits: 2,
-                                                minimumFractionDigits: 2,
-                                            }).format(marketPrice)
-                                        )}
+                                        <p className="card-value">{isAppLoading ? <Skeleton width="150px" /> : `$${trim(marketPrice, 3)}`}</p>
                                     </p>
                                 </div>
                             </div>
@@ -93,7 +85,7 @@ function ChooseBond() {
                                             <TableCell>
                                                 <p className="choose-bond-view-card-table-title">Purchased</p>
                                             </TableCell>
-                                            <TableCell width={'100px'}></TableCell>
+                                            <TableCell width={"100px"}></TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>

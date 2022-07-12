@@ -9,7 +9,6 @@ import "./header.scss";
 import { DRAWER_WIDTH, TRANSITION_DURATION } from "../../constants/style";
 import CollectRewardsButton from "./collect_rewards";
 import { useWeb3Context } from "../../hooks";
-import RedeemNorfiButton from "./redeem_norfi";
 
 interface IHeader {
     handleDrawerToggle: () => void;
@@ -81,7 +80,6 @@ function Header({ handleDrawerToggle, drawe }: IHeader) {
                         )}
                         {!isVerySmallScreen && <TimeMenu />}
                         {!isWrapShow && <CollectRewardsButton />}
-                        {!isWrapShow && <RedeemNorfiButton />}
                         <ConnectButton />
                     </div>
                 </Toolbar>
