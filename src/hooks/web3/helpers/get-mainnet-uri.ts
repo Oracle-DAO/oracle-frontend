@@ -1,3 +1,3 @@
 export const getMainnetURI = (): string => {
-    return "https://testnet.emerald.oasis.dev";
+    return "https://emerald.oasis.dev";
 };

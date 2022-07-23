@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, InputAdornment, OutlinedInput, Zoom } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
@@ -69,19 +69,40 @@ function Stake() {
         }
     };
 
-    const hasAllowance = useCallback(
-        token => {
-            if (token === "ORFI") return stakeAllowance > 0;
-            if (token === "sORFI") return unstakeAllowance > 0;
-            return 0;
-        },
-        [stakeAllowance],
-    );
+    const hasStakeAllowance = () => {
+        if (!provider) {
+            dispatch(warning({ text: messages.please_connect_wallet }));
+            return;
+        }
+        return stakeAllowance > 0;
+    };
+
+    const hasUnstakeAllowance = () => {
+        if (!provider) {
+            dispatch(warning({ text: messages.please_connect_wallet }));
+            return;
+        }
+        return unstakeAllowance > 0;
+    };
 
     const changeView = (newView: number) => () => {
         setView(newView);
         setQuantity("");
     };
+
+    useEffect(() => {
+        if (address) {
+            const interval = setInterval(hasUnstakeAllowance, 10000);
+            return () => clearInterval(interval);
+        }
+    }, [address]);
+
+    useEffect(() => {
+        if (address) {
+            const interval = setInterval(hasStakeAllowance, 10000);
+            return () => clearInterval(interval);
+        }
+    }, [address]);
 
     const trimmedsOracleBalance = trim(Number(sOracleBalance), 6);
     return (
@@ -99,16 +120,7 @@ function Stake() {
                                     <div className="card">
                                         <p className="card-title">TAV</p>
                                         <p className="card-value">
-                                            {isAppLoading ? <Skeleton width="150px" /> :
-                                                (
-                                                    new Intl.NumberFormat("en-US", {
-                                                        style: "currency",
-                                                        currency: "USD",
-                                                        maximumFractionDigits: 2,
-                                                        minimumFractionDigits: 2,
-                                                    }).format(app.tav)
-                                                )
-                                            }
+                                            <p className="card-value">{isAppLoading ? <Skeleton width="150px" /> : `$${trim(app.tav, 3)}`}</p>
                                         </p>
                                     </div>
                                 </div>
@@ -121,18 +133,7 @@ function Stake() {
                                     </div>
                                     <div className="card">
                                         <p className="card-title">TVL</p>
-                                        <p className="card-value">
-                                            {isAppLoading ? <Skeleton width="150px" /> :
-                                                (
-                                                    new Intl.NumberFormat("en-US", {
-                                                        style: "currency",
-                                                        currency: "USD",
-                                                        maximumFractionDigits: 0,
-                                                        minimumFractionDigits: 0,
-                                                    }).format(app.stakingTVL)
-                                                )
-                                            }
-                                        </p>
+                                        <p className="card-value">{isAppLoading ? <Skeleton width="150px" /> : `${trim(app.stakingTVL, 3)}`}</p>
                                     </div>
                                 </div>
                             </Grid>
@@ -144,16 +145,7 @@ function Stake() {
                                     </div>
                                     <div className="card">
                                         <p className="card-title">ORFI Price</p>
-                                        <p className="card-value">
-                                            {isAppLoading ? <Skeleton width="150px" /> :
-                                                (new Intl.NumberFormat("en-US", {
-                                                    style: "currency",
-                                                    currency: "USD",
-                                                    maximumFractionDigits: 2,
-                                                    minimumFractionDigits: 2,
-                                                }).format(app.marketPrice))
-                                            }
-                                        </p>
+                                        <p className="card-value">{isAppLoading ? <Skeleton width="150px" /> : `$${trim(app.marketPrice, 3)}`}</p>
                                     </div>
                                 </div>
                             </Grid>
@@ -196,7 +188,7 @@ function Stake() {
 
                                     {view === 0 && (
                                         <>
-                                            {address && hasAllowance("ORFI") ? (
+                                            {address && hasStakeAllowance() ? (
                                                 <div
                                                     className="stake-card-tab-panel-btn"
                                                     onClick={() => {
@@ -222,7 +214,7 @@ function Stake() {
 
                                     {view === 1 && (
                                         <>
-                                            {address && hasAllowance("sORFI") ? (
+                                            {address && hasUnstakeAllowance() ? (
                                                 <div
                                                     className="stake-card-tab-panel-btn"
                                                     onClick={() => {
@@ -247,7 +239,7 @@ function Stake() {
                                     )}
                                 </div>
 
-                                {address && ((!hasAllowance("ORFI") && view === 0) || (!hasAllowance("sORFI") && view === 1)) && (
+                                {address && ((!hasStakeAllowance() && view === 0) || (!hasUnstakeAllowance() && view === 1)) && (
                                     <p className="stake-card-action-help-text">
                                         Note: The "Approve" transaction is only needed when staking/unstaking for the first time; subsequent staking/unstaking only requires you to
                                         perform the "Stake" or "Unstake" transaction.

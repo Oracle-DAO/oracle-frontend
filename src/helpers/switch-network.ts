@@ -1,7 +1,9 @@
+import { getMainnetURI } from "../hooks/web3/helpers";
+
 const switchRequest = () => {
     return window.ethereum.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0xa515" }],
+        params: [{ chainId: "0xa516" }],
     });
 };
 
@@ -10,13 +12,13 @@ const addChainRequest = () => {
         method: "wallet_addEthereumChain",
         params: [
             {
-                chainId: "0xa515",
-                chainName: "Oasis Emerald Testnet",
-                rpcUrls: ["https://testnet.emerald.oasis.dev"],
-                blockExplorerUrls: ["https://testnet.explorer.emerald.oasis.dev"],
+                chainId: "0xa516",
+                chainName: "Oasis Emerald Mainnet",
+                rpcUrls: [getMainnetURI()],
+                blockExplorerUrls: ["https://explorer.emerald.oasis.dev/"],
                 nativeCurrency: {
-                    name: "OASIS",
-                    symbol: "OASIS",
+                    name: "ROSE",
+                    symbol: "ROSE",
                     decimals: 18,
                 },
             },

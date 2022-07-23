@@ -5,15 +5,14 @@ export { abi as LpReserveContract } from "./reserves/LpContract.json";
 
 export { abi as sORFITokenContract } from "./tokens/sORFIContract.json";
 export { abi as ORFITokenContract } from "./tokens/ORFIContract..json";
-export { abi as MimTokenContract } from "./tokens/MimContract.json";
+export { abi as MimTokenContract } from "./tokens/USDTContract.json";
 
 export { abi as BondingCalcContract } from "./BondingCalcContract.json";
 export { abi as StakingContract } from "./StakingContract.json";
 export { abi as TreasuryContract } from "./TreasuryContract.json";
-export { abi as ZapinContract } from "./ZapinContract.json";
-export { abi as TraderZapinContract } from "./TraderZapinContract.json";
 
 export { abi as FaucetContract } from "./faucet/MimFaucet.json";
 export { abi as TavContract } from "./TavContract.json";
 
 export { abi as RewardCalculator } from "./RewardContract.json";
+export { abi as NORFI } from "./NORFI.json";

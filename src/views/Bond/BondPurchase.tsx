@@ -1,8 +1,8 @@
-import { useState, useEffect, useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Box, OutlinedInput, InputAdornment, Slide, FormControl } from "@material-ui/core";
-import { shorten, trim, prettifySeconds } from "../../helpers";
-import { changeApproval, bondAsset, calcBondDetails } from "../../store/slices/bond-slice";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Box, FormControl, InputAdornment, OutlinedInput, Slide } from "@material-ui/core";
+import { prettifySeconds, trim } from "../../helpers";
+import { bondAsset, calcBondDetails, changeApproval } from "../../store/slices/bond-slice";
 import { useWeb3Context } from "../../hooks";
 import { IPendingTxn, isPendingTxn, txnButtonText } from "../../store/slices/pending-txns-slice";
 import { Skeleton } from "@material-ui/lab";
@@ -11,7 +11,6 @@ import { IAllBondData } from "../../hooks/bonds";
 import useDebounce from "../../hooks/debounce";
 import { messages } from "../../constants/messages";
 import { warning } from "../../store/slices/messages-slice";
-import Zapin from "./Zapin";
 
 interface IBondPurchaseProps {
     bond: IAllBondData;
@@ -226,7 +225,6 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
                     </div>
                 </Box>
             </Slide>
-            <Zapin open={zapinOpen} handleClose={handleZapinClose} bond={bond} />
         </Box>
     );
 }

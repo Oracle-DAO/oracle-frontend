@@ -8,9 +8,7 @@ import { ReactComponent as DashboardIcon } from "../../../assets/icons/dashboard
 import { ReactComponent as Docs } from "../../../assets/icons/stake.svg";
 import { ReactComponent as StakeIcon } from "../../../assets/icons/stake-icon.svg";
 import { ReactComponent as BondIcon } from "../../../assets/icons/bond-icon.svg";
-import { ReactComponent as LaunchPad } from "../../../assets/icons/launchpad-icon.svg";
 
-import { ReactComponent as ValleySwapLogo } from "../../../assets/icons/logo_valley-swap.svg";
 import { ReactComponent as YuzuSwapLogo } from "../../../assets/icons/yuzu.0f21407f.svg";
 
 import { useAddress } from "../../../hooks";
@@ -44,7 +42,7 @@ function NavContent() {
     return (
         <div className="dapp-sidebar">
             <div className="branding-header">
-                <Link href="https://testapp.oracledao.finance" target="_blank">
+                <Link href="https://app.oracledao.finance" target="_blank">
                     <img alt="" src={OracleDaoIcon} style={{ width: 150 }} />
                 </Link>
 
@@ -95,10 +93,10 @@ function NavContent() {
                     <p>Bond</p>
                 </Link>
 
-                <a href="https://test.launchpad.oracledao.finance/" target="_blank" className="button-dapp-menu">
-                    <LaunchPad />
-                    <p>LaunchPad</p>
-                </a>
+                {/*<a href="https://test.launchpad.oracledao.finance/" target="_blank" className="button-dapp-menu">*/}
+                {/*    <LaunchPad />*/}
+                {/*    <p>LaunchPad</p>*/}
+                {/*</a>*/}
             </div>
             <div className="dapp-menu-bottom-content">
                 <Link href="https://docs.oracledao.finance/" target="_blank">
@@ -106,13 +104,8 @@ function NavContent() {
                     <p>Docs</p>
                 </Link>
 
-                <Link href="https://dex.valleyswap.com/#/swap" target="_blank">
-                    <ValleySwapLogo />
-                    <p>Buy On Valley Swap</p>
-                </Link>
-
                 <Link href="https://app.yuzu-swap.com/#/swap" target="_blank">
-                    <YuzuSwapLogo />
+                    <YuzuSwapLogo height={25} width={25} />
                     <p>Buy On Yuzu Swap</p>
                 </Link>
             </div>

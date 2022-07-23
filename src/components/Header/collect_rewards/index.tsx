@@ -3,12 +3,12 @@ import { IPendingTxn, isPendingTxn, txnButtonText } from "../../../store/slices/
 import { useWeb3Context } from "../../../hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { IReduxState } from "../../../store/slices/state.interface";
-import { warning } from "../../../store/slices/messages-slice";
-import { messages } from "../../../constants/messages";
 import { ethers } from "ethers";
 import { RewardCalculator } from "../../../abi";
 import { getAddresses } from "../../../constants";
 import { collectRewards } from "../../../store/slices/reward_thunk";
+import { warning } from "../../../store/slices/messages-slice";
+import { messages } from "../../../constants/messages";
 
 function CollectRewardsButton() {
     const { provider, address, connect, chainID, checkWrongNetwork } = useWeb3Context();

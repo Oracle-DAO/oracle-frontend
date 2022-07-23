@@ -1,6 +1,6 @@
 import { priceUnits, trim } from "../../helpers";
 import BondLogo from "../../components/BondLogo";
-import { Paper, TableRow, TableCell, Slide, Link } from "@material-ui/core";
+import { Link, Paper, Slide, TableCell, TableRow } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
 import "./choosebond.scss";
 import { Skeleton } from "@material-ui/lab";
@@ -88,12 +88,12 @@ export function BondTableData({ bond }: IBondProps) {
             <TableCell padding="none">
                 <div className="bond-table-td">
                     <span>{priceUnits(bond)}</span>
-                    <p className="ms-3">{isBondLoading ? <Skeleton width="50px" /> : trim(bond.bondPrice, 2)}</p>
+                    <p className="ms-3">{isBondLoading ? <Skeleton width="50px" /> : trim(bond.bondPrice, 3)}</p>
                 </div>
             </TableCell>
             <TableCell padding="none">
                 <div className="bond-table-td">
-                    <p>{isBondLoading ? <Skeleton width="50px" /> : `${trim(bond.bondDiscount * 100, 2)}%`}</p>
+                    <p>{isBondLoading ? <Skeleton width="50px" /> : `${trim(bond.bondDiscount * 100, 3)}%`}</p>
                 </div>
             </TableCell>
             <TableCell padding="none">

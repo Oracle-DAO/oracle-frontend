@@ -4,12 +4,12 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_ORFI",
+          "name": "_orfi",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "_sORFI",
+          "name": "_sorfi",
           "type": "address"
         }
       ],
@@ -108,6 +108,19 @@
     },
     {
       "inputs": [],
+      "name": "getRewardDistributorAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
       "name": "owner",
       "outputs": [
         {
@@ -128,6 +141,19 @@
     },
     {
       "inputs": [],
+      "name": "rewardDistributor",
+      "outputs": [
+        {
+          "internalType": "contract IRewardDistributor",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
       "name": "sORFI",
       "outputs": [
         {
@@ -137,6 +163,19 @@
         }
       ],
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "rewardDistributor_",
+          "type": "address"
+        }
+      ],
+      "name": "setRewardDistributor",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
